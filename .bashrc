@@ -8,6 +8,9 @@ alias coqtop='nix-shell -I ~ -p coq_8_6 --run "rlwrap coqtop"'
 alias coqide-8.5='nix-shell -I ~ -p coq_8_5 --run coqide'
 alias coqtop-8.5='nix-shell -I ~ -p coq_8_5 --run "rlwrap coqtop"'
 
+# Development aliases
+alias coq-dev='nix-shell ~/dotfiles/coq-dev.nix -I ~'
+
 # Nix aliases
 alias nix-shell='nix-shell -I ~'
 alias nix-env='nix-env -f ~'
