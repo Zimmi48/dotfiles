@@ -1,0 +1,11 @@
+! urxvt settings
+
+URxvt*scrollBar: False
+URxvt*background: black
+URxvt*foreground: white
+
+URxvt.font: xft:DejaVu Sans Mono:size=10
+URxvt.boldFont: xft:DejaVu Sans Mono:size=10
+
+URxvt.url-launcher: firefox
+
