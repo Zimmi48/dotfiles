@@ -7,5 +7,7 @@ URxvt*foreground: white
 URxvt.font: xft:DejaVu Sans Mono:size=10
 URxvt.boldFont: xft:DejaVu Sans Mono:size=10
 
-URxvt.url-launcher: firefox
+URxvt.perl-ext-common: default,matcher
 
+URxvt.url-launcher: firefox
+URxvt.matcher.button: 1

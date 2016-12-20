@@ -1,7 +1,10 @@
 # This is Git's per-user configuration file.
 [user]
-# Please adapt and uncomment the following lines:
 	name = Théo Zimmermann
 	email = theo.zimmermann@univ-paris-diderot.fr
 [push]
 	default = current
+[remote]
+	pushdefault = origin
+[credential]
+	helper = cache --timeout=3600
