@@ -5,10 +5,7 @@
 { config, pkgs, ... }:
 
 {
-  imports =
-    [ # Include the results of the hardware scan.
-      /etc/nixos/hardware-configuration.nix
-    ];
+  imports = [ ./configuration-base.nix ];
 
   # Use the GRUB 2 boot loader.
   boot.loader.grub = {
@@ -19,8 +16,6 @@
     device = "/dev/sda";
   };
 
-  boot.loader.timeout = 2;
-
   # Audio
   boot.extraModprobeConfig = ''
     options snd_hda_intel enable=0,1
@@ -29,55 +24,12 @@
   # networking.hostName = "nixos"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
-  # Select internationalisation properties.
-  i18n = {
-    consoleFont = "Lat2-Terminus22";
-    consoleKeyMap = "us";
-    defaultLocale = "en_US.UTF-8";
-  };
-
-  # Set your time zone.
-  time.timeZone = "Europe/Paris";
-
-  # This is where e.g. to override packages
-  nixpkgs.config = {
-    # List the names of allowed non-free packages
-    allowUnfreePredicate = with builtins; (pkg: elem (parseDrvName pkg.name).name [
-      "mendeley"
-    ]);
-  };
-
-  # List packages installed in system profile.
+  # Additional packages
   environment.systemPackages = with pkgs; [
-    nix-repl
-    wget
-    which
-    gnumake
-    zip
-    unzip
-    git
-    i3status
-    i3lock
-    dmenu
-    rxvt_unicode
     pcmanfm
-    firefox
-    chromium
-    thunderbird
-    libreoffice
-    irssi
-    evince
-    mendeley
-    emacs
-    rlwrap
-    imagemagick
     feh
     gnome3.eog
-    texlive.combined.scheme-full
   ];
-
-  programs.bash.enableCompletion = true;
-  nix.useSandbox = true;
 
   # List services that you want to enable:
 
@@ -91,36 +43,8 @@
   # Enable Avahi for auto-discovery of printers
   # services.avahi.enable = true;
 
-  services.xserver = {
-    # Enable the X11 windowing system.
-    enable = true;
-
-    # Keyboards
-    layout = "us,us(intl)";
-    xkbOptions = "grp:alt_shift_toggle";
-
-    # Login manager
-    displayManager.lightdm.enable = true;
-
-    # Custom multi-display support
-    displayManager.sessionCommands = ''
-      xrandr --output HDMI2 --auto --primary --output HDMI1 --auto --left-of HDMI2
-    '';
-
-    # Window manager
-    windowManager.i3.enable = true;
-
-  };
-
-  # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.extraUsers.theo = {
-    isNormalUser = true;
-    home = "/home/theo";
-    description = "Théo Zimmermann";
-    extraGroups = [ "audio" ];
-  };
-
-  # The NixOS release to be compatible with for stateful data such as databases.
-  system.stateVersion = "16.09";
-
+  # Custom multi-display support
+  services.xserver.displayManager.sessionCommands = ''
+    xrandr --output HDMI2 --auto --primary --output HDMI1 --auto --left-of HDMI2
+  '';
 }
