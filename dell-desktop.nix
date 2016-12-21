@@ -100,19 +100,11 @@
     xkbOptions = "grp:alt_shift_toggle";
 
     # Login manager
-    displayManager.sddm = {
-      enable = true;
-
-      # Auto numlock
-      autoNumlock = true;
-    };
+    displayManager.lightdm.enable = true;
 
     # Custom multi-display support
-    # And set the background color
     displayManager.sessionCommands = ''
       xrandr --output HDMI2 --auto --primary --output HDMI1 --auto --left-of HDMI2
-      xmodmap -e "keycode 118 ="
-      xsetroot -solid "#999999"
     '';
 
     # Window manager
