@@ -22,7 +22,9 @@
 ;; elm-mode customization
 (setq elm-format-on-save t)
 (setq elm-format-command "elm-format-0.18")
-
+(add-hook 'elm-mode-hook #'company-mode)
+(with-eval-after-load 'company
+  (add-to-list 'company-backends 'company-elm))
 
 ;; Automatically added custom settings. Don't touch!
 
