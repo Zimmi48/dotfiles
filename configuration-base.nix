@@ -12,13 +12,6 @@
 
   boot.loader.timeout = 2;
 
-  # Select internationalisation properties.
-  i18n = {
-    consoleFont = "Lat2-Terminus22";
-    consoleKeyMap = "us";
-    defaultLocale = "en_US.UTF-8";
-  };
-
   # Set your time zone.
   time.timeZone = "Europe/Paris";
 
@@ -62,10 +55,6 @@
   services.xserver = {
     # Enable the X11 windowing system.
     enable = true;
-
-    # Keyboards
-    layout = "us,us(intl)";
-    xkbOptions = "grp:alt_shift_toggle";
 
     # Login manager
     displayManager.lightdm.enable = true;
