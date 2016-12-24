@@ -36,6 +36,7 @@
     dmenu
     rxvt_unicode
     firefox
+    chromium
     thunderbird
     libreoffice
     irssi
