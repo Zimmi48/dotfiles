@@ -1,9 +1,9 @@
-# Edit this configuration file to define what should be installed on
-# your system.  Help is available in the configuration.nix(5) man page
-# and in the NixOS manual (accessible by running ‘nixos-help’).
-
+hostName:
 { config, pkgs, ... }:
 
+let
+  home = "/home/theo";
+in
 {
   imports =
     [ # Include the results of the hardware scan.
@@ -12,8 +12,20 @@
 
   boot.loader.timeout = 2;
 
-  # Set your time zone.
+  networking = { inherit hostName; };
+
   time.timeZone = "Europe/Paris";
+
+  nix = {
+    useSandbox = true;
+
+    # Manually manage nix-channels
+    nixPath = [
+      "nixpkgs=${home}/nix-channels/nixpkgs"
+      "nixos-config=${home}/dotfiles/${hostName}.nix"
+      "${home}/nix-channels"
+    ];
+  };
 
   # This is where e.g. to override packages
   nixpkgs.config = {
@@ -49,7 +61,6 @@
   ];
 
   programs.bash.enableCompletion = true;
-  nix.useSandbox = true;
 
   # List services that you want to enable:
 
@@ -68,7 +79,7 @@
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.extraUsers.theo = {
     isNormalUser = true;
-    home = "/home/theo";
+    inherit home;
     description = "Théo Zimmermann";
     extraGroups = [ "audio" ];
   };

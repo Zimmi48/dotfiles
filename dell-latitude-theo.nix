@@ -4,15 +4,16 @@
 
 { config, pkgs, ... }:
 
+let
+  hostName = "dell-latitude-theo";
+in
 {
   imports = [
-    ./configuration-base.nix
+    (import ./configuration-base.nix hostName)
     ./grub.nix
     ./azerty.nix
     ./laptops.nix
   ];
-
-  networking.hostName = "theo-latitude"; # Define your hostname.
 
   # List services that you want to enable:
 
