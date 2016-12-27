@@ -4,9 +4,12 @@
 
 { config, pkgs, ... }:
 
+let
+  hostName = "hp-elitebook-theo";
+in
 {
   imports = [
-    ./configuration-base.nix
+    (import ./configuration-base.nix hostName)
     ./qwerty.nix
     ./laptops.nix
   ];
@@ -16,8 +19,6 @@
     gummiboot.enable = true;
     efi.canTouchEfiVariables = true;
   };
-
-  networking.hostName = "hp-elitebook-theo";
 
   environment.systemPackages = with pkgs; [
     xss-lock

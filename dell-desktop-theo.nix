@@ -6,7 +6,7 @@
 
 {
   imports = [
-    ./configuration-base.nix
+    (import ./configuration-base.nix "dell-desktop-theo")
     ./grub.nix
     ./qwerty.nix
   ];
@@ -15,9 +15,6 @@
   boot.extraModprobeConfig = ''
     options snd_hda_intel enable=0,1
   '';
-
-  # networking.hostName = "nixos"; # Define your hostname.
-  # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
   # Additional packages
   environment.systemPackages = with pkgs; [
