@@ -8,3 +8,5 @@
 	pushdefault = origin
 [credential]
 	helper = cache --timeout=3600
+[alias]
+	fix = commit -a --amend --no-edit
