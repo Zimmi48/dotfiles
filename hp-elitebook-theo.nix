@@ -16,7 +16,7 @@ in
 
   # Use the gummiboot efi boot loader.
   boot.loader = {
-    gummiboot.enable = true;
+    systemd-boot.enable = true;
     efi.canTouchEfiVariables = true;
   };
 
