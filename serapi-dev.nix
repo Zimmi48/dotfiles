@@ -1,6 +1,6 @@
 # Does not work yet
 
-with import <nixpkgs> {};
+with import <unstable> {};
 
 stdenv.mkDerivation {
 

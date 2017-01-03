@@ -21,9 +21,10 @@ in
 
     # Manually manage nix-channels
     nixPath = [
-      "nixpkgs=${home}/nix-channels/nixpkgs"
+      "unstable=${home}/nix-channels/unstable"
+      "nixpkgs=/nix/var/nix/profiles/per-user/root/channels/nixos/nixpkgs"
       "nixos-config=${home}/dotfiles/${hostName}.nix"
-      "${home}/nix-channels"
+      "/nix/var/nix/profiles/per-user/root/channels"
     ];
   };
 
