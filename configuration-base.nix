@@ -21,7 +21,8 @@ in
 
     # Manually manage nix-channels
     nixPath = [
-      "unstable=${home}/nix-channels/unstable"
+      # Our local clone to track nixpkgs-unstable
+      "unstable=${home}/dotfiles/unstable"
       "nixpkgs=/nix/var/nix/profiles/per-user/root/channels/nixos/nixpkgs"
       "nixos-config=${home}/dotfiles/${hostName}.nix"
       "/nix/var/nix/profiles/per-user/root/channels"

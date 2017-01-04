@@ -1,0 +1,3 @@
+[submodule "unstable"]
+	path = unstable
+	url = https://github.com/NixOS/nixpkgs-channels.git
