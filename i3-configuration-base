@@ -115,3 +115,6 @@ bar {
 # Sreen brightness controls
 bindsym XF86MonBrightnessUp exec xbacklight -inc 20
 bindsym XF86MonBrightnessDown exec xbacklight -dec 20
+
+# Lock when pressing Pause
+bindsym Pause exec i3lock -c 000000
