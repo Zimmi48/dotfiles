@@ -22,7 +22,6 @@ in
 
   environment.systemPackages = with pkgs; [
     xss-lock
-    xorg.xbacklight
   ];
 
   # List services that you want to enable:
@@ -32,6 +31,17 @@ in
 
   # Enable CUPS to print documents.
   # services.printing.enable = true;
+
+  services.xserver.windowManager.i3.extraSessionCommands = ''
+    # Screen locker
+    xss-lock -- i3lock -b 000000 &
+
+    # Volume manager
+    xfce4-volumed &
+
+    # Network manager
+    nm-applet &
+  '';
 
   # Does it really work?
   services.logind.extraConfig = "HandleLidSwitch=suspend";

@@ -46,7 +46,9 @@ in
     zip
     unzip
     git
+    xorg.xbacklight
     i3lock
+    i3status
     dmenu
     rxvt_unicode
     firefox
@@ -74,8 +76,10 @@ in
     displayManager.lightdm.enable = true;
 
     # Window manager
-    windowManager.i3.enable = true;
-
+    windowManager.i3 = {
+      enable = true;
+      configFile = ./i3-configuration-base;
+    };
   };
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
