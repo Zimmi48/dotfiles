@@ -7,5 +7,5 @@ alias coqtop='rlwrap ~/nix-builds/coq-8-6/bin/coqtop'
 alias coqtop-8.5='rlwrap ~/nix-builds/coq-8-5/bin/coqtop'
 
 # Development aliases
-alias coq-dev='nix-shell ~/dotfiles/coq-dev.nix'
+alias coq-dev='nix-shell ~/nix-builds/coq-dev.drv'
 
