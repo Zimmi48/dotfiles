@@ -1,23 +1,21 @@
-let
-  unstable = import <unstable> {};
-  stable = import <nixpkgs> {};
-in
+with import <unstable> {};
 
-stable.stdenv.mkDerivation {
+stdenv.mkDerivation {
 
   name = "env";
 
-  buildInputs = (with stable; [
-    stable.ncurses
+  buildInputs = [
+    ncurses
 
     # Coq refman dependencies
     transfig
     ghostscript
     hevea
-    texlive.combined.scheme-full
-    imagemagick
+    # These two are also required but I have them installed already
+    # texlive.combined.scheme-full
+    # imagemagick
 
-  ]) ++ (with unstable.ocamlPackages_4_02; [
+  ] ++ (with ocamlPackages_4_02; [
     ocaml
     findlib
 
