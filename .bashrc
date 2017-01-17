@@ -8,4 +8,4 @@ alias coqtop-8.5='rlwrap ~/nix-builds/coq-8-5/bin/coqtop'
 
 # Development aliases
 alias coq-dev='nix-shell ~/nix-builds/coq-dev.drv'
-
+alias coq-env='nix-shell -p unstable.coq_8_6'
