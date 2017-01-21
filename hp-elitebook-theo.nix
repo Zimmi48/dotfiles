@@ -43,9 +43,6 @@ in
     nm-applet &
   '';
 
-  # Does it really work?
-  services.logind.extraConfig = "HandleLidSwitch=suspend";
-
   # Brightness up and down keys
   services.udev.extraHwdb = ''
     evdev:atkbd:dmi:*                 # all the built-in keyboards
