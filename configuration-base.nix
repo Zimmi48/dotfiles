@@ -75,6 +75,7 @@ in
     i3status
     dmenu
     rxvt_unicode
+    bashmount
     firefox
     chromium
     thunderbird
