@@ -5,13 +5,22 @@
 
   environment.systemPackages = with pkgs; [
     networkmanagerapplet
+    xss-lock
   ];
 
   # Desktop Environment.
   services.xserver.desktopManager.xfce.enable = true;
 
-  # To allow normal-user theo to broadcast a wifi network
-  users.extraUsers.theo.extraGroups = [ "networkmanager" ];
+  services.xserver.windowManager.i3.extraSessionCommands = ''
+    # Screen locker
+    xss-lock -- i3lock -b 000000 &
+
+    # Volume manager
+    xfce4-volumed &
+
+    # Network manager
+    nm-applet &
+  '';
 
   # Touchpad
   # Without it we might have problems

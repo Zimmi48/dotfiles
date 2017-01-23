@@ -1,13 +1,11 @@
 { config, pkgs, ... }:
 
-let
-  hostName = "dell-latitude-theo";
-in
 {
   imports = [
-    (import ./configuration-base.nix hostName)
-    ./grub.nix
-    ./azerty.nix
+    (import ./configuration-base.nix {
+      hostName = "dell-latitude-theo";
+      azerty = true;
+    });
     ./laptops.nix
   ];
 }

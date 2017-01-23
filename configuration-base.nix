@@ -1,8 +1,13 @@
-hostName:
+{ hostName
+, user ? { name = "theo"; description = "Théo Zimmermann"; }
+, efi ? false
+, azerty ? false
+}:
+
 { config, pkgs, ... }:
 
 let
-  home = "/home/theo";
+  home = "/home/${user.name}";
 in
 {
   imports =
@@ -10,11 +15,30 @@ in
       /etc/nixos/hardware-configuration.nix
     ];
 
-  boot.loader.timeout = 2;
+  boot.loader =
+    if efi then {
+        # Use the gummiboot efi boot loader.
+        systemd-boot.enable = true;
+        efi.canTouchEfiVariables = true;
+        timeout = 2;
+    }
+    else {
+        # Use the GRUB 2 boot loader.
+        grub.enable = true;
+        grub.version = 2;
+        grub.device = "/dev/sda";
+        timeout = 2;
+    };
 
   networking = { inherit hostName; };
 
   time.timeZone = "Europe/Paris";
+
+  i18n = {
+    consoleFont = "Lat2-Terminus22";
+    consoleUseXkbConfig = true;
+    defaultLocale = "fr_FR.UTF-8";
+  };
 
   nix = {
     useSandbox = true;
@@ -72,6 +96,10 @@ in
     # Enable the X11 windowing system.
     enable = true;
 
+    # Keyboard layout(s)
+    layout = if azerty then "fr" else "us,us(intl)";
+    xkbOptions = if azerty then "eurosign:e" else "grp:alt_shift_toggle";
+
     # Login manager
     displayManager.lightdm.enable = true;
 
@@ -83,11 +111,13 @@ in
   };
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.extraUsers.theo = {
+  users.extraUsers."${user.name}" = {
     isNormalUser = true;
     inherit home;
-    description = "Théo Zimmermann";
-    extraGroups = [ "audio" ];
+    description = user.description;
+
+    # To allow normal-user to broadcast a wifi network
+    extraGroups = [ "audio" "networkmanager" ];
   };
 
   # The NixOS release to be compatible with for stateful data such as databases.
