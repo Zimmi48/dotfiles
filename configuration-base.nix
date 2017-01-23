@@ -117,7 +117,7 @@ in
     description = user.description;
 
     # To allow normal-user to broadcast a wifi network
-    extraGroups = [ "audio" "networkmanager" ];
+    extraGroups = [ "networkmanager" ];
   };
 
   # The NixOS release to be compatible with for stateful data such as databases.
