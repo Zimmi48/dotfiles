@@ -39,4 +39,12 @@
   services.xserver.displayManager.sessionCommands = ''
     xrandr --output HDMI2 --auto --primary --output HDMI1 --auto --left-of HDMI2
   '';
+
+  # RedShift changes the color of the screen to a redder tone when night is approaching
+  services.redshift = {
+    enable = true;
+    latitude = "48.8";
+    longitude = "2.3";
+    extraOptions = [ "-m randr" ];
+  };
 }
