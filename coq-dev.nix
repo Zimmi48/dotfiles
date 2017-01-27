@@ -15,13 +15,9 @@ stdenv.mkDerivation {
     # texlive.combined.scheme-full
     # imagemagick
 
-  ] ++ (with ocamlPackages_4_02; [
+  ] ++ (with ocamlPackages_4_03; [
     ocaml
     findlib
-
-    # Dev tools
-    merlin
-    utop
 
     # Coq dependencies
     lablgtk

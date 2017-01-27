@@ -7,14 +7,21 @@
 
 ;; MELPA
 
-(require 'package)
-(add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/") t)
-(package-initialize)
+;; I can avoid MELPA entirely by simply installing packages from emacsPackagesNg with nix-env
 
 ;; Modes
 
-;; Proof General (manually compiled)
-(load "~/.emacs.d/lisp/PG/generic/proof-site")
+;; Load Tuareg with .ml4 files
+(setq auto-mode-alist
+  (cons '("\\.ml[iylp4]?$" . tuareg-mode) auto-mode-alist))
+
+;; Merlin
+(autoload 'merlin-mode "merlin" "Merlin mode" t)
+(add-hook 'tuareg-mode-hook 'merlin-mode)
+(add-hook 'caml-mode-hook 'merlin-mode)
+
+;; Proof General (installed with the command: nix-env -f "<unstable>" -iA emacsPackages.proofgeneral)
+(load "ProofGeneral/generic/proof-site")
 
 ;; Load Company-Coq with .v files
 (add-hook 'coq-mode-hook #'company-coq-mode)
