@@ -13,6 +13,13 @@
 
 ;; Modes
 
+;; Company-Mode
+(add-hook 'merlin-mode-hook #'company-mode)
+(add-hook 'elm-mode-hook #'company-mode)
+(with-eval-after-load 'company
+  (add-to-list 'company-backends 'merlin-company-backend)
+  (add-to-list 'company-backends 'company-elm))
+
 ;; Load Tuareg with .ml4 files
 (setq auto-mode-alist
   (cons '("\\.ml[iylp4]?$" . tuareg-mode) auto-mode-alist))
@@ -21,9 +28,6 @@
 (autoload 'merlin-mode "merlin" "Merlin mode" t)
 (add-hook 'tuareg-mode-hook 'merlin-mode)
 (add-hook 'caml-mode-hook 'merlin-mode)
-(add-hook 'merlin-mode-hook #'company-mode)
-(with-eval-after-load 'company
-  (add-to-list 'company-backends 'merlin-company-backend))
 
 ;; Proof General (installed with the command: nix-env -f "<unstable>" -iA emacsPackages.proofgeneral)
 (load "ProofGeneral/generic/proof-site")
@@ -34,9 +38,6 @@
 ;; elm-mode customization
 (setq elm-format-on-save t)
 (setq elm-format-command "elm-format-0.18")
-(add-hook 'elm-mode-hook #'company-mode)
-(with-eval-after-load 'company
-  (add-to-list 'company-backends 'company-elm))
 
 ;; Automatically added custom settings. Don't touch!
 
