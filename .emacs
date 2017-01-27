@@ -7,6 +7,8 @@
 
 ;; MELPA
 
+;(package-initialize)
+
 ;; I can avoid MELPA entirely by simply installing packages from emacsPackagesNg with nix-env
 
 ;; Modes
@@ -19,6 +21,9 @@
 (autoload 'merlin-mode "merlin" "Merlin mode" t)
 (add-hook 'tuareg-mode-hook 'merlin-mode)
 (add-hook 'caml-mode-hook 'merlin-mode)
+(add-hook 'merlin-mode-hook #'company-mode)
+(with-eval-after-load 'company
+  (add-to-list 'company-backends 'merlin-company-backend))
 
 ;; Proof General (installed with the command: nix-env -f "<unstable>" -iA emacsPackages.proofgeneral)
 (load "ProofGeneral/generic/proof-site")
