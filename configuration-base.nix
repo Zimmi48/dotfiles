@@ -89,6 +89,8 @@ in
     texlive.combined.scheme-full
   ];
 
+  environment.shellAliases.bashmount = "rlwrap bashmount";
+
   programs.bash.enableCompletion = true;
 
   # List services that you want to enable:
