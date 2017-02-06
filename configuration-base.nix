@@ -62,7 +62,7 @@ in
   };
 
   # List packages installed in system profile.
-  environment.systemPackages = with pkgs; [
+  environment.systemPackages = (with pkgs; [
     nix-repl
     wget
     which
@@ -87,7 +87,15 @@ in
     rlwrap
     imagemagick
     texlive.combined.scheme-full
-  ];
+
+  ]) ++ (with import <unstable> {}; [
+    # Packages from nixpkgs-unstable
+
+    emacsPackages.proofgeneral
+    emacsPackages.tuaregMode
+    emacsPackagesNg.company-coq
+    ocamlPackages_4_03.merlin
+  ]);
 
   environment.shellAliases.bashmount = "rlwrap bashmount";
 
