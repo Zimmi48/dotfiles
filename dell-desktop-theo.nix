@@ -19,7 +19,7 @@
 
   # Custom multi-display support
   services.xserver.displayManager.sessionCommands = ''
-    xrandr --output HDMI2 --auto --primary --output HDMI1 --auto --left-of HDMI2
+    xrandr --output HDMI1 --auto --primary --output HDMI2 --auto --right-of HDMI1
   '';
 
   # RedShift changes the color of the screen to a redder tone when night is approaching
