@@ -17,18 +17,6 @@
     gnome3.eog
   ];
 
-  # List services that you want to enable:
-
-  # Enable the OpenSSH daemon.
-  # services.openssh.enable = true;
-
-  # Enable CUPS to print documents.
-  services.printing.enable = true;
-  services.printing.drivers = [ pkgs.hplip ];
-
-  # Enable Avahi for auto-discovery of printers
-  # services.avahi.enable = true;
-
   # Custom multi-display support
   services.xserver.displayManager.sessionCommands = ''
     xrandr --output HDMI2 --auto --primary --output HDMI1 --auto --left-of HDMI2
