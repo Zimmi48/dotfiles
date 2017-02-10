@@ -83,7 +83,6 @@ in
     irssi
     evince
     mendeley
-    emacs
     rlwrap
     imagemagick
     texlive.combined.scheme-full
@@ -91,6 +90,7 @@ in
   ]) ++ (with import <unstable> {}; [
     # Packages from nixpkgs-unstable
 
+    emacs # To have the same version of emacs as was used to compile PG
     emacsPackages.proofgeneral
     emacsPackages.tuaregMode
     emacsPackagesNg.company-coq
