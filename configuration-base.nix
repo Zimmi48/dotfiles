@@ -90,6 +90,12 @@ in
   ]) ++ (with import <unstable> {}; [
     # Packages from nixpkgs-unstable
 
+    # Development
+    elmPackages.elm
+    exercism
+    nodejs
+    ocamlPackages_4_03.utop
+
     emacs # To have the same version of emacs as was used to compile PG
     emacsPackages.proofgeneral
     ocamlPackages_4_03.merlin
