@@ -1,48 +1,71 @@
-
-;; Manually added options
+;; Generic options
 
 (electric-indent-mode -1) ; Disable eletric ident
 
 (setq-default indent-tabs-mode nil) ; Never use tabs
 
-;; MELPA
+(setq inhibit-startup-screen t)
 
-;(package-initialize)
+;; Packages
 
-;; I can avoid MELPA entirely by simply installing packages from emacsPackagesNg with nix-env
+(require 'package)
+(setq package-enable-at-startup nil)
+(add-to-list 'package-archives
+             '("melpa" . "https://melpa.org/packages/"))
 
-;; Modes
+(package-initialize)
 
-;; Company-Mode
-(add-hook 'merlin-mode-hook #'company-mode)
-(add-hook 'elm-mode-hook #'company-mode)
-(with-eval-after-load 'company
+;; Bootstrap `use-package'
+(unless (package-installed-p 'use-package)
+  (package-refresh-contents)
+  (package-install 'use-package))
+
+;; Proof General (installed with Nix)
+(load "ProofGeneral/generic/proof-site")
+
+(use-package company-coq
+  :ensure t
+  :defer t
+  :init
+  (add-hook 'coq-mode-hook #'company-coq-mode))
+
+;; Company-Mode for use with Merlin and Elm-Mode
+(use-package company
+  :ensure t
+  :defer t
+  :config
   (add-to-list 'company-backends 'merlin-company-backend)
   (add-to-list 'company-backends 'company-elm))
 
-;; Load Tuareg with .ml4 files
-(setq auto-mode-alist
-  (cons '("\\.ml[iylp4]?$" . tuareg-mode) auto-mode-alist))
+;; Tuareg
+(use-package tuareg
+  :mode ("\\.ml[iylp4]?$" . tuareg-mode)
+  :config
+  (add-hook 'tuareg-mode-hook 'merlin-mode))
 
-;; Merlin
-(autoload 'merlin-mode "merlin" "Merlin mode" t)
-(add-hook 'tuareg-mode-hook 'merlin-mode)
-(add-hook 'caml-mode-hook 'merlin-mode)
+;; Merlin is installed with Nix
+(use-package merlin
+  :config
+  (add-hook 'merlin-mode-hook #'company-mode))
 
-;; Proof General (installed with the command: nix-env -f "<unstable>" -iA emacsPackages.proofgeneral)
-(load "ProofGeneral/generic/proof-site")
-
-;; Load Company-Coq with .v files
-(add-hook 'coq-mode-hook #'company-coq-mode)
-
-;; elm-mode customization
-(setq elm-format-on-save t)
-(setq elm-format-command "elm-format-0.18")
+;; Elm-Mode
+(use-package elm-mode
+  :ensure t
+  :defer t
+  :init
+  (setq elm-format-on-save t)
+  (setq elm-format-command "elm-format-0.18")
+  :config
+  (add-hook 'elm-mode-hook #'company-mode))
 
 ;; Automatically added custom settings. Don't touch!
 
 (custom-set-variables
- '(inhibit-startup-screen t)
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(package-selected-packages (quote (use-package)))
  '(safe-local-variable-values
    (quote
     ((eval progn
@@ -72,4 +95,9 @@
                 (cons coq-root-directory nil)))
              (when coq-project-find-file
                (setq default-directory coq-root-directory))))))))
-(custom-set-faces)
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )

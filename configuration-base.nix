@@ -92,9 +92,8 @@ in
 
     emacs # To have the same version of emacs as was used to compile PG
     emacsPackages.proofgeneral
-    emacsPackages.tuaregMode
-    emacsPackagesNg.company-coq
     ocamlPackages_4_03.merlin
+    # MELPA packages declared through use-package
   ]);
 
   environment.shellAliases.bashmount = "rlwrap bashmount";
