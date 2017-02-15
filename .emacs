@@ -20,7 +20,7 @@
   (package-refresh-contents)
   (package-install 'use-package))
 
-;; Proof General (installed with Nix)
+;; Proof General is installed with Nix
 (load "ProofGeneral/generic/proof-site")
 
 (use-package company-coq
@@ -39,6 +39,7 @@
 
 ;; Tuareg
 (use-package tuareg
+  :ensure t
   :mode ("\\.ml[iylp4]?$" . tuareg-mode)
   :config
   (add-hook 'tuareg-mode-hook 'merlin-mode))
