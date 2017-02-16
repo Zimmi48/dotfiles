@@ -17,6 +17,14 @@
     gnome3.eog
   ];
 
+  # Enable CUPS to print documents.
+  services.printing.enable = true;
+  services.printing.drivers = [ pkgs.hplip ];
+
+  # Enable Avahi for auto-discovery of printers
+  # Comment out once printer is installed to avoid seeing too many of them
+  # services.avahi.enable = true;
+
   # Custom multi-display support
   services.xserver.displayManager.sessionCommands = ''
     xrandr --output HDMI1 --auto --primary --output HDMI2 --auto --right-of HDMI1
