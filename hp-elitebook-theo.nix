@@ -16,5 +16,11 @@
       KEYBOARD_KEY_92=brightnessdown  # (can be found with dmesg | tail)
   '';
 
+  services.xserver.libinput = {
+    enable = true;
+    naturalScrolling = true;
+    disableWhileTyping = true;
+  };
+
   fonts.fontconfig.dpi = 120;
 }
