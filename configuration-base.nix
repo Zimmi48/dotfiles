@@ -78,6 +78,7 @@ in
     # Desktop utilities
 
     xorg.xbacklight
+    xss-lock
     i3lock
     i3status
     dmenu
