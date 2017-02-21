@@ -63,6 +63,9 @@ in
 
   # List packages installed in system profile.
   environment.systemPackages = (with pkgs; [
+
+    # Command-line utilities
+
     nix-repl
     wget
     which
@@ -70,12 +73,19 @@ in
     zip
     unzip
     git
+    rlwrap
+
+    # Desktop utilities
+
     xorg.xbacklight
     i3lock
     i3status
     dmenu
     rxvt_unicode
     bashmount
+
+    # Applications
+
     firefox
     chromium
     thunderbird
@@ -83,23 +93,28 @@ in
     irssi
     evince
     mendeley
-    rlwrap
+
+    # Development (stable packages)
+
     imagemagick
     texlive.combined.scheme-full
+    nodejs
 
   ]) ++ (with import <unstable> {}; [
-    # Packages from nixpkgs-unstable
 
-    # Development
+    # Development (unstable packages)
+
     elmPackages.elm
     exercism
-    nodejs
     ocamlPackages_4_03.utop
 
-    emacs # To have the same version of emacs as was used to compile PG
+    # Emacs and some packages
+    # (MELPA packages are declared through use-package)
+
+    emacs
     emacsPackages.proofgeneral
     ocamlPackages_4_03.merlin
-    # MELPA packages declared through use-package
+
   ]);
 
   environment.shellAliases.bashmount = "rlwrap bashmount";
