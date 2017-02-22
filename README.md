@@ -1,7 +1,6 @@
 ## Setup commands
 
-    cd ~
-    git clone https://github.com/Zimmi48/dotfiles.git
-    cp -i -R --preserve=links dotfiles/home/. .
-    cd dotfiles
+    git clone https://github.com/Zimmi48/dotfiles.git ~/dotfiles
+    cd ~/dotfiles
+    cp -i -R --preserve=links home/. ..
     ./build.sh
