@@ -33,4 +33,7 @@ stdenv.mkDerivation rec {
 
   ]);
 
+  shellHook = ''
+    export PATH=`pwd`/bin:$PATH
+  '';
 }
