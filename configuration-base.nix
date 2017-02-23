@@ -42,6 +42,7 @@ in
 
   nix = {
     useSandbox = true;
+    extraOptions = "gc-keep-outputs = true";
 
     # Manually manage nix-channels
     nixPath = [
