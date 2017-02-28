@@ -19,6 +19,12 @@
   (package-refresh-contents)
   (package-install 'use-package))
 
+(use-package column-marker
+  :ensure t
+  :init
+  (add-hook 'tuareg-mode-hook
+            (lambda () (interactive) (column-marker-1 80))))
+
 ;; Proof General is installed with Nix
 (load "ProofGeneral/generic/proof-site")
 
