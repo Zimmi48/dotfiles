@@ -1,10 +1,9 @@
 ;; Generic options
 
 (electric-indent-mode -1) ; Disable eletric ident
-
 (setq-default indent-tabs-mode nil) ; Never use tabs
-
 (setq inhibit-startup-screen t)
+(setq column-number-mode t)
 
 ;; Packages
 
