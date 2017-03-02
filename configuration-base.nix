@@ -101,11 +101,6 @@ in
     imagemagick
     texlive.combined.scheme-full
     nodejs
-
-  ]) ++ (with import <unstable> {}; [
-
-    # Development (unstable packages)
-
     elmPackages.elm
     exercism
     ocamlPackages_4_03.utop

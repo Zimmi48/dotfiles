@@ -1,4 +1,4 @@
-with import <unstable> {};
+with import <nixpkgs> {};
 
 stdenv.mkDerivation rec {
 
@@ -19,9 +19,8 @@ stdenv.mkDerivation rec {
     transfig
     ghostscript
     hevea
-    # These two are also required but I have them installed already
-    # texlive.combined.scheme-full
-    # imagemagick
+    texlive.combined.scheme-full
+    imagemagick
 
   ] ++ (with ocamlPackages_4_03; [
     ocaml
@@ -29,7 +28,7 @@ stdenv.mkDerivation rec {
 
     # Coq dependencies
     lablgtk
-    camlp5_transitional
+    camlp5_strict
 
   ]);
 
