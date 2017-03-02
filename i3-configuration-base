@@ -119,4 +119,4 @@ bindsym Pause exec i3lock -c 000000
 bindsym XF86Sleep exec systemctl suspend
 
 # Utilities to launch at start up
-exec --no-startup-id xss-lock -- i3lock -b 000000 &
+exec --no-startup-id xss-lock -- i3lock -c 000000 &
