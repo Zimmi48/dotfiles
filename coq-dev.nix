@@ -28,7 +28,7 @@ stdenv.mkDerivation rec {
 
     # Coq dependencies
     lablgtk
-    camlp5_strict
+    camlp5_transitional
 
   ]);
 
