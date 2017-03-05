@@ -25,6 +25,12 @@
   (add-hook 'tuareg-mode-hook
             (lambda () (interactive) (column-marker-1 80))))
 
+;; Nix-Mode
+
+(use-package nix-mode
+  :ensure t
+  :defer t)
+
 ;; Proof General is installed with Nix
 (load "ProofGeneral/generic/proof-site")
 
