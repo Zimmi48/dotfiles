@@ -29,4 +29,7 @@
   services.xserver.displayManager.sessionCommands = ''
     xrandr --output HDMI1 --auto --primary --output HDMI2 --auto --right-of HDMI1
   '';
+
+  # Time sync university servers
+  services.ntp.servers = [ "ntp.univ-paris-diderot.fr" ];
 }
