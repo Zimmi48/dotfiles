@@ -9,5 +9,5 @@ alias coqtop-8.4='rlwrap ~/dotfiles/nix-builds/coq-8-4/bin/coqtop'
 
 # Development aliases
 alias coq-dev='nix-shell ~/dotfiles/coq-dev.nix'
-alias coq-env='nix-shell -p unstable.coq_8_6'
-alias mathcomp-env='nix-shell -p unstable.coqPackages_8_6.mathcomp'
+alias coq-env='nix-shell -p coq_8_6'
+alias mathcomp-env='nix-shell -p coqPackages_8_6.mathcomp'
