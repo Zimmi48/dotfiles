@@ -10,3 +10,4 @@
 	helper = cache --timeout=3600
 [alias]
 	fix = commit -a --amend --no-edit
+        pull-request = "!f() { git fetch -fu ${2:-$(git remote | grep ^upstream || echo origin)} refs/pull/$1/head && git checkout --detach FETCH_HEAD; }; f"
