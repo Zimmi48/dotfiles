@@ -9,6 +9,8 @@
     ./laptops.nix
   ];
 
+  boot.blacklistedKernelModules = [ "mei_wdt" ];
+
   # Brightness up and down keys
   services.udev.extraHwdb = ''
     evdev:atkbd:dmi:*                 # all the built-in keyboards
