@@ -129,7 +129,12 @@ in
     xkbOptions = if azerty then "eurosign:e" else "grp:alt_shift_toggle";
 
     # Login manager
-    displayManager.lightdm.enable = true;
+    displayManager = {
+      lightdm.enable = true;
+      sessionCommands = ''
+        xss-lock -- i3lock -c 000000 &
+      '';
+    };
 
     # Window manager
     windowManager.i3 = {
