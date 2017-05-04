@@ -22,7 +22,7 @@ stdenv.mkDerivation rec {
     texlive.combined.scheme-full
     imagemagick
 
-  ] ++ (with ocamlPackages_4_03; [
+  ] ++ (with ocamlPackages_latest; [
     ocaml
     findlib
 

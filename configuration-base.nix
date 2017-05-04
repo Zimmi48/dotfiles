@@ -103,14 +103,14 @@ in
     nodejs
     elmPackages.elm
     exercism
-    ocamlPackages_4_03.utop
+    ocamlPackages_latest.utop
 
     # Emacs and some packages
     # (MELPA packages are declared through use-package)
 
     emacs
     emacsPackages.proofgeneral
-    ocamlPackages_4_03.merlin
+    ocamlPackages_latest.merlin
 
   ]);
 
