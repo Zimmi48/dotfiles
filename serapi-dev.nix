@@ -1,30 +1,27 @@
-# Does not work yet
-
 with import <unstable> {};
 
-stdenv.mkDerivation {
+stdenv.mkDerivation rec {
 
-  name = "env";
+  name = "serapi-dev-env";
 
-  buildInputs = with ocamlPackages_4_02; [
+  # Boilerplate for buildable env
+  # (nix-build can then be used to create a garbage-collection root)
+  # taken from http://datakurre.pandala.org/2015/10/nix-for-python-developers.html
+  env = buildEnv { name = name; paths = buildInputs; };
+  builder = builtins.toFile "builder.sh" ''
+    source $stdenv/setup; ln -s $env $out
+  '';
 
-    # Override the default Coq 8.6 derivation which is built with OCaml 4.01
-    (coq_8_6.override {
-      inherit ocaml findlib;
-      camlp5 = camlp5_transitional;
-      # CoqIDE is not needed
-      lablgtk = null;
-    })
+  buildInputs = with ocamlPackages_latest; [
 
+    # Coq requirements
+    ncurses
     ocaml
     findlib
-    camlp5_transitional
-
-    # Dev tools
-    merlin
-    utop
+    camlp5_strict
 
     # Serapi requirements
+    ocamlbuild
     ppx_import
     cmdliner
     core_kernel
@@ -32,4 +29,7 @@ stdenv.mkDerivation {
     ppx_sexp_conv
   ];
 
+  shellHook = ''
+    export OCAMLPATH=$HOME/coq:$OCAMLPATH
+  '';
 }
