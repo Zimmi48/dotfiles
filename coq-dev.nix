@@ -13,7 +13,7 @@ stdenv.mkDerivation rec {
   '';
 
   buildInputs = [
-    ncurses
+    unstable.ncurses
 
     # Coq refman dependencies
     transfig
@@ -22,7 +22,7 @@ stdenv.mkDerivation rec {
     texlive.combined.scheme-full
     imagemagick
 
-  ] ++ (with ocamlPackages_latest; [
+  ] ++ (with unstable.ocamlPackages_latest; [
     ocaml
     findlib
 
