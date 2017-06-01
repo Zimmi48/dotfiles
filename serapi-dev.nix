@@ -12,7 +12,7 @@ stdenv.mkDerivation rec {
     source $stdenv/setup; ln -s $env $out
   '';
 
-  buildInputs = with ocamlPackages_latest; with janeStreet; [
+  buildInputs = with ocamlPackages_latest; [
 
     # Coq requirements
     ncurses

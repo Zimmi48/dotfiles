@@ -103,14 +103,16 @@ in
     nodejs
     elmPackages.elm
     exercism
-    ocamlPackages_latest.utop
 
     # Emacs and some packages
     # (MELPA packages are declared through use-package)
-
     emacs
     emacsPackages.proofgeneral
-    ocamlPackages_latest.merlin
+
+  ]) ++ (with (import <unstable> {}).ocamlPackages_latest; [
+
+    merlin
+    utop
 
   ]);
 
