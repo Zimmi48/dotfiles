@@ -80,7 +80,23 @@
  '(package-selected-packages (quote (use-package)))
  '(safe-local-variable-values
    (quote
-    ((eval progn
+    ((coq-prog-args "-coqlib" "../.." "-R" ".." "Coq" "-top" "Coq.Classes.CMorphisms")
+     (TeX-master . "Reference-Manual")
+     (eval let
+           ((default-directory
+              (locate-dominating-file buffer-file-name ".dir-locals.el")))
+           (setq-local coq-prog-args
+                       (\`
+                        ("-coqlib"
+                         (\,
+                          (expand-file-name ".."))
+                         "-R"
+                         (\,
+                          (expand-file-name "."))
+                         "Coq")))
+           (setq-local coq-prog-name
+                       (expand-file-name "../bin/coqtop")))
+     (eval progn
            (let
                ((coq-root-directory
                  (when buffer-file-name
