@@ -22,6 +22,9 @@ stdenv.mkDerivation rec {
     texlive.combined.scheme-full
     imagemagick
 
+    # Jason Gross' coq-tools
+    (callPackage ./coq-tools.nix {})
+
   ] ++ (with unstable.ocamlPackages_latest; [
     ocaml
     findlib
