@@ -10,4 +10,4 @@
 	helper = cache --timeout=3600
 [alias]
 	fix = commit -a --amend --no-edit
-        pull-request = "!f() { dir="`git rev-parse --show-toplevel`-pr-$1"; git fetch -fu ${2:-$(git remote | grep ^upstream || echo origin)} refs/pull/$1/head && git worktree add --detach $dir FETCH_HEAD; }; f"
+        pull-request = "!f() { dir="`git rev-parse --show-toplevel`-pr-$1"; git fetch -fu ${2:-$(git remote | grep ^upstream || echo origin)} refs/pull/$1/head && git worktree add --detach $dir FETCH_HEAD && cd $dir && bash; }; f"
