@@ -37,5 +37,6 @@ stdenv.mkDerivation rec {
 
   shellHook = ''
     export PATH=`pwd`/bin:$PATH
+    if [ ! -e config/coq_config.ml ]; then ./configure -local -annotate -native-compiler no; fi
   '';
 }
