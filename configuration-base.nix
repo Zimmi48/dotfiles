@@ -15,6 +15,8 @@ in
       /etc/nixos/hardware-configuration.nix
     ];
 
+  hardware.cpu.intel.updateMicrocode = true;
+
   boot.loader =
     if efi then {
         # Use the gummiboot efi boot loader.
