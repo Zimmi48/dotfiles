@@ -25,6 +25,9 @@ stdenv.mkDerivation rec {
     # Jason Gross' coq-tools
     (callPackage ./coq-tools.nix {})
 
+    # Now useful for several make / coq_makefile targets
+    python3
+
   ] ++ (with unstable.ocamlPackages_latest; [
     ocaml
     findlib
