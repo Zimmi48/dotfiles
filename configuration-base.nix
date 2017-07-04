@@ -122,6 +122,8 @@ in
 
   programs.bash.enableCompletion = true;
 
+  programs.ssh.agentTimeout = "1h";
+
   # List services that you want to enable:
 
   services.xserver = {
