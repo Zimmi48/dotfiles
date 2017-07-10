@@ -4,7 +4,7 @@
 
 set -e
 
-dir="`git rev-parse --show-toplevel`-pr-$1"
+dir="`git worktree list | head -1 | cut -f1 -d' '`-pr-$1"
 branch="pr/$1"
 
 if [[ "`git branch | grep ${branch}`" ]]; then
