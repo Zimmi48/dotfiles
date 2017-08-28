@@ -77,6 +77,7 @@ in
     unzip
     git
     rlwrap
+    gnupg1
 
     # Desktop utilities
 
