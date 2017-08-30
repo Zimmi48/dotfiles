@@ -1,4 +1,5 @@
-with import <nixpkgs> {};
+{ pkgs? (import <nixpkgs> {}) }:
+with pkgs;
 
 stdenv.mkDerivation rec {
 
@@ -28,7 +29,7 @@ stdenv.mkDerivation rec {
     # Now useful for several make / coq_makefile targets
     python3
 
-  ] ++ (with unstable.ocamlPackages_latest; [
+  ] ++ (with ocaml-ng.ocamlPackages_4_04; [
     ocaml
     findlib
 

@@ -1,4 +1,5 @@
-with import <unstable> {};
+{ pkgs ? (import <nixpkgs> {}) }:
+with pkgs;
 
 stdenv.mkDerivation rec {
 
@@ -12,7 +13,7 @@ stdenv.mkDerivation rec {
     source $stdenv/setup; ln -s $env $out
   '';
 
-  buildInputs = with ocamlPackages_latest; [
+  buildInputs = with ocaml-ng.ocamlPackages_4_04; [
 
     # Coq requirements
     ncurses
@@ -30,6 +31,6 @@ stdenv.mkDerivation rec {
   ];
 
   shellHook = ''
-    export OCAMLPATH=$HOME/coq:$OCAMLPATH
+    export OCAMLPATH=$HOME/coq-for-serapi:$OCAMLPATH
   '';
 }

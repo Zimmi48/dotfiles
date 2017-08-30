@@ -65,7 +65,7 @@ in
   };
 
   # List packages installed in system profile.
-  environment.systemPackages = (with pkgs; [
+  environment.systemPackages = with pkgs; [
 
     # Command-line utilities
 
@@ -106,18 +106,15 @@ in
     nodejs
     elmPackages.elm
     exercism
+    ocaml-ng.ocamlPackages_4_04.merlin
+    ocaml-ng.ocamlPackages_4_04.utop
 
     # Emacs and some packages
     # (MELPA packages are declared through use-package)
     emacs
     emacsPackages.proofgeneral
 
-  ]) ++ (with (import <unstable> {}).ocamlPackages_latest; [
-
-    merlin
-    utop
-
-  ]);
+  ];
 
   environment.shellAliases.bashmount = "rlwrap bashmount";
 
