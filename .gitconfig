@@ -1,14 +1,16 @@
 # This is Git's per-user configuration file.
 [user]
-	name = Théo Zimmermann
-	email = theo.zimmermann@univ-paris-diderot.fr
+        name = Théo Zimmermann
+        email = theo.zimmermann@univ-paris-diderot.fr
+[log]
+        mailmap = true
 [push]
-	default = current
+        default = current
 [remote]
-	pushdefault = origin
+        pushdefault = origin
 [credential]
-	helper = cache --timeout=3600
+        helper = cache --timeout=3600
 [alias]
-	fix = commit -a --amend --no-edit
+        fix = commit -a --amend --no-edit
         pull-request = ! ~/dotfiles/git-pull-request.sh
         backport = ! ~/dotfiles/git-backport.sh
