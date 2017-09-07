@@ -59,6 +59,8 @@
 
 ;; Merlin is installed with Nix
 (use-package merlin
+  :init
+  (setq merlin-command "ocamlmerlin")
   :config
   (add-hook 'merlin-mode-hook #'company-mode))
 
