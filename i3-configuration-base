@@ -114,6 +114,3 @@ bindsym XF86MonBrightnessDown exec xbacklight -dec 5
 
 # Lock when pressing Pause
 bindsym Pause exec i3lock -c 000000
-
-# Suspend when pressing Sleep
-bindsym XF86Sleep exec systemctl suspend
