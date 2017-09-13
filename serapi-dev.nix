@@ -28,6 +28,8 @@ stdenv.mkDerivation rec {
     core_kernel
     sexplib
     ppx_sexp_conv
+    yojson
+    js_of_ocaml
   ];
 
   shellHook = ''
