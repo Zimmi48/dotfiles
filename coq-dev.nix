@@ -18,7 +18,6 @@ stdenv.mkDerivation rec {
 
     # Coq refman dependencies
     transfig
-    ghostscript
     hevea
     texlive.combined.scheme-full
     imagemagick
