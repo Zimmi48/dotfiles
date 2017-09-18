@@ -19,6 +19,14 @@
   (package-refresh-contents)
   (package-install 'use-package))
 
+;; Company-Mode for use with Merlin and Elm-Mode
+(use-package company
+  :ensure t
+  :defer t
+  :config
+  (add-to-list 'company-backends 'merlin-company-backend)
+  (add-to-list 'company-backends 'company-elm))
+
 (use-package fill-column-indicator
   :ensure t
   :init
@@ -41,14 +49,6 @@
   :defer t
   :init
   (add-hook 'coq-mode-hook #'company-coq-mode))
-
-;; Company-Mode for use with Merlin and Elm-Mode
-(use-package company
-  :ensure t
-  :defer t
-  :config
-  (add-to-list 'company-backends 'merlin-company-backend)
-  (add-to-list 'company-backends 'company-elm))
 
 ;; Tuareg
 (use-package tuareg
@@ -74,6 +74,12 @@
   :config
   (add-hook 'elm-mode-hook #'company-mode))
 
+;; EditorConfig (for contributing to NixOS/nixpkgs notably)
+(use-package editorconfig
+  :ensure t
+  :config
+  (editorconfig-mode 1))
+
 ;; Automatically added custom settings. Don't touch!
 
 (custom-set-variables
@@ -81,7 +87,9 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(package-selected-packages (quote (use-package)))
+ '(package-selected-packages
+   (quote
+    (editorconfig elm-mode tuareg company-coq nix-mode fill-column-indicator company use-package)))
  '(safe-local-variable-values
    (quote
     ((coq-prog-args "-coqlib" "../.." "-R" ".." "Coq" "-top" "Coq.Classes.CMorphisms")
