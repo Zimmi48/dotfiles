@@ -4,6 +4,7 @@
 (setq-default indent-tabs-mode nil) ; Never use tabs
 (setq inhibit-startup-screen t)
 (setq column-number-mode t)
+(setq save-abbrevs 'silently)
 
 ;; Packages
 
