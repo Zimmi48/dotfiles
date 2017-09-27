@@ -1,0 +1,6 @@
+[Desktop Entry]
+Name=CoqIDE-master
+Exec=/home/theo/bin/coqide-master
+Terminal=false
+Type=Application
+
