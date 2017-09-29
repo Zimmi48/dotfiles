@@ -168,6 +168,22 @@ in
     extraGroups = [ "networkmanager" ];
   };
 
+  systemd.automounts = [
+    { where = "/mnt/keys";
+      wantedBy = [ "multi-user.target" ];
+      automountConfig = {
+        DirectoryMode = "0700";
+        TimeoutIdleSec = "100";
+      };
+    }
+  ];
+
+  systemd.mounts = [
+    { what = "/dev/disk/by-label/keys";
+      where = "/mnt/keys";
+    }
+  ];
+
   # The NixOS release to be compatible with for stateful data such as databases.
   system.stateVersion = "16.09";
 
