@@ -93,7 +93,8 @@
     (editorconfig elm-mode tuareg company-coq nix-mode fill-column-indicator company use-package)))
  '(safe-local-variable-values
    (quote
-    ((coq-prog-args "-coqlib" "../.." "-R" ".." "Coq" "-top" "Coq.Classes.CMorphisms")
+    ((coq-prog-args "-coqlib" "../.." "-R" ".." "Coq" "-top" "Coq.Classes.Morphisms")
+     (coq-prog-args "-coqlib" "../.." "-R" ".." "Coq" "-top" "Coq.Classes.CMorphisms")
      (TeX-master . "Reference-Manual")
      (eval let
            ((default-directory
