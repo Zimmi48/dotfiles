@@ -82,7 +82,8 @@ in
     # Desktop utilities
 
     xorg.xbacklight
-    xss-lock
+    xautolock
+    libnotify
     i3lock
     i3status
     dmenu
@@ -139,7 +140,7 @@ in
     displayManager = {
       lightdm.enable = true;
       sessionCommands = ''
-        xss-lock -- i3lock -c 000000 &
+        xautolock -locker 'i3lock -c 000000' -notify 10 -notifier 'notify-send "Computer is idle." "Screen will be locked in 10 seconds."' -corners '+000' -cornerdelay 10 -cornerredelay 30 -lockaftersleep &
       '';
     };
 
