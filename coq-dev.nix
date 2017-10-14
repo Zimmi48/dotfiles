@@ -14,7 +14,7 @@ stdenv.mkDerivation rec {
   '';
 
   buildInputs = [
-    unstable.ncurses
+    ncurses
 
     # Coq refman dependencies
     transfig
