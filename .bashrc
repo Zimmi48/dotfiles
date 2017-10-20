@@ -15,3 +15,8 @@ alias coq-env='nix-shell -p coq_8_6 --command "echo \"Coq 8.6.1 environment\"; r
 alias mathcomp-env='nix-shell -p coqPackages_8_6.mathcomp'
 
 alias kinea-run='nix-shell ~/dotfiles/pykinea.nix --arg pkgs "import <unstable> {}" --run "python src/kinea.py"'
+
+# Auto-completion of git aliases
+function _git_delete() {
+  _git_branch
+}
