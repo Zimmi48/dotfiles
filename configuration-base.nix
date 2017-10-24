@@ -103,6 +103,7 @@ in
     # Development (stable packages)
 
     imagemagick
+    pandoc
     texlive.combined.scheme-full
     nodejs
     elmPackages.elm

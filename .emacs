@@ -75,6 +75,15 @@
   :config
   (add-hook 'elm-mode-hook #'company-mode))
 
+;; Markdown Mode
+(use-package markdown-mode
+  :ensure t
+  :commands (markdown-mode gfm-mode)
+  :mode (("README\\.md\\'" . gfm-mode)
+         ("\\.md\\'" . markdown-mode)
+         ("\\.markdown\\'" . markdown-mode))
+  :init (setq markdown-command "pandoc"))
+
 ;; EditorConfig (for contributing to NixOS/nixpkgs notably)
 (use-package editorconfig
   :ensure t
