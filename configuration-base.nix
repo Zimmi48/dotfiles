@@ -61,6 +61,7 @@ in
     # List the names of allowed non-free packages
     allowUnfreePredicate = with builtins; (pkg: elem (parseDrvName pkg.name).name [
       "mendeley"
+      "skypeforlinux"
     ]);
   };
 
