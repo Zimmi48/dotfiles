@@ -78,6 +78,7 @@ in
     git
     rlwrap
     gnupg1
+    pass
 
     # Desktop utilities
 
