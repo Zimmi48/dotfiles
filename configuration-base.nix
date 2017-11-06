@@ -66,7 +66,7 @@ in
   };
 
   # List packages installed in system profile.
-  environment.systemPackages = with pkgs; [
+  environment.systemPackages = (with pkgs; [
 
     # Command-line utilities
 
@@ -118,7 +118,13 @@ in
     emacs
     emacsPackages.proofgeneral
 
-  ];
+  ]) ++ (with import <unstable> {}; [
+
+    # The version in nixpkgs-unstable contains the languagetool-http-server
+    # command from NixOS/nixpkgs#31040
+    languagetool
+
+  ]);
 
   environment.shellAliases.bashmount = "rlwrap bashmount";
 
@@ -144,6 +150,8 @@ in
       lightdm.enable = true;
       sessionCommands = ''
         xautolock -locker 'i3lock -c 000000' -notify 10 -notifier 'notify-send "Computer is idle." "Screen will be locked in 10 seconds."' -corners '+000' -cornerdelay 10 -cornerredelay 30 -lockaftersleep &
+        # Launch a LanguageTool HTTP server for use within Firefox
+        languagetool-http-server --allow-origin "*" &
       '';
     };
 
