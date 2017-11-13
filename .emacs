@@ -2,8 +2,10 @@
 
 (electric-indent-mode -1) ; Disable eletric ident
 (setq-default indent-tabs-mode nil) ; Never use tabs
-(setq inhibit-startup-screen t)
-(setq column-number-mode t)
+(setq inhibit-startup-screen t) ; Do not show the startup screen
+(tool-bar-mode -1) ; Disable the tool bar
+(setq column-number-mode t) ; Show the column number
+(setq show-paren-mode t) ; Match parentheses
 (setq save-abbrevs 'silently)
 
 ;; Packages
@@ -89,6 +91,10 @@
   :ensure t
   :config
   (editorconfig-mode 1))
+
+;; Dark theme
+(use-package dracula-theme
+  :ensure t)
 
 ;; Automatically added custom settings. Don't touch!
 
