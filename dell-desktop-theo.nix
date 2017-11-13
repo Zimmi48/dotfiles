@@ -25,8 +25,10 @@
   # Comment out once printer is installed to avoid seeing too many of them
   # services.avahi.enable = true;
 
-  # Multi-display support
-  services.xserver.xrandrHeads = [ "HDMI1" "HDMI2" ];
+  # Custom multi-display support
+  services.xserver.displayManager.sessionCommands = ''
+    xrandr --output HDMI1 --rotate left --auto --primary --output HDMI2 --auto --right-of HDMI1
+  '';
 
   # Time sync university servers
   services.ntp.servers = [ "ntp.univ-paris-diderot.fr" ];
