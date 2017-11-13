@@ -7,3 +7,6 @@
 [submodule "elm-oracle"]
 	path = elm-oracle
 	url = https://github.com/ElmCast/elm-oracle.git
+[submodule "urxvt-font-size"]
+	path = urxvt-font-size
+	url = https://github.com/majutsushi/urxvt-font-size

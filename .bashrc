@@ -1,6 +1,3 @@
-# Colors in the terminal
-export LS_COLORS=$LS_COLORS:'di=1;44:'
-
 # Coq aliases
 alias coqtop='rlwrap coqtop'
 alias coqtop-master='rlwrap ~/coq/bin/coqtop'
