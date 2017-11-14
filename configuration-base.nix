@@ -68,6 +68,9 @@ in
   # List packages installed in system profile.
   environment.systemPackages = (with pkgs; [
 
+    # Fix Gtk warning (see NixOS/nixpkgs#18479)
+    gnome3.adwaita-icon-theme
+
     # Command-line utilities
 
     nix-repl
@@ -128,6 +131,9 @@ in
 
   environment.shellAliases.bashmount = "rlwrap bashmount";
 
+  # Fix Gtk warning (see NixOS/nixpkgs#18479)
+  environment.variables.GTK_DATA_PREFIX = "/run/current-system/sw";
+
   programs.bash.enableCompletion = true;
 
   programs.gnupg.agent = {
@@ -136,6 +142,9 @@ in
   };
 
   # List services that you want to enable:
+
+  # Fixing annoying Emacs warnings (cf. NixOS/nixpkgs#16327)
+  services.gnome3.at-spi2-core.enable = true;
 
   services.xserver = {
     # Enable the X11 windowing system.
