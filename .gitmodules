@@ -1,6 +1,7 @@
 [submodule "unstable"]
 	path = unstable
 	url = https://github.com/NixOS/nixpkgs-channels.git
+        ignore = dirty
 [submodule "elm-test"]
 	path = elm-test
 	url = https://github.com/rtfeldman/node-test-runner.git
