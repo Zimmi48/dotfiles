@@ -68,9 +68,6 @@ in
   # List packages installed in system profile.
   environment.systemPackages = (with pkgs; [
 
-    # Fix Gtk warning (see NixOS/nixpkgs#18479)
-    gnome3.adwaita-icon-theme
-
     # Command-line utilities
 
     nix-repl
@@ -130,9 +127,6 @@ in
   ]);
 
   environment.shellAliases.bashmount = "rlwrap bashmount";
-
-  # Fix Gtk warning (see NixOS/nixpkgs#18479)
-  environment.variables.GTK_DATA_PREFIX = "/run/current-system/sw";
 
   programs.bash.enableCompletion = true;
 
