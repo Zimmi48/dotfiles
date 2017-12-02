@@ -110,8 +110,13 @@ in
     nodejs
     elmPackages.elm
     exercism
-    ocaml-ng.ocamlPackages_4_04.merlin
-    ocaml-ng.ocamlPackages_4_04.utop
+
+    # Jason's bug minimizer
+    (callPackage ./coq-tools.nix {})
+
+    # Coq refman additional dependencies
+    transfig
+    hevea
 
     # Emacs and some packages
     # (MELPA packages are declared through use-package)
