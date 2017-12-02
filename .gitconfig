@@ -13,5 +13,4 @@
 [alias]
         fix = commit -a --amend --no-edit
         pull-request = ! ~/dotfiles/git-pull-request.sh
-        backport = ! ~/dotfiles/git-backport.sh
         delete = "! f() { git branch -d $1 && git push origin -d $1; }; f"
