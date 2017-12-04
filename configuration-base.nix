@@ -157,7 +157,7 @@ in
     displayManager = {
       lightdm.enable = true;
       sessionCommands = ''
-        xautolock -locker 'i3lock -c 000000' -notify 10 -notifier 'notify-send "Computer is idle." "Screen will be locked in 10 seconds."' -corners '+000' -cornerdelay 10 -cornerredelay 30 -lockaftersleep &
+        xautolock -locker 'i3lock -c 000000' -notify 10 -notifier 'notify-send "Computer is idle." "Screen will be locked in 10 seconds."' -corners '+000' -cornerdelay 10 -cornerredelay 30 &
         # Launch a LanguageTool HTTP server for use within Firefox
         languagetool-http-server --allow-origin "*" &
       '';
