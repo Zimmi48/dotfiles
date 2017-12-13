@@ -118,12 +118,13 @@ in
     transfig
     hevea
 
+  ]) ++ (with import <unstable> {}; [
+
     # Emacs and some packages
     # (MELPA packages are declared through use-package)
+    # The latest proof-general is needed for compatibility with Coq 8.7.0
     emacs
-    emacsPackages.proofgeneral
-
-  ]) ++ (with import <unstable> {}; [
+    emacsPackages.proofgeneral_HEAD
 
     # The version in nixpkgs-unstable contains the languagetool-http-server
     # command from NixOS/nixpkgs#31040
