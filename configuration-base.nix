@@ -141,6 +141,8 @@ in
     enableSSHSupport = true;
   };
 
+  virtualisation.virtualbox.host.enable = true;
+
   # List services that you want to enable:
 
   # Fixing annoying Emacs warnings (cf. NixOS/nixpkgs#16327)
@@ -185,8 +187,8 @@ in
     inherit home;
     description = user.description;
 
-    # To allow normal-user to broadcast a wifi network
-    extraGroups = [ "networkmanager" ];
+    # To allow normal-user to broadcast a wifi network, to pass USB devices from host to guests
+    extraGroups = [ "networkmanager" "vboxusers" ];
   };
 
   # The NixOS release to be compatible with for stateful data such as databases.
