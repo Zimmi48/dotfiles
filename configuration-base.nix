@@ -32,6 +32,8 @@ in
         timeout = 2;
     };
 
+  boot.tmpOnTmpfs = true;
+
   networking = { inherit hostName; };
 
   time.timeZone = "Europe/Paris";
