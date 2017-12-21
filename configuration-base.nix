@@ -143,8 +143,6 @@ in
     enableSSHSupport = true;
   };
 
-  virtualisation.virtualbox.host.enable = true;
-
   # List services that you want to enable:
 
   # Fixing annoying Emacs warnings (cf. NixOS/nixpkgs#16327)
