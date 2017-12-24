@@ -9,6 +9,13 @@
     ./laptops.nix
   ];
 
+  # Support for scanner
+  hardware.sane.enable = true;
+
+  environment.systemPackages = with pkgs; [
+    simple-scan
+  ];
+
   # Might be worth checking if it can be switched to lipinput
   services.xserver.synaptics = {
     enable = true;
