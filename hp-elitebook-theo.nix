@@ -10,12 +10,4 @@
   ];
 
   boot.blacklistedKernelModules = [ "mei_wdt" ];
-
-  services.xserver.libinput = {
-    enable = true;
-    naturalScrolling = true;
-    disableWhileTyping = true;
-  };
-
-  fonts.fontconfig.dpi = 120;
 }
