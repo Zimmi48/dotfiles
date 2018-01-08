@@ -103,6 +103,7 @@ in
     irssi
     evince
     mendeley
+    skype
 
     # Development (stable packages)
 
