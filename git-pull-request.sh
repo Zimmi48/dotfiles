@@ -22,8 +22,8 @@ else
 fi
 bash # Let the user do their tests
 cd - > /dev/null
-read -p "Remove the worktree and the branch? [y/N] " resp
-if [[ "$resp" = "y" || "$resp" = "Y" ]]; then
+read -p "Remove the worktree and the branch? [y/N] " -n 1 -r
+if [[ $REPLY =~ ^[Yy]$ ]]; then
   rm -rf ${dir}
   git worktree prune
   git branch -D ${branch}
