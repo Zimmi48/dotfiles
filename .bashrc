@@ -8,8 +8,8 @@ alias coqtop-8.4='rlwrap ~/dotfiles/nix-builds/coq-8-4/bin/coqtop'
 # Development aliases
 alias coq-dev='nix-shell ~/coq --arg pkgs "import <unstable> {}"'
 # alias serapi-dev='nix-shell ~/dotfiles/serapi-dev.nix --arg pkgs "import <unstable> {}"'
-alias coq-env='nix-shell -p "(import <unstable> {}).coq_8_7" --command "echo \"Coq 8.7 environment\"; return"'
-alias mathcomp-env='nix-shell -p "(import <unstable> {}).coqPackages_8_7.mathcomp"'
+alias coq-env='nix-shell -I ~/dotfiles/unstable -p coq_8_7'
+alias mathcomp-env='nix-shell -I ~/dotfiles/unstable -p coq_8_7 coqPackages_8_7.mathcomp'
 
 alias matplotlib-env='nix-shell -p "python3Packages.matplotlib.override {enableQt=true;}"'
 
