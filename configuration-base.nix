@@ -103,6 +103,7 @@ in
     irssi
     evince
     mendeley
+    vlc
     skype
 
     # Development (stable packages)
