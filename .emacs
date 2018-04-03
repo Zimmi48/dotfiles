@@ -37,6 +37,7 @@
   (add-hook 'tuareg-mode-hook (lambda () (fci-mode 1)))
   (add-hook 'coq-mode-hook (lambda () (fci-mode 1)))
   (add-hook 'elm-mode-hook (lambda () (fci-mode 1)))
+  (add-hook 'markdown-mode-hook (lambda () (fci-mode 1)))
   :config (setq fci-rule-column 80))
 
 ;; Nix-Mode
