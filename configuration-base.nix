@@ -72,7 +72,7 @@ in
 
     # Command-line utilities
 
-    nix-repl
+    nix-bash-completions
     wget
     which
     gnumake
@@ -105,9 +105,11 @@ in
     mendeley
     vlc
     skype
+    languagetool
 
     # Development (stable packages)
 
+    emacs
     imagemagick
     pandoc
     texlive.combined.scheme-full
@@ -121,19 +123,6 @@ in
     # Coq refman additional dependencies
     transfig
     hevea
-
-  ]) ++ (with import <unstable> {}; [
-
-    # Emacs and some packages
-    # (MELPA packages are declared through use-package)
-    # The latest proof-general is needed for compatibility with Coq 8.7.0
-    emacs
-    emacsPackages.proofgeneral_HEAD
-
-    # The version in nixpkgs-unstable contains the languagetool-http-server
-    # command from NixOS/nixpkgs#31040
-    languagetool
-
   ]);
 
   environment.shellAliases.bashmount = "rlwrap bashmount";

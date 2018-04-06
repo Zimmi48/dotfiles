@@ -41,13 +41,12 @@
   :config (setq fci-rule-column 80))
 
 ;; Nix-Mode
-
 (use-package nix-mode
   :ensure t
   :defer t)
 
-;; Proof General is installed with Nix
-(load "ProofGeneral/generic/proof-site")
+;; Proof General is not in MELPA yet
+(load "~/.emacs.d/lisp/PG/generic/proof-site")
 
 (use-package company-coq
   :ensure t
