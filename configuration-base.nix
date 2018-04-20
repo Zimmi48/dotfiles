@@ -145,7 +145,8 @@ in
 
     # Keyboard layout(s)
     layout = if azerty then "fr" else "us,us(intl)";
-    xkbOptions = if azerty then "eurosign:e" else "grp:alt_shift_toggle";
+    xkbOptions =
+      "${if azerty then "eurosign:e" else "grp:alt_shift_toggle"},nbsp:level2";
 
     # Login manager
     displayManager = {
