@@ -38,6 +38,7 @@
   (add-hook 'coq-mode-hook (lambda () (fci-mode 1)))
   (add-hook 'elm-mode-hook (lambda () (fci-mode 1)))
   (add-hook 'markdown-mode-hook (lambda () (fci-mode 1)))
+  (add-hook 'nix-mode-hook (lambda () (fci-mode 1)))
   :config (setq fci-rule-column 80))
 
 ;; Nix-Mode
@@ -61,10 +62,10 @@
   :config
   (add-hook 'tuareg-mode-hook 'merlin-mode))
 
-;; Merlin is installed with Nix
 (use-package merlin
+  :ensure t
   :init
-  (setq merlin-command "ocamlmerlin")
+  (setq merlin-command "ocamlmerlin") ;; Merlin is installed with Nix
   :config
   (add-hook 'merlin-mode-hook #'company-mode))
 
@@ -97,6 +98,12 @@
 (use-package dracula-theme
   :ensure t)
 
+;; Package for Coq development
+
+(require 'coqdev nil t)
+(add-to-list 'load-path "~/coq/dev/tools/")
+(require 'coqdev)
+
 ;; Automatically added custom settings. Don't touch!
 
 (custom-set-variables
@@ -104,55 +111,10 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(package-selected-packages
-   (quote
-    (editorconfig elm-mode tuareg company-coq nix-mode fill-column-indicator company use-package)))
  '(safe-local-variable-values
    (quote
-    ((coq-prog-args "-coqlib" "../.." "-R" ".." "Coq" "-top" "Coq.Classes.Morphisms")
-     (coq-prog-args "-coqlib" "../.." "-R" ".." "Coq" "-top" "Coq.Classes.CMorphisms")
-     (TeX-master . "Reference-Manual")
-     (eval let
-           ((default-directory
-              (locate-dominating-file buffer-file-name ".dir-locals.el")))
-           (setq-local coq-prog-args
-                       (\`
-                        ("-coqlib"
-                         (\,
-                          (expand-file-name ".."))
-                         "-R"
-                         (\,
-                          (expand-file-name "."))
-                         "Coq")))
-           (setq-local coq-prog-name
-                       (expand-file-name "../bin/coqtop")))
-     (eval progn
-           (let
-               ((coq-root-directory
-                 (when buffer-file-name
-                   (locate-dominating-file buffer-file-name ".dir-locals.el")))
-                (coq-project-find-file
-                 (and
-                  (boundp
-                   (quote coq-project-find-file))
-                  coq-project-find-file)))
-             (set
-              (make-local-variable
-               (quote tags-file-name))
-              (concat coq-root-directory "TAGS"))
-             (setq camldebug-command-name
-                   (concat coq-root-directory "dev/ocamldebug-coq"))
-             (unless coq-project-find-file
-               (set
-                (make-local-variable
-                 (quote compile-command))
-                (concat "make -C " coq-root-directory))
-               (set
-                (make-local-variable
-                 (quote compilation-search-path))
-                (cons coq-root-directory nil)))
-             (when coq-project-find-file
-               (setq default-directory coq-root-directory))))))))
+    ((coq-prog-args "-coqlib" "../.." "-R" ".." "Coq" "-top" "Coq.Classes.CMorphisms")
+     (coq-prog-args "-coqlib" "../.." "-R" ".." "Coq" "-top" "Coq.Classes.Morphisms")))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
