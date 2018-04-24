@@ -20,8 +20,6 @@
     gnome3.adwaita-icon-theme
   ];
 
-  virtualisation.virtualbox.host.enable = true;
-
   # Fix Gtk warning (see NixOS/nixpkgs#18479)
   environment.variables.GTK_DATA_PREFIX = "/run/current-system/sw";
 
