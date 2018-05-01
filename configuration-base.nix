@@ -119,10 +119,6 @@ in
 
     # Jason's bug minimizer
     (callPackage ./coq-tools.nix {})
-
-    # Coq refman additional dependencies
-    transfig
-    hevea
   ]);
 
   environment.shellAliases.bashmount = "rlwrap bashmount";
