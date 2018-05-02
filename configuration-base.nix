@@ -82,6 +82,7 @@ in
     rlwrap
     gnupg1
     pass
+    alsaUtils
 
     # Desktop utilities
 
