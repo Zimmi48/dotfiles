@@ -170,6 +170,8 @@ in
     extraOptions = [ "-m randr" ];
   };
 
+  virtualisation.docker.enable = true;
+
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.extraUsers."${user.name}" = {
     isNormalUser = true;
@@ -177,7 +179,7 @@ in
     description = user.description;
 
     # To allow normal-user to broadcast a wifi network, to pass USB devices from host to guests
-    extraGroups = [ "networkmanager" "vboxusers" ];
+    extraGroups = [ "networkmanager" "docker" ];
   };
 
   # The NixOS release to be compatible with for stateful data such as databases.
