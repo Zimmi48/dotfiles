@@ -63,9 +63,10 @@
   (add-hook 'tuareg-mode-hook 'merlin-mode))
 
 (use-package merlin
+  :if (executable-find "ocamlmerlin")
   :ensure t
   :init
-  (setq merlin-command "ocamlmerlin") ;; Merlin is installed with Nix
+  (setq merlin-command "ocamlmerlin")
   :config
   (add-hook 'merlin-mode-hook #'company-mode))
 
