@@ -2,6 +2,7 @@
 [user]
         name = Théo Zimmermann
         email = theo.zimmermann@univ-paris-diderot.fr
+        signingkey = F1744A0942F536C7
 [log]
         mailmap = true
 [push]
