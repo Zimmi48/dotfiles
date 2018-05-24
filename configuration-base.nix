@@ -87,8 +87,9 @@ in
     # Desktop utilities
 
     xorg.xbacklight
-    xautolock
     libnotify
+    xfce.xfce4-notifyd
+    xautolock
     i3lock
     i3status
     dmenu
