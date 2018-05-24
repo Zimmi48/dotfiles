@@ -34,7 +34,11 @@ in
 
   boot.tmpOnTmpfs = true;
 
-  networking = { inherit hostName; };
+  networking = {
+    inherit hostName;
+    networkmanager.enable = true;
+  };
+
 
   time.timeZone = "Europe/Paris";
 
@@ -92,6 +96,8 @@ in
     xautolock
     i3lock
     i3status
+    networkmanagerapplet
+    xfce.xfce4-volumed
     dmenu
     rxvt_unicode
     bashmount
@@ -148,19 +154,25 @@ in
       "${if azerty then "eurosign:e" else "grp:alt_shift_toggle"},nbsp:level2";
 
     # Login manager
-    displayManager = {
-      lightdm.enable = true;
-      sessionCommands = ''
-        xautolock -locker 'i3lock -c 000000' -notify 10 -notifier 'notify-send "Computer is idle." "Screen will be locked in 10 seconds."' -corners '+000' -cornerdelay 10 &
-        # Launch a LanguageTool HTTP server for use within Firefox
-        languagetool-http-server --allow-origin "*" &
-      '';
-    };
+    displayManager.lightdm.enable = true;
 
     # Window manager
     windowManager.i3 = {
       enable = true;
       configFile = ./i3-configuration-base;
+      extraSessionCommands = ''
+        # Volume manager
+        xfce4-volumed &
+
+        # Network manager
+        nm-applet &
+
+        # Screenlock
+        xautolock -locker 'i3lock -c 000000' -notify 10 -notifier 'notify-send "Computer is idle." "Screen will be locked in 10 seconds."' -corners '+000' -cornerdelay 10 &
+
+        # Launch a LanguageTool HTTP server for use within Firefox
+        languagetool-http-server --allow-origin "*" &
+      '';
     };
   };
 
