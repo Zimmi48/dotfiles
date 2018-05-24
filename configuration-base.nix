@@ -100,12 +100,13 @@ in
     firefox
     chromium
     thunderbird
-    libreoffice
     irssi
+    skype
+    tdesktop
+    libreoffice
     evince
     mendeley
     vlc
-    skype
     languagetool
 
     # Development (stable packages)
