@@ -27,18 +27,14 @@
 (use-package company
   :ensure t
   :defer t
+  :hook ((merlin-mode elm-mode) . company-mode)
   :config
   (add-to-list 'company-backends 'merlin-company-backend)
   (add-to-list 'company-backends 'company-elm))
 
 (use-package fill-column-indicator
   :ensure t
-  :init
-  (add-hook 'tuareg-mode-hook (lambda () (fci-mode 1)))
-  (add-hook 'coq-mode-hook (lambda () (fci-mode 1)))
-  (add-hook 'elm-mode-hook (lambda () (fci-mode 1)))
-  (add-hook 'markdown-mode-hook (lambda () (fci-mode 1)))
-  (add-hook 'nix-mode-hook (lambda () (fci-mode 1)))
+  :hook ((tuareg-mode coq-mode elm-mode markdown-mode nix-mode) . (lambda () (fci-mode 1)))
   :config (setq fci-rule-column 80))
 
 ;; Nix-Mode
@@ -52,23 +48,19 @@
 (use-package company-coq
   :ensure t
   :defer t
-  :init
-  (add-hook 'coq-mode-hook #'company-coq-mode))
+  :hook (coq-mode . company-coq-mode))
 
 ;; Tuareg
 (use-package tuareg
   :ensure t
-  :mode ("\\.ml[iylp4]?$" . tuareg-mode)
-  :config
-  (add-hook 'tuareg-mode-hook 'merlin-mode))
+  :mode ("\\.ml[iylp4]?$" . tuareg-mode))
 
 (use-package merlin
   :if (executable-find "ocamlmerlin")
   :ensure t
   :init
   (setq merlin-command "ocamlmerlin")
-  :config
-  (add-hook 'merlin-mode-hook #'company-mode))
+  :hook (tuareg-mode . merlin-mode))
 
 ;; Elm-Mode
 (use-package elm-mode
@@ -76,9 +68,7 @@
   :defer t
   :init
   (setq elm-format-on-save t)
-  (setq elm-format-command "elm-format-0.18")
-  :config
-  (add-hook 'elm-mode-hook #'company-mode))
+  (setq elm-format-command "elm-format-0.18"))
 
 ;; Markdown Mode
 (use-package markdown-mode
