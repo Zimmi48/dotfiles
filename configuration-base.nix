@@ -16,6 +16,7 @@ in
     ];
 
   hardware.cpu.intel.updateMicrocode = true;
+  hardware.pulseaudio.enable = true;
 
   boot.loader =
     if efi then {
