@@ -1,6 +1,7 @@
 # Coq aliases
 alias coqtop='rlwrap coqtop'
-alias coqtop-master='rlwrap ~/coq/bin/coqtop'
+alias coqtop-master='rlwrap ~/dotfiles/nix-builds/coq-master/bin/coqtop'
+alias coqtop-v8.8='rlwrap ~/dotfiles/nix-builds/coq-v8.8/bin/coqtop'
 alias coqtop-8.7='rlwrap ~/dotfiles/nix-builds/coq-8-7/bin/coqtop'
 alias coqtop-8.6='rlwrap ~/dotfiles/nix-builds/coq-8-6/bin/coqtop'
 alias coqtop-8.5='rlwrap ~/dotfiles/nix-builds/coq-8-5/bin/coqtop'
