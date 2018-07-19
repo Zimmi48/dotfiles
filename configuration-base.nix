@@ -112,6 +112,7 @@ in
     i3status
     networkmanagerapplet
     xfce.xfce4-volumed
+    pavucontrol
     dmenu
     rxvt_unicode
     bashmount
