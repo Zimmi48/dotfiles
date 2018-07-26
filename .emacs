@@ -92,7 +92,7 @@
 ;; Package for Coq development
 
 (require 'coqdev nil t)
-(add-to-list 'load-path "~/coq/dev/tools/")
+(add-to-list 'load-path "~/git/coq/dev/tools/")
 (require 'coqdev)
 
 ;; Automatically added custom settings. Don't touch!
