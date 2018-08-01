@@ -2,12 +2,6 @@
 	path = unstable
 	url = https://github.com/NixOS/nixpkgs-channels.git
         ignore = dirty
-[submodule "elm-test"]
-	path = elm-test
-	url = https://github.com/rtfeldman/node-test-runner.git
-[submodule "elm-oracle"]
-	path = elm-oracle
-	url = https://github.com/ElmCast/elm-oracle.git
 [submodule "urxvt-font-size"]
 	path = urxvt-font-size
 	url = https://github.com/majutsushi/urxvt-font-size
