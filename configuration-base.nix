@@ -137,9 +137,7 @@ in
     imagemagick
     pandoc
     texlive.combined.scheme-full
-    nodejs
     elmPackages.elm
-    exercism
 
     # Jason's bug minimizer
     (callPackage ./coq-tools.nix {})
