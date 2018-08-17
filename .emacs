@@ -53,7 +53,7 @@
 ;; Tuareg
 (use-package tuareg
   :ensure t
-  :mode ("\\.ml[iylp4]?$" . tuareg-mode))
+  :mode ("\\.ml[iylp4g]?$" . tuareg-mode))
 
 (use-package merlin
   :if (executable-find "ocamlmerlin")
