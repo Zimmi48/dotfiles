@@ -13,5 +13,6 @@
         helper = cache --timeout=3600
 [alias]
         fix = commit -a --amend --no-edit
+        newbranch = checkout -b
         pull-request = ! ~/dotfiles/git-pull-request.sh
         delete = "! f() { git branch -d $1 && git push origin -d $1; }; f"
