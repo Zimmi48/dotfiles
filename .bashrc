@@ -1,3 +1,8 @@
+# If not running interactively, don't load anything
+if [[ -z $PS1 ]]; then return; fi
+# Or in the nix-shell
+if [[ -n $IN_NIX_SHELL ]]; then return; fi
+
 # Coq aliases
 alias coqtop='rlwrap coqtop'
 alias coqtop-master='rlwrap ~/dotfiles/nix-builds/coq-master/bin/coqtop'
