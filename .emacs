@@ -10,12 +10,10 @@
 (setq save-abbrevs 'silently)
 
 ;; Packages
-
 (require 'package)
 (setq package-enable-at-startup nil)
 (add-to-list 'package-archives
              '("melpa" . "https://melpa.org/packages/"))
-
 (package-initialize)
 
 ;; Bootstrap `use-package'
@@ -32,9 +30,10 @@
   (add-to-list 'company-backends 'merlin-company-backend)
   (add-to-list 'company-backends 'company-elm))
 
+;; 80-character mark
 (use-package fill-column-indicator
   :ensure t
-  :hook ((tuareg-mode coq-mode elm-mode markdown-mode nix-mode) . (lambda () (fci-mode 1)))
+  :hook ((coq-mode elm-mode markdown-mode nix-mode tuareg-mode) . (lambda () (fci-mode 1)))
   :config (setq fci-rule-column 80))
 
 ;; Nix-Mode
@@ -42,8 +41,10 @@
   :ensure t
   :defer t)
 
-;; Proof General is not in MELPA yet
-(load "~/.emacs.d/lisp/PG/generic/proof-site")
+;; Proof General and company-coq
+(use-package proof-general
+  :ensure t
+  :defer t)
 
 (use-package company-coq
   :ensure t
@@ -58,8 +59,7 @@
 (use-package merlin
   :if (executable-find "ocamlmerlin")
   :ensure t
-  :init
-  (setq merlin-command "ocamlmerlin")
+  :init (setq merlin-command "ocamlmerlin")
   :hook (tuareg-mode . merlin-mode))
 
 ;; Elm-Mode
@@ -82,8 +82,7 @@
 ;; EditorConfig (for contributing to NixOS/nixpkgs notably)
 (use-package editorconfig
   :ensure t
-  :config
-  (editorconfig-mode 1))
+  :config (editorconfig-mode 1))
 
 ;; Dark theme
 (use-package dracula-theme
