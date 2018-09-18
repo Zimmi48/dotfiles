@@ -1,7 +1,9 @@
-[submodule "unstable"]
-	path = unstable
-	url = https://github.com/NixOS/nixpkgs-channels.git
-        ignore = dirty
 [submodule "urxvt-font-size"]
 	path = urxvt-font-size
 	url = https://github.com/majutsushi/urxvt-font-size
+[submodule "nixos"]
+	path = nixos
+	url = https://github.com/NixOS/nixpkgs
+[submodule "nixpkgs"]
+	path = nixpkgs
+	url = https://github.com/NixOS/nixpkgs

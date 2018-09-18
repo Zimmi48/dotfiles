@@ -10,11 +10,6 @@ let
   home = "/home/${user.name}";
 in
 {
-  imports =
-    [ # Include the results of the hardware scan.
-      /etc/nixos/hardware-configuration.nix
-    ];
-
   hardware.cpu.intel.updateMicrocode = true;
   hardware.pulseaudio.enable = true;
 
@@ -55,11 +50,8 @@ in
 
     # Manually manage nix-channels
     nixPath = [
-      # Our local clone to track nixpkgs-unstable
-      "unstable=${home}/dotfiles/unstable"
-      "nixpkgs=/nix/var/nix/profiles/per-user/root/channels/nixos/nixpkgs"
-      "nixos-config=${home}/dotfiles/${hostName}.nix"
-      "/nix/var/nix/profiles/per-user/root/channels"
+      "nixpkgs=${home}/dotfiles/nixpkgs"
+      "nixos=${home}/dotfiles/nixos"
     ];
 
     binaryCaches = [
@@ -137,7 +129,6 @@ in
     imagemagick
     pandoc
     texlive.combined.scheme-full
-    elmPackages.elm
 
     # Jason's bug minimizer
     (callPackage ./coq-tools.nix {})
