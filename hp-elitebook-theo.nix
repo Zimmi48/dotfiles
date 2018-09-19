@@ -8,9 +8,6 @@ import ./nixos/nixos {
       ./nixos/nixos/modules/installer/scan/not-detected.nix
     ];
 
-    # Desktop Environment.
-    services.xserver.desktopManager.xfce.enable = true;
-
     boot = {
       initrd.availableKernelModules = [
         "xhci_pci"
@@ -39,10 +36,15 @@ import ./nixos/nixos {
 
     nix.maxJobs = (import ./nixos/lib).mkDefault 4;
 
-    services.xserver.libinput = {
-      enable = true;
-      naturalScrolling = true;
-      disableWhileTyping = true;
+    # Desktop Environment.
+    services.xserver = {
+      desktopManager.xfce.enable = true;
+
+      libinput = {
+        enable = true;
+        naturalScrolling = true;
+        disableWhileTyping = true;
+      };
     };
   };
 }
