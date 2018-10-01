@@ -98,6 +98,7 @@ in
 
     xorg.xbacklight
     libnotify
+    inotifyTools # Useful for dune build --watch in particular
     xfce.xfce4-notifyd
     xautolock
     i3lock
