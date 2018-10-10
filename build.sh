@@ -21,8 +21,8 @@ echo "export CACHIX_SIGNING_KEY=\$(pass tech/Cachix/theozim/CACHIX_SIGNING_KEY)"
 echo "nix run -f nixpkgs cachix -c cachix push theozim nix-builds/pykinea"
 echo
 echo "And:"
-echo "pass -c tech/$(echo $HOSTNAME | cut -d- -f1-2)/rootpass"
-echo "su -c \"./result/bin/switch-to-configuration switch &&
-       nix-env -p /nix/var/nix/profiles/system --set ./result\""
+echo "pass -c tech/$(echo $HOSTNAME | cut -d- -f1-2)/rootpass
+su -c \"nix-env -p /nix/var/nix/profiles/system --set ./result &&
+       ./result/bin/switch-to-configuration switch\""
 
 # Reference: http://www.haskellforall.com/2018/08/nixos-in-production.html
