@@ -1,0 +1,5 @@
+[Desktop Entry]
+Name=CoqIDE-v8.9
+Exec=/home/theo/bin/coqide-v8.9
+Terminal=false
+Type=Application
