@@ -10,31 +10,29 @@ let
   home = "/home/${user.name}";
 in
 {
-  hardware.cpu.intel.updateMicrocode = true;
-  hardware.pulseaudio.enable = true;
+  hardware = {
+    cpu.intel.updateMicrocode = true;
+    pulseaudio.enable = true;
+  };
 
-  boot.loader =
-    if efi then {
-        # Use the gummiboot efi boot loader.
+  boot = {
+    loader =
+      if efi then { # Use the gummiboot efi boot loader.
         systemd-boot.enable = true;
         efi.canTouchEfiVariables = true;
         timeout = 2;
-    }
-    else {
-        # Use the GRUB 2 boot loader.
-        grub.enable = true;
-        grub.version = 2;
+      }
+      else { # Use the GRUB 2 boot loader.
         grub.device = "/dev/sda";
         timeout = 2;
-    };
-
-  boot.tmpOnTmpfs = true;
+      };
+    tmpOnTmpfs = true;
+  };
 
   networking = {
     inherit hostName;
     networkmanager.enable = true;
   };
-
 
   time.timeZone = "Europe/Paris";
 
@@ -45,7 +43,6 @@ in
   };
 
   nix = {
-    useSandbox = true;
     extraOptions = "gc-keep-outputs = true";
 
     # Manually manage nix-channels
@@ -120,6 +117,7 @@ in
     tdesktop
     libreoffice
     evince
+    zotero
     mendeley
     vlc
     languagetool
@@ -158,9 +156,6 @@ in
     xkbOptions =
       "${if azerty then "eurosign:e" else "grp:alt_shift_toggle"},nbsp:level2";
 
-    # Login manager
-    displayManager.lightdm.enable = true;
-
     # Window manager
     windowManager.i3 = {
       enable = true;
@@ -197,7 +192,7 @@ in
     inherit home;
     description = user.description;
 
-    # To allow normal-user to broadcast a wifi network, to pass USB devices from host to guests
+    # To allow normal-user to broadcast a wifi network
     extraGroups = [ "networkmanager" "docker" ];
   };
 
