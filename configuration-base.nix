@@ -90,6 +90,7 @@ in
     gnupg1
     pass
     alsaUtils
+    poppler_utils
 
     # Desktop utilities
 
