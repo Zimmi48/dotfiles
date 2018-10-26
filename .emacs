@@ -94,6 +94,8 @@
 (add-to-list 'load-path "~/git/coq/dev/tools/")
 (require 'coqdev)
 
+(load "~/git/bot/dev.el")
+
 ;; Automatically added custom settings. Don't touch!
 
 (custom-set-variables
