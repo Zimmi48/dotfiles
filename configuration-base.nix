@@ -98,7 +98,6 @@ in
     libnotify
     inotifyTools # Useful for dune build --watch in particular
     xfce.xfce4-notifyd
-    xautolock
     i3lock
     i3status
     networkmanagerapplet
@@ -136,11 +135,18 @@ in
 
   environment.shellAliases.bashmount = "rlwrap bashmount";
 
-  programs.bash.enableCompletion = true;
+  programs = {
+    bash.enableCompletion = true;
 
-  programs.gnupg.agent = {
-    enable = true;
-    enableSSHSupport = true;
+    gnupg.agent = {
+      enable = true;
+      enableSSHSupport = true;
+    };
+
+    xss-lock = {
+      enable = true;
+      lockerCommand = "i3lock -c 000000";
+    };
   };
 
   # List services that you want to enable:
@@ -167,9 +173,6 @@ in
 
         # Network manager
         nm-applet &
-
-        # Screenlock
-        xautolock -locker 'i3lock -c 000000' -notify 10 -notifier 'notify-send "Computer is idle." "Screen will be locked in 10 seconds."' -corners '+000' -cornerdelay 10 &
 
         # Launch a LanguageTool HTTP server for use within Firefox
         languagetool-http-server --allow-origin "*" &
