@@ -142,11 +142,6 @@ in
       enable = true;
       enableSSHSupport = true;
     };
-
-    xss-lock = {
-      enable = true;
-      lockerCommand = "i3lock -c 000000";
-    };
   };
 
   # List services that you want to enable:
@@ -177,6 +172,13 @@ in
         # Launch a LanguageTool HTTP server for use within Firefox
         languagetool-http-server --allow-origin "*" &
       '';
+    };
+
+    xautolock = {
+      enable = true;
+      enableNotifier = true;
+      locker = "${pkgs.i3lock}/bin/i3lock -c 000000";
+      notifier = ''${pkgs.libnotify}/bin/notify-send "Locking in 10 seconds"'';
     };
   };
 
