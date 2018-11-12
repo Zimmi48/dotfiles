@@ -67,8 +67,7 @@
   :ensure t
   :defer t
   :init
-  (setq elm-format-on-save t)
-  (setq elm-format-command "elm-format-0.18"))
+  (setq elm-format-on-save t))
 
 ;; Markdown Mode
 (use-package markdown-mode
