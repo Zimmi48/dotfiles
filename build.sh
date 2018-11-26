@@ -1,7 +1,5 @@
 #!/bin/sh
 
-set -e
-
 nix build -f "$HOSTNAME.nix" system
 
 nix build -f coq.nix coq-master -o nix-builds/coq-master
