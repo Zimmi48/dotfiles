@@ -1,6 +1,6 @@
 [Desktop Entry]
 Name=CoqIDE-8.7
-Exec=/home/theo/bin/coqide-8.7
+Exec=/home/theo/dotfiles/nix-builds/coq-8-7/bin/coqide
 Terminal=false
 Type=Application
 
