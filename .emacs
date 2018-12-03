@@ -102,6 +102,9 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(package-selected-packages
+   (quote
+    (dracula-theme editorconfig markdown-mode elm-mode merlin tuareg company-coq proof-general nix-mode fill-column-indicator company use-package)))
  '(safe-local-variable-values
    (quote
     ((coq-prog-args "-coqlib" "../.." "-R" ".." "Coq" "-top" "Coq.Classes.CMorphisms")
