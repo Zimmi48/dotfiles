@@ -179,6 +179,7 @@ in
       enableNotifier = true;
       locker = "${pkgs.i3lock}/bin/i3lock -c 000000";
       notifier = ''${pkgs.libnotify}/bin/notify-send "Locking in 10 seconds"'';
+      time = 10;
     };
   };
 
