@@ -36,7 +36,6 @@ import ./nixos/nixos {
 
     nix.maxJobs = (import ./nixos/lib).mkDefault 4;
 
-    # Desktop Environment.
     services.xserver = {
       desktopManager.xfce.enable = true;
 
