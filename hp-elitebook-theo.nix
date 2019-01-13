@@ -36,6 +36,16 @@ import ./nixos/nixos {
 
     nix.maxJobs = (import ./nixos/lib).mkDefault 4;
 
+    # Enable Avahi for auto-discovery of printers
+    services.avahi.enable = true;
+
+    # Support for scanner
+    hardware.sane.enable = true;
+    # See https://unix.stackexchange.com/questions/412331/scanner-is-detected-just-once/482784#comment885284_482784
+    environment.variables.SANE_USB_WORKAROUND = "1";
+
+    environment.systemPackages = [ (import ./nixos {}).pkgs.simple-scan ];
+
     services.xserver = {
       desktopManager.xfce.enable = true;
 
