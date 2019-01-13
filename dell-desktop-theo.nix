@@ -51,10 +51,6 @@ import ./nixos/nixos {
     # Fix Gtk warning (see NixOS/nixpkgs#18479)
     environment.variables.GTK_DATA_PREFIX = "/run/current-system/sw";
 
-    # Enable CUPS to print documents.
-    services.printing.enable = true;
-    services.printing.drivers = [ pkgs.hplip ];
-
     # Enable Avahi for auto-discovery of printers
     # Comment out once printer is installed to avoid seeing too many of them
     # services.avahi.enable = true;

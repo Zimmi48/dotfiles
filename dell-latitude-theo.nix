@@ -39,6 +39,9 @@ import ./nixos/nixos {
 
     nix.maxJobs = (import ./nixos/lib).mkDefault 2;
 
+    # Enable Avahi for auto-discovery of printers
+    services.avahi.enable = true;
+
     # Support for scanner
     hardware.sane.enable = true;
 

@@ -199,6 +199,12 @@ in
     extraOptions = [ "-m randr" ];
   };
 
+  # Enable CUPS to print documents.
+  services.printing = {
+    enable = true;
+    drivers = [ pkgs.gutenprint pkgs.hplip pkgs.splix ];
+  };
+
   virtualisation.docker.enable = true;
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
