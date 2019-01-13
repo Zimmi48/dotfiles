@@ -75,37 +75,22 @@ in
   };
 
   # List packages installed in system profile.
-  environment.systemPackages = (with pkgs; [
+  environment.systemPackages = with pkgs; [
 
     # Command-line utilities
 
     nix-bash-completions
     wget
     which
-    gnumake
     zip
     unzip
-    git
     rlwrap
     gnupg1
     pass
     alsaUtils
     poppler_utils
-
-    # Desktop utilities
-
-    xorg.xbacklight
-    libnotify
-    inotifyTools # Useful for dune build --watch in particular
-    xfce.xfce4-notifyd
-    i3lock
-    i3status
-    networkmanagerapplet
-    xfce.xfce4-volumed
-    pavucontrol
-    dmenu
-    rxvt_unicode
     bashmount
+    pavucontrol
 
     # Applications
 
@@ -115,6 +100,7 @@ in
     irssi
     skype
     tdesktop
+    emacs
     libreoffice
     evince
     zotero
@@ -124,14 +110,15 @@ in
 
     # Development (stable packages)
 
-    emacs
+    gnumake
+    git
     imagemagick
     pandoc
     texlive.combined.scheme-full
+    inotifyTools # Useful for dune build --watch in particular
+    (callPackage ./coq-tools.nix {}) # Jason's bug minimizer
 
-    # Jason's bug minimizer
-    (callPackage ./coq-tools.nix {})
-  ]);
+  ];
 
   environment.shellAliases.bashmount = "rlwrap bashmount";
 
@@ -172,6 +159,27 @@ in
         # Launch a LanguageTool HTTP server for use within Firefox
         languagetool-http-server --allow-origin "*" &
       '';
+      extraPackages = with pkgs; [
+        # Desktop packages
+
+        xorg.xbacklight
+        libnotify
+        xfce.xfce4-notifyd
+        networkmanagerapplet
+        xfce.xfce4-volumed
+        rxvt_unicode
+        i3lock
+        i3status
+        (dmenu.override {
+          patches = [
+            (fetchpatch rec {
+              name = "dmenu-prefixcompletion-4.8.diff";
+              url = "https://tools.suckless.org/dmenu/patches/prefix-completion/${name}";
+              sha256 = "0ibg4l9xjvmxiijycw8g72xqqvl0mswkx2jjv9z1cphvc4whxdyh";
+            })
+          ];
+        })
+      ];
     };
 
     xautolock = {
