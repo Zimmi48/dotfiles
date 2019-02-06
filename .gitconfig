@@ -17,5 +17,5 @@
         fix = commit -a --amend --no-edit
         newbranch = checkout -b
         clone-fork = ! ~/dotfiles/git-clone-fork.sh
-        delete = '! f() { git branch -d $1 && git push origin -d $1; }; f'
-        delete-hard = '! f() { git branch -D $1 && git push origin -d $1; }; f'
+        delete = "! f() { git branch -d $1 && git push origin -d $1; }; f"
+        delete-hard = "! f() { git branch -D $1 && git push origin -d $1; }; f"
