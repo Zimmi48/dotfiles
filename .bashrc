@@ -16,8 +16,9 @@ alias matplotlib-env='nix-shell -p "python3Packages.matplotlib.override {enableQ
 
 alias kinea-run='nix-shell ~/dotfiles/pykinea.nix --run "python src/kinea.py"'
 
-
 # Auto-completion of git aliases
 function _git_delete() {
   _git_branch
 }
+
+export EDITOR=emacs
