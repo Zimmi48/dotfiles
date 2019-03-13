@@ -95,6 +95,9 @@
 
 (load "~/git/bot/dev.el")
 
+;; org-mode
+(setq org-cycle-separator-lines 1)
+
 ;; Automatically added custom settings. Don't touch!
 
 (custom-set-variables
