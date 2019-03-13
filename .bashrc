@@ -20,5 +20,8 @@ alias kinea-run='nix-shell ~/dotfiles/pykinea.nix --run "python src/kinea.py"'
 function _git_delete() {
   _git_branch
 }
+function _git_delete-hard() {
+  _git_branch
+}
 
 export EDITOR=emacs
