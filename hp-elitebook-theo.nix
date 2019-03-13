@@ -41,17 +41,17 @@ import ./nixos/nixos {
 
     hardware = {
       # Support for bluetooth
-      pulseaudio.package = pkgs.pulseaudioFull;
+      pulseaudio.package = (import ./nixos {}).pkgs.pulseaudioFull;
       bluetooth.enable = true;
 
       # Support for scanner
       sane.enable = true;
-    }
+    };
 
     # See https://unix.stackexchange.com/questions/412331/scanner-is-detected-just-once/482784#comment885284_482784
     environment.variables.SANE_USB_WORKAROUND = "1";
 
-    environment.systemPackages = with (import ./nixos {}).pkgs [
+    environment.systemPackages = with (import ./nixos {}).pkgs; [
       blueman
       simple-scan
     ];
