@@ -1,5 +1,3 @@
 {
-  coq-master = import (fetchTarball "https://github.com/coq/coq/tarball/master") {};
-  coq-v8-9 = import (fetchTarball "https://github.com/coq/coq/tarball/v8.9") {};
-  coq-v8-8 = import (fetchTarball "https://github.com/coq/coq/tarball/v8.8") {};
+  coq-master = import (fetchTarball "https://github.com/coq/coq-on-cachix/tarball/master") {};
 }
