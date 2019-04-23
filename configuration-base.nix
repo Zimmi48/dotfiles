@@ -129,7 +129,18 @@ in
       enable = true;
       enableSSHSupport = true;
     };
+
+    light.enable = true;
   };
+
+  services.actkbd = {
+    enable = true;
+    bindings = [
+      { keys = [ 225 ]; events = [ "key" ]; command = "/run/current-system/sw/bin/light -A 10"; }
+      { keys = [ 224 ]; events = [ "key" ]; command = "/run/current-system/sw/bin/light -U 10"; }
+    ];
+  };
+
 
   # List services that you want to enable:
 
@@ -162,7 +173,6 @@ in
       extraPackages = with pkgs; [
         # Desktop packages
 
-        xorg.xbacklight
         libnotify
         xfce.xfce4-notifyd
         networkmanagerapplet
@@ -170,12 +180,13 @@ in
         rxvt_unicode
         i3lock
         i3status
+
         (dmenu.override {
           patches = [
             (fetchpatch rec {
-              name = "dmenu-prefixcompletion-4.8.diff";
+              name = "dmenu-prefixcompletion-4.9.diff";
               url = "https://tools.suckless.org/dmenu/patches/prefix-completion/${name}";
-              sha256 = "0ibg4l9xjvmxiijycw8g72xqqvl0mswkx2jjv9z1cphvc4whxdyh";
+              sha256 = "1nxxi6aa2bz6kkkcms1isy9v1lmbb393j8bvpqsvgngda6wpxrhs";
             })
           ];
         })
@@ -213,8 +224,8 @@ in
     inherit home;
     description = user.description;
 
-    # To allow normal-user to broadcast a wifi network
-    extraGroups = [ "networkmanager" ];
+    # To allow normal-user to broadcast a wifi network, and control backlight
+    extraGroups = [ "networkmanager" "video" ];
   };
 
   # The NixOS release to be compatible with for stateful data such as databases.

@@ -57,7 +57,7 @@ import ./nixos/nixos {
 
     # Custom multi-display support
     services.xserver.displayManager.sessionCommands = ''
-      xrandr --output HDMI1 --rotate left --auto --primary --output HDMI2 --auto --right-of HDMI1
+      xrandr --output HDMI-1 --rotate left --auto --primary --output HDMI-2 --auto --right-of HDMI-1
     '';
 
     # Time sync university servers
