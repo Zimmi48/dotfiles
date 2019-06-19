@@ -3,6 +3,7 @@
 nix build -f "$HOSTNAME.nix" system
 
 nix build -f coq.nix coq-master -o nix-builds/coq-master
+nix build -f nixpkgs coq_8_10 -o nix-builds/coq-8-10
 nix build -f nixpkgs coq_8_9 -o nix-builds/coq-8-9
 nix build -f nixpkgs coq_8_8 -o nix-builds/coq-8-8
 nix build -f nixpkgs coq_8_7 -o nix-builds/coq-8-7

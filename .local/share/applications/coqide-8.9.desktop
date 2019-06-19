@@ -3,4 +3,3 @@ Name=CoqIDE
 Exec=/home/theo/dotfiles/nix-builds/coq-8-9/bin/coqide
 Terminal=false
 Type=Application
-
