@@ -54,6 +54,7 @@ import ./nixos/nixos {
     environment.systemPackages = with (import ./nixos {}).pkgs; [
       blueman
       simple-scan
+      texstudio
     ];
 
     services.xserver = {
