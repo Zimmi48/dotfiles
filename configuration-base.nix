@@ -102,17 +102,7 @@ in
     skype
     tdesktop
     emacs
-    (vscode-with-extensions.override {
-       vscode = vscodium;
-       vscodeExtensions = vscode-utils.extensionsFromVscodeMarketplace [
-         {
-           name = "vscoq";
-           publisher = "maximedenes";
-           version = "0.3.0";
-           sha256 = "0ijczlf8mzhpqd3fg951nx53isv9xffix1id43waxmy9djy23rf9";
-         }
-       ];
-    })
+    vscodium
     libreoffice
     texstudio
     evince
