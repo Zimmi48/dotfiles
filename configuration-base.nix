@@ -32,6 +32,7 @@ in
   networking = {
     inherit hostName;
     networkmanager.enable = true;
+    firewall.allowedTCPPorts = [ 11371 ]; # gpg key servers
   };
 
   time.timeZone = "Europe/Paris";
@@ -102,6 +103,7 @@ in
     tdesktop
     emacs
     libreoffice
+    texstudio
     evince
     zotero
     mendeley
