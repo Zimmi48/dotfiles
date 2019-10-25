@@ -1,5 +1,5 @@
 [Desktop Entry]
-Name=CoqIDE 8.10
+Name=CoqIDE
 Exec=/home/theo/dotfiles/nix-builds/coq-8-10/bin/coqide
 Terminal=false
 Type=Application
