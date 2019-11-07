@@ -69,10 +69,12 @@ in
   # This is where e.g. to override packages
   nixpkgs.config = {
     # List the names of allowed non-free packages
-    allowUnfreePredicate = with builtins; (pkg: elem (parseDrvName pkg.name).name [
-      "mendeley"
-      "skypeforlinux"
-    ]);
+    allowUnfreePredicate = with builtins; (pkg:
+      elem (if pkg ? pname then pkg.pname else (parseDrvName pkg.name).name) [
+        "mendeley"
+        "skypeforlinux"
+      ]
+    );
   };
 
   # List packages installed in system profile.
@@ -95,7 +97,7 @@ in
 
     # Applications
 
-    firefox
+    firefox-esr
     chromium
     thunderbird
     irssi
@@ -208,8 +210,6 @@ in
   # RedShift changes the color of the screen to a redder tone when night is approaching
   services.redshift = {
     enable = true;
-    latitude = "48.8";
-    longitude = "2.3";
     temperature = {
       day = 4000;
       night = 2500;

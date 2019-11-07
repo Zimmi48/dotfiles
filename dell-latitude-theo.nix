@@ -58,5 +58,8 @@ import ./nixos/nixos {
         maxSpeed = "2.0"; # default 1.0
       };
     };
+
+    # Location info for RedShift
+    location.provider = "geoclue2";
   };
 }

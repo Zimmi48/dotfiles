@@ -62,5 +62,11 @@ import ./nixos/nixos {
 
     # Time sync university servers
     services.ntp.servers = [ "ntp.univ-paris-diderot.fr" ];
+
+    # Location info for RedShift
+    location = {
+      latitude = 48.8;
+      longitude = 2.3;
+    };
   };
 }
