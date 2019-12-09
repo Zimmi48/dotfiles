@@ -94,6 +94,7 @@ in
     poppler_utils
     bashmount
     pavucontrol
+    xorg.xkill
 
     # Applications
 
@@ -118,6 +119,8 @@ in
     gnumake
     git
     imagemagick
+    jq
+    mustache-go
     pandoc
     texlive.combined.scheme-full
     inotifyTools # Useful for dune build --watch in particular
