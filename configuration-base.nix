@@ -70,7 +70,7 @@ in
   nixpkgs.config = {
     # List the names of allowed non-free packages
     allowUnfreePredicate = with builtins; (pkg:
-      elem (if pkg ? pname then pkg.pname else (parseDrvName pkg.name).name) [
+      elem (pkg.pname or (parseDrvName pkg.name).name) [
         "mendeley"
         "skypeforlinux"
       ]
