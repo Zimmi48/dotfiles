@@ -1,7 +1,7 @@
 # This is Git's per-user configuration file.
 [user]
         name = Théo Zimmermann
-        email = theo.zimmermann@univ-paris-diderot.fr
+        email = theo.zimmermann@inria.fr
         signingkey = F1744A0942F536C7
 [log]
         mailmap = true
