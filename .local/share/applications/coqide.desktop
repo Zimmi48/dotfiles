@@ -1,0 +1,5 @@
+[Desktop Entry]
+Name=CoqIDE
+Exec=coqide
+Terminal=false
+Type=Application
