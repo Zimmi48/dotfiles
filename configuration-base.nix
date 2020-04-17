@@ -8,6 +8,7 @@
 
 let
   home = "/home/${user.name}";
+  unfree = (import ./nixos { config.allowUnfree = true; }).pkgs;
 in
 {
   hardware = {
@@ -66,17 +67,6 @@ in
     ];
   };
 
-  # This is where e.g. to override packages
-  nixpkgs.config = {
-    # List the names of allowed non-free packages
-    allowUnfreePredicate = with builtins; (pkg:
-      elem (pkg.pname or (parseDrvName pkg.name).name) [
-        "mendeley"
-        "skypeforlinux"
-      ]
-    );
-  };
-
   # List packages installed in system profile.
   environment.systemPackages = with pkgs; [
 
@@ -102,7 +92,6 @@ in
     chromium
     thunderbird
     irssi
-    skype
     tdesktop
     emacs
     vscodium
@@ -110,9 +99,14 @@ in
     texstudio
     evince
     zotero
-    mendeley
     vlc
     languagetool
+
+    # Non-free applications
+
+    unfree.mendeley
+    unfree.skype
+    unfree.zoom-us
 
     # Development (stable packages)
 
