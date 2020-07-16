@@ -228,8 +228,8 @@ in
     inherit home;
     description = user.description;
 
-    # To allow normal-user to broadcast a wifi network, and control backlight
-    extraGroups = [ "networkmanager" "video" ];
+    # To allow normal-user to run docker, broadcast a wifi network, and control backlight
+    extraGroups = [ "docker" "networkmanager" "video" ];
   };
 
   # The NixOS release to be compatible with for stateful data such as databases.
