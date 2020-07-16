@@ -8,7 +8,8 @@
 
 let
   home = "/home/${user.name}";
-  unfree = (import ./nixos { config.allowUnfree = true; }).pkgs;
+  # Use the latest possible version of unfree packages
+  unfree = (import ./nixpkgs { config.allowUnfree = true; }).pkgs;
 in
 {
   hardware = {
