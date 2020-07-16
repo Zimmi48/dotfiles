@@ -39,11 +39,11 @@ in
 
   time.timeZone = "Europe/Paris";
 
-  i18n = {
-    consoleFont = "Lat2-Terminus22";
-    consoleUseXkbConfig = true;
-    defaultLocale = "fr_FR.UTF-8";
+  console = {
+    font = "Lat2-Terminus22";
+    useXkbConfig = true;
   };
+  i18n.defaultLocale = "fr_FR.UTF-8";
 
   nix = {
     extraOptions = "gc-keep-outputs = true";

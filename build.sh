@@ -3,13 +3,13 @@
 nix build -f "$HOSTNAME.nix" system
 
 nix build -f coq.nix coq-master -o nix-builds/coq-master
-nix-env -f nixpkgs -iA coq_8_11
+nix-env -f nixpkgs -iA coq_8_12
+nix build -f nixpkgs coq_8_11 -o nix-builds/coq-8-11
 nix build -f nixpkgs coq_8_10 -o nix-builds/coq-8-10
 nix build -f nixpkgs coq_8_9 -o nix-builds/coq-8-9
 nix build -f nixpkgs coq_8_8 -o nix-builds/coq-8-8
 nix build -f nixpkgs coq_8_7 -o nix-builds/coq-8-7
 nix build -f nixpkgs coq_8_6 -o nix-builds/coq-8-6
-nix build -f nixpkgs coq_8_5 -o nix-builds/coq-8-5
 
 echo
 echo "Build completed."
