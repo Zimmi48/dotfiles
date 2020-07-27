@@ -39,6 +39,8 @@ import ./nixos/nixos {
     # Enable Avahi for auto-discovery of printers
     services.avahi.enable = true;
 
+    services.blueman.enable = true;
+
     hardware = {
       # Support for bluetooth
       pulseaudio.package = (import ./nixos {}).pkgs.pulseaudioFull;
