@@ -50,13 +50,7 @@ import ./nixos/nixos {
     services.xserver = {
       desktopManager.xfce.enable = true;
 
-      # Might be worth checking if it can be switched to lipinput
-      synaptics = {
-        enable = true;
-        accelFactor = "0.002"; # default 0.001
-        minSpeed = "1.0"; # default 0.6
-        maxSpeed = "2.0"; # default 1.0
-      };
+      libinput.enable = true;
     };
 
     # Location info for RedShift
