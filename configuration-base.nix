@@ -8,6 +8,7 @@
 
 let
   home = "/home/${user.name}";
+  nixpkgs = (import ./nixpkgs {}).pkgs;
   # Use the latest possible version of unfree packages
   unfree = (import ./nixpkgs { config.allowUnfree = true; }).pkgs;
 in
@@ -86,6 +87,7 @@ in
     bashmount
     pavucontrol
     xorg.xkill
+    scrot
 
     # Applications
 
@@ -113,13 +115,19 @@ in
 
     gnumake
     git
+    gitAndTools.gh
     imagemagick
-    jq
     mustache-go
     pandoc
     texlive.combined.scheme-full
     inotifyTools # Useful for dune build --watch in particular
     (callPackage ./coq-tools.nix {}) # Jason's bug minimizer
+    elmPackages.elm-format
+    opam
+
+    # Development (unstable packages)
+    nixpkgs.cached-nix-shell
+    nixpkgs.coq_8_12
 
   ];
 
