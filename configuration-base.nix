@@ -173,7 +173,7 @@ in
       configFile = ./i3-configuration-base;
       extraSessionCommands = ''
         # Volume manager
-        xfce4-volumed &
+        xfce4-volumed-pulse &
 
         # Network manager
         nm-applet &
@@ -187,7 +187,7 @@ in
         libnotify
         xfce.xfce4-notifyd
         networkmanagerapplet
-        xfce.xfce4-volumed
+        xfce.xfce4-volumed-pulse
         rxvt_unicode
         i3lock
         i3status
