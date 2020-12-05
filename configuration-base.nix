@@ -114,8 +114,6 @@ in
     # Development (stable packages)
 
     gnumake
-    git
-    gitAndTools.gh
     imagemagick
     mustache-go
     pandoc
@@ -126,6 +124,8 @@ in
     opam
 
     # Development (unstable packages)
+    nixpkgs.git
+    nixpkgs.gitAndTools.gh
     nixpkgs.cached-nix-shell
     nixpkgs.coq_8_12
 
