@@ -24,5 +24,7 @@ function _git_delete() {
 function _git_delete-hard() {
   _git_branch
 }
+# Keep auto-completion working in cached-nix-shell
+alias cached-nix-shell='cached-nix-shell --keep XDG_DATA_DIRS'
 
 export EDITOR=emacs
