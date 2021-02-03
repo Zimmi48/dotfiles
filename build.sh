@@ -2,7 +2,10 @@
 
 nix build -f "$HOSTNAME.nix" system
 
+# Development versions of Coq
 nix build -f coq.nix coq-master -o nix-builds/coq-master
+# Old Coq releases
+nix build -f nixpkgs coq_8_12 -o nix-builds/coq-8-12
 nix build -f nixpkgs coq_8_11 -o nix-builds/coq-8-11
 nix build -f nixpkgs coq_8_10 -o nix-builds/coq-8-10
 nix build -f nixpkgs coq_8_9 -o nix-builds/coq-8-9

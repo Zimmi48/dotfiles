@@ -127,7 +127,7 @@ in
     nixpkgs.git
     nixpkgs.gitAndTools.gh
     nixpkgs.cached-nix-shell
-    nixpkgs.coq_8_12
+    nixpkgs.coq_8_13
 
   ];
 

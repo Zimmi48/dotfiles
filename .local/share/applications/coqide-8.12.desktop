@@ -1,0 +1,5 @@
+[Desktop Entry]
+Name=CoqIDE 8.12
+Exec=/home/theo/dotfiles/nix-builds/coq-8-12/bin/coqide
+Terminal=false
+Type=Application
