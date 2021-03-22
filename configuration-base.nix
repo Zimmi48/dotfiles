@@ -109,6 +109,7 @@ in
 
     unfree.mendeley
     unfree.skype
+    unfree.teams
     unfree.zoom-us
 
     # Development (stable packages)
