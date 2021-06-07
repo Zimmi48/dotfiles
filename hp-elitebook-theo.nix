@@ -63,8 +63,10 @@ import ./nixos/nixos {
 
       libinput = {
         enable = true;
-        naturalScrolling = true;
-        disableWhileTyping = true;
+        touchpad = {
+          naturalScrolling = true;
+          disableWhileTyping = true;
+        };
       };
     };
 

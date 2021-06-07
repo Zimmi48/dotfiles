@@ -160,7 +160,7 @@ in
   # List services that you want to enable:
 
   # Fixing annoying Emacs warnings (cf. NixOS/nixpkgs#16327)
-  services.gnome3.at-spi2-core.enable = true;
+  services.gnome.at-spi2-core.enable = true;
 
   services.xserver = {
     # Enable the X11 windowing system.
