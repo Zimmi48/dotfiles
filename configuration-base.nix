@@ -29,6 +29,7 @@ in
         grub.device = "/dev/sda";
         timeout = 2;
       };
+    supportedFilesystems = [ "ntfs" ];
     tmpOnTmpfs = true;
   };
 
