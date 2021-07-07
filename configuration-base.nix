@@ -110,7 +110,6 @@ in
 
     # Non-free applications
 
-    unfree.mendeley
     unfree.skype
     unfree.teams
     unfree.zoom-us
