@@ -124,13 +124,13 @@ in
     inotifyTools # Useful for dune build --watch in particular
     (callPackage ./coq-tools.nix {}) # Jason's bug minimizer
     elmPackages.elm-format
-    opam
 
     # Development (unstable packages)
     nixpkgs.git
     nixpkgs.gitAndTools.gh
     nixpkgs.cached-nix-shell
     nixpkgs.coq_8_13
+    nixpkgs.opam
 
   ];
 
