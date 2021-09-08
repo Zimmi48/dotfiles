@@ -1,5 +1,5 @@
 [Desktop Entry]
 Name=CoqIDE master
-Exec=/home/theo/dotfiles/nix-builds/coq-master/bin/coqide
+Exec=/home/theo/dotfiles/nix-builds/coq-master/bin/coqide -unicode-bindings /home/theo/dotfiles/empty-file
 Terminal=false
 Type=Application

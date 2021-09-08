@@ -1,5 +1,5 @@
 [Desktop Entry]
 Name=CoqIDE
-Exec=coqide
+Exec=coqide -unicode-bindings /home/theo/dotfiles/empty-file
 Terminal=false
 Type=Application
