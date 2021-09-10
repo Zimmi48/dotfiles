@@ -110,6 +110,7 @@ in
 
     # Non-free applications
 
+    unfree.obsidian
     unfree.skype
     unfree.teams
     unfree.zoom-us
