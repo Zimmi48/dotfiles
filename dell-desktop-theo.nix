@@ -61,7 +61,7 @@ import ./nixos/nixos {
     '';
 
     # Time sync university servers
-    services.ntp.servers = [ "ntp.univ-paris-diderot.fr" ];
+    networking.timeServers = [ "ntp.univ-paris-diderot.fr" ];
 
     # Location info for RedShift
     location = {
