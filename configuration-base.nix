@@ -94,7 +94,7 @@ in
 
     # Applications
 
-    firefox-esr
+    firefox
     chromium
     thunderbird
     irssi
