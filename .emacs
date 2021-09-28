@@ -30,6 +30,25 @@
   (add-to-list 'company-backends 'merlin-company-backend)
   (add-to-list 'company-backends 'company-elm))
 
+;; LSP support
+(use-package lsp-mode
+  :ensure t
+  :init
+  ;; set prefix for lsp-command-keymap (few alternatives - "C-l", "C-c l")
+  (setq lsp-keymap-prefix "C-c l")
+  :hook (;(elm-mode . lsp)
+         (lsp-mode . lsp-enable-which-key-integration))
+  :commands lsp)
+
+(use-package lsp-ui
+  :ensure t
+  :commands lsp-ui-mode)
+
+(use-package which-key
+  :ensure t
+    :config
+    (which-key-mode))
+
 ;; 80-character mark
 (use-package fill-column-indicator
   :ensure t
@@ -107,12 +126,10 @@
  ;; If there is more than one, they won't work right.
  '(doc-view-continuous t)
  '(package-selected-packages
-   (quote
-    (dracula-theme editorconfig markdown-mode elm-mode merlin tuareg company-coq proof-general nix-mode fill-column-indicator company use-package)))
+   '(project dracula-theme editorconfig markdown-mode elm-mode merlin tuareg company-coq proof-general nix-mode fill-column-indicator company use-package))
  '(safe-local-variable-values
-   (quote
-    ((coq-prog-args "-coqlib" "../.." "-R" ".." "Coq" "-top" "Coq.Classes.CMorphisms")
-     (coq-prog-args "-coqlib" "../.." "-R" ".." "Coq" "-top" "Coq.Classes.Morphisms")))))
+   '((coq-prog-args "-coqlib" "../.." "-R" ".." "Coq" "-top" "Coq.Classes.CMorphisms")
+     (coq-prog-args "-coqlib" "../.." "-R" ".." "Coq" "-top" "Coq.Classes.Morphisms"))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
