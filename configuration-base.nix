@@ -132,7 +132,7 @@ in
     nixpkgs.git
     nixpkgs.gitAndTools.gh
     nixpkgs.cached-nix-shell
-    nixpkgs.coq_8_13
+    nixpkgs.coq_8_15
     nixpkgs.opam
 
   ];
@@ -222,10 +222,6 @@ in
   # RedShift changes the color of the screen to a redder tone when night is approaching
   services.redshift = {
     enable = true;
-    temperature = {
-      day = 4000;
-      night = 2500;
-    };
     extraOptions = [ "-m randr" ];
   };
 

@@ -6,6 +6,6 @@
 set -e
 
 ( cd nixpkgs && git fetch upstream && git checkout upstream/nixpkgs-unstable )
-( cd nixos && git checkout upstream/nixos-21.05 )
+( cd nixos && git checkout upstream/nixos-21.11 )
 
 ./build.sh
