@@ -113,8 +113,17 @@ in
     # Non-free applications
 
     unfree.obsidian
-    unfree.skype
+    unfree.skypeforlinux
     unfree.teams
+    (unfree.vscode-with-extensions.override
+      { vscodeExtensions = with unfree.vscode-extensions; [
+          eamodio.gitlens
+          elmtooling.elm-ls-vscode
+          github.vscode-pull-request-github
+          james-yu.latex-workshop
+          ms-vsliveshare.vsliveshare
+          ocamllabs.ocaml-platform
+        ]; })
     unfree.zoom-us
 
     # Development (stable packages)
