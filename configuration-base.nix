@@ -119,8 +119,11 @@ in
       { vscodeExtensions = with unfree.vscode-extensions; [
           eamodio.gitlens
           elmtooling.elm-ls-vscode
+          github.copilot
           github.vscode-pull-request-github
           james-yu.latex-workshop
+          ms-python.python
+          ms-toolsai.jupyter
           ms-vsliveshare.vsliveshare
           ocamllabs.ocaml-platform
         ]; })
