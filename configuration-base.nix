@@ -144,7 +144,8 @@ in
     nixpkgs.git
     nixpkgs.gitAndTools.gh
     nixpkgs.cached-nix-shell
-    nixpkgs.coq_8_15
+    nixpkgs.coq_8_16
+    nixpkgs.coqPackages_8_16.coqide
     nixpkgs.opam
 
   ];

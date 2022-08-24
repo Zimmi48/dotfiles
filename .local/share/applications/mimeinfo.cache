@@ -1,1 +1,5 @@
 [MIME Cache]
+application/pdf=mendeleydesktop.desktop;
+text/x-bibtex=mendeleydesktop.desktop;
+x-scheme-handler/mendeley=mendeleydesktop.desktop;
+x-scheme-handler/vsls=vsls-launcher.desktop;
