@@ -36,7 +36,7 @@ import ./nixos/nixos {
       fsType = "ext4";
     };
 
-    nix.maxJobs = (import ./nixos/lib).mkDefault 4;
+    nix.maxJobs = (import ./nixos/lib).mkDefault 2;
 
     # Additional packages
     environment.systemPackages = with pkgs; [
