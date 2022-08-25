@@ -114,7 +114,6 @@ in
 
     unfree.obsidian
     unfree.skypeforlinux
-    unfree.teams
     (unfree.vscode-with-extensions.override
       { vscodeExtensions = with unfree.vscode-extensions; [
           eamodio.gitlens
