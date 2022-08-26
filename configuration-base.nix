@@ -112,7 +112,7 @@ in
 
     # Non-free applications
 
-    unfree.obsidian
+    (unfree.obsidian.override { electron_17 = electron_18; })
     unfree.skypeforlinux
     (unfree.vscode-with-extensions.override
       { vscodeExtensions = with unfree.vscode-extensions; [
