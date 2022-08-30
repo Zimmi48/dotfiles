@@ -110,9 +110,10 @@ in
     vlc
     languagetool
 
-    # Non-free applications
+    # Non-free applications and development tools
 
-    (unfree.obsidian.override { electron_17 = electron_18; })
+    unfree.elmPackages.lamdera
+    unfree.obsidian
     unfree.skypeforlinux
     (unfree.vscode-with-extensions.override
       { vscodeExtensions = with unfree.vscode-extensions; [
