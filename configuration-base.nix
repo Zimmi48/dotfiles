@@ -174,8 +174,13 @@ in
 
   # List services that you want to enable:
 
-  # Fixing annoying Emacs warnings (cf. NixOS/nixpkgs#16327)
-  services.gnome.at-spi2-core.enable = true;
+  services.gnome = {
+    # Fixing annoying Emacs warnings (cf. NixOS/nixpkgs#16327)
+    at-spi2-core.enable = true;
+
+    # Required for GitHub Copilot
+    gnome-keyring.enable = true;
+  };
 
   services.xserver = {
     # Enable the X11 windowing system.
