@@ -14,6 +14,9 @@ nix-build nixpkgs -A coq_8_8 -o nix-builds/coq-8-8
 nix-build nixpkgs -A coq_8_7 -o nix-builds/coq-8-7
 nix-build nixpkgs -A coq_8_6 -o nix-builds/coq-8-6
 
+# Dev version of Coq
+nix-build -E '(import ./nixpkgs {}).coq.override { version = "master"; buildIde = true; }' -o nix-builds/coq-master
+
 echo
 echo "Build completed."
 echo
