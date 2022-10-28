@@ -101,8 +101,11 @@ in
     thunderbird
     irssi
     tdesktop
-    emacs
-    vscodium
+    (emacsWithPackages (epkgs: (with epkgs.melpaPackages; [
+      company-coq
+      dracula-theme
+      proof-general
+    ])))
     libreoffice
     texstudio
     evince
@@ -122,6 +125,8 @@ in
           github.copilot
           github.vscode-pull-request-github
           james-yu.latex-workshop
+          jnoortheen.nix-ide
+          maximedenes.vscoq
           ms-python.python
           ms-toolsai.jupyter
           ms-vsliveshare.vsliveshare
