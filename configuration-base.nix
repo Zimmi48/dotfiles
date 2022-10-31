@@ -99,7 +99,6 @@ in
     firefox
     chromium
     thunderbird
-    irssi
     tdesktop
     (emacsWithPackages (epkgs: (with epkgs.melpaPackages; [
       company-coq
@@ -107,7 +106,6 @@ in
       proof-general
     ])))
     libreoffice
-    texstudio
     evince
     zotero
     vlc
@@ -147,13 +145,11 @@ in
     pandoc
     texlive.combined.scheme-full
     inotifyTools # Useful for dune build --watch in particular
-    (callPackage ./coq-tools.nix {}) # Jason's bug minimizer
     elmPackages.elm-format
 
     # Development (unstable packages)
     nixpkgs.git
     nixpkgs.gitAndTools.gh
-    nixpkgs.cached-nix-shell
     nixpkgs.coq_8_16
     nixpkgs.coqPackages_8_16.coqide
     nixpkgs.opam
