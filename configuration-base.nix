@@ -115,6 +115,7 @@ in
     chromium
     thunderbird
     tdesktop
+    signal-desktop
     (emacsWithPackages (epkgs: (with epkgs.melpaPackages; [
       company-coq
       dracula-theme
