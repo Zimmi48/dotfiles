@@ -42,8 +42,11 @@ import ./nixos/nixos {
     services.blueman.enable = true;
 
     hardware = {
-      # Support for bluetooth
-      pulseaudio.package = (import ./nixos {}).pkgs.pulseaudioFull;
+      pulseaudio = {
+        enable = true;
+        # Support for bluetooth
+        package = (import ./nixos {}).pkgs.pulseaudioFull;
+      };
       bluetooth.enable = true;
 
       # Support for scanner

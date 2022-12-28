@@ -14,10 +14,7 @@ let
   unfree = (import ./nixpkgs { config.allowUnfree = true; }).pkgs;
 in
 {
-  hardware = {
-    cpu.intel.updateMicrocode = true;
-    pulseaudio.enable = true;
-  };
+  hardware.cpu.intel.updateMicrocode = true;
 
   boot = {
     loader =

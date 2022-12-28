@@ -42,8 +42,13 @@ import ./nixos/nixos {
     # Enable Avahi for auto-discovery of printers
     services.avahi.enable = true;
 
-    # Support for scanner
-    hardware.sane.enable = true;
+    hardware = {
+      pulseaudio.enable = true;
+
+      # Support for scanner
+      sane.enable = true;
+    };
+
 
     environment.systemPackages = [ (import ./nixos {}).pkgs.simple-scan ];
 
