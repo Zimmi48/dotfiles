@@ -46,7 +46,7 @@ import ./nixos/nixos {
 
     powerManagement.cpuFreqGovernor = (import ./nixos/lib).mkDefault "powersave";
 
-    nix.maxJobs = (import ./nixos/lib).mkDefault 4;
+    nix.settings.max-jobs = (import ./nixos/lib).mkDefault 4;
 
     # Enable Avahi for auto-discovery of printers
     services.avahi.enable = true;

@@ -37,7 +37,7 @@ import ./nixos/nixos {
       device = "/dev/disk/by-uuid/36b77ea3-bb39-4458-92cf-374308ff52d4";
     } ];
 
-    nix.maxJobs = (import ./nixos/lib).mkDefault 2;
+    nix.settings.max-jobs = (import ./nixos/lib).mkDefault 2;
 
     # Enable Avahi for auto-discovery of printers
     services.avahi.enable = true;

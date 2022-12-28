@@ -71,7 +71,7 @@ in
       "nixos=${home}/dotfiles/nixos"
     ];
 
-    binaryCaches = [
+    settings.substituters = [
       "https://cache.nixos.org"
       "https://cachix.cachix.org"
       "https://coq.cachix.org"
@@ -79,7 +79,7 @@ in
       "https://math-comp.cachix.org"
       "https://nix-community.cachix.org"
     ];
-    binaryCachePublicKeys = [
+    settings.trusted-public-keys = [
       "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
       "cachix.cachix.org-1:eWNHQldwUO7G2VkjpnjDbWwy4KQ/HNxht7H4SSoMckM="
       "coq.cachix.org-1:5QW/wwEnD+l2jvN6QRbRRsa4hBHG3QiQQ26cxu1F5tI="
@@ -236,16 +236,7 @@ in
         rxvt_unicode
         i3lock
         i3status
-
-        (dmenu.override {
-          patches = [
-            (fetchpatch rec {
-              name = "dmenu-prefixcompletion-4.9.diff";
-              url = "https://tools.suckless.org/dmenu/patches/prefix-completion/${name}";
-              sha256 = "1nxxi6aa2bz6kkkcms1isy9v1lmbb393j8bvpqsvgngda6wpxrhs";
-            })
-          ];
-        })
+        dmenu
       ];
     };
 
