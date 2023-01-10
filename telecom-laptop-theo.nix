@@ -48,6 +48,10 @@ import ./nixos/nixos {
 
     nix.settings.max-jobs = (import ./nixos/lib).mkDefault 4;
 
+    nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem ((import ./nixos/lib).getName pkg) [
+      "displaylink"
+    ];
+
     # Enable Avahi for auto-discovery of printers
     services.avahi.enable = true;
 
@@ -69,7 +73,10 @@ import ./nixos/nixos {
       simple-scan
     ];
 
-    services.xserver.desktopManager.xfce.enable = true;
+    services.xserver = {
+      desktopManager.xfce.enable = true;
+      videoDrivers = [ "displaylink" "modesetting" ];
+    };
 
     # Enable sound with pipewire.
     sound.enable = true;
