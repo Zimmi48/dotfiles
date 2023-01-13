@@ -3,6 +3,7 @@
 nix-build "$HOSTNAME.nix" -A system
 
 # Old Coq releases
+nix-build nixpkgs -A coqPackages_8_16.coqide -o nix-builds/coq-8-16
 nix-build nixpkgs -A coqPackages_8_15.coqide -o nix-builds/coq-8-15
 nix-build nixpkgs -A coqPackages_8_14.coqide -o nix-builds/coq-8-14
 nix-build nixpkgs -A coq_8_13 -o nix-builds/coq-8-13

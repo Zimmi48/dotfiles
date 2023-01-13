@@ -167,8 +167,8 @@ in
     # Development (unstable packages)
     nixpkgs.git
     nixpkgs.gitAndTools.gh
-    nixpkgs.coq_8_16
-    nixpkgs.coqPackages_8_16.coqide
+    nixpkgs.coq_8_17
+    nixpkgs.coqPackages_8_17.coqide
     nixpkgs.opam
 
   ];
