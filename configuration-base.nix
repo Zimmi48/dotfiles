@@ -92,7 +92,7 @@ in
   # List packages installed in system profile.
   environment.systemPackages = with pkgs; [
 
-    # Command-line utilities
+    # Utilities
 
     nix-bash-completions
     wget
@@ -108,6 +108,7 @@ in
     pavucontrol
     xorg.xkill
     scrot
+    arandr
 
     # Applications
 
