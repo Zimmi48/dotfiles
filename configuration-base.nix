@@ -118,11 +118,7 @@ in
     thunderbird
     tdesktop
     signal-desktop
-    (emacsWithPackages (epkgs: (with epkgs.melpaPackages; [
-      company-coq
-      dracula-theme
-      proof-general
-    ])))
+    emacs
     libreoffice
     evince
     zotero
