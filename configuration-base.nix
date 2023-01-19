@@ -109,6 +109,7 @@ in
     xorg.xkill
     scrot
     arandr
+    pdfpc
 
     # Applications
 
