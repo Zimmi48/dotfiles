@@ -134,6 +134,7 @@ in
       { vscodeExtensions = with unfree.vscode-extensions; [
           eamodio.gitlens
           elmtooling.elm-ls-vscode
+          github.codespaces
           github.copilot
           github.vscode-pull-request-github
           james-yu.latex-workshop
