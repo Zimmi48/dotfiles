@@ -260,7 +260,11 @@ in
     drivers = [ pkgs.gutenprint pkgs.hplip pkgs.splix ];
   };
 
-  virtualisation.docker.enable = true;
+  virtualisation = {
+    docker.enable = true;
+    virtualbox.host.enable = true;
+    libvirtd.enable = true;
+  };
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.extraUsers."${user.name}" = {
@@ -268,8 +272,8 @@ in
     inherit home;
     description = user.description;
 
-    # To allow normal-user to run docker, broadcast a wifi network, and control backlight
-    extraGroups = [ "docker" "networkmanager" "video" ];
+    # To allow normal-user to run various virtualization methods, broadcast a wifi network, and control backlight
+    extraGroups = [ "docker" "libvirtd" "networkmanager" "user-with-access-to-virtualbox" "video" ];
   };
 
   # This value determines the NixOS release from which the default
