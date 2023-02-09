@@ -51,32 +51,43 @@ import ./nixos/nixos {
     # Manage display with autorandr
     services.autorandr = {
       enable = true;
-      profiles = {
-        "default" = {
+      profiles =
+        let
           fingerprint = {
             eDP-1 = "00ffffffffffff000dae161400000000101e0104a51f117802ee95a3544c99260f505400000001010101010101010101010101010101363680a0703820402e1e240035ad1000001a602b80a0703820402e1e240035ad1000001a000000fe004348463037803134304843470a0000000000024101a8001000000a010a202000a0";
+            DP-1-1 = "00ffffffffffff0010ac4042424d34412d200104a53c22783ac525aa534f9d25105054a54b00714f8180a9c0d1c081c081cf01010101023a801871382d40582c450056502100001e000000ff0039464c505a4e330a2020202020000000fc0044454c4c205032373232480a20000000fd00384c1e5311010a2020202020200000";
           };
-          config = {
-            eDP-1 = {
+          work-config = {
+            eDP-1.enable = false;
+            DP-1-1 = {
               enable = true;
               primary = true;
               mode = "1920x1080";
             };
           };
-        };
-        "work" = {
-          fingerprint = {
-            DP-1-1 = "00ffffffffffff0022f04c28010101010c160104a5342078229ec5a6564b9a25135054210800814081809500a940b300d1c001010101283c80a070b023403020360006442100001a000000fd00323f184c11000a202020202020000000fc004c41323430350a202020202020000000ff00434e34323132304339560a2020006f";
-          };
-          config = {
-            eDP-1.enable = false;
-            DP-1-1 = {
-              enable = true;
-              primary = true;
-              mode = "1920x1200";
+        in {
+          "default" = {
+            fingerprint = {
+              inherit (fingerprint) eDP-1;
+            };
+            config = {
+              eDP-1 = {
+                enable = true;
+                primary = true;
+                mode = "1920x1080";
+              };
             };
           };
-        };
+          "work" = {
+            inherit fingerprint;
+            config = work-config;
+          };
+          "work-laptop-lid-closed" = {
+            fingerprint = {
+              inherit (fingerprint) DP-1-1;
+            };
+            config = work-config;
+          };
       };
     };
 
