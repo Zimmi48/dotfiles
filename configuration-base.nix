@@ -147,6 +147,7 @@ in
           ms-toolsai.jupyter-renderers
           ms-toolsai.vscode-jupyter-cell-tags
           ms-toolsai.vscode-jupyter-slideshow
+          ms-vscode-remote.remote-ssh
           ms-vsliveshare.vsliveshare
           ocamllabs.ocaml-platform
         ]; })
