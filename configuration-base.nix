@@ -10,7 +10,7 @@
 let
   home = "/home/${user.name}";
   nixpkgs = (import ./nixpkgs {}).pkgs;
-  # Use the latest possible version of unfree packages
+  # Use the latest possible version of non-free packages
   unfree = (import ./nixpkgs { config.allowUnfree = true; }).pkgs;
 in
 {
@@ -130,28 +130,34 @@ in
     unfree.elmPackages.lamdera
     unfree.obsidian
     unfree.skypeforlinux
+    unfree.zoom-us
+
+    # VS Code with free and non-free extensions
+
     (unfree.vscode-with-extensions.override
-      { vscodeExtensions = with unfree.vscode-extensions; [
+      { vscodeExtensions = (with nixpkgs.vscode-extensions; [
           eamodio.gitlens
           elmtooling.elm-ls-vscode
-          github.codespaces
-          github.copilot
+          foam.foam-vscode
           github.vscode-pull-request-github
           james-yu.latex-workshop
           jnoortheen.nix-ide
           maximedenes.vscoq
           ms-python.python
-          ms-python.vscode-pylance
           ms-toolsai.jupyter
           ms-toolsai.jupyter-keymap
           ms-toolsai.jupyter-renderers
           ms-toolsai.vscode-jupyter-cell-tags
           ms-toolsai.vscode-jupyter-slideshow
+          ocamllabs.ocaml-platform
+          yzhang.markdown-all-in-one # Recommended by Foam
+        ]) ++ (with unfree.vscode-extensions; [
+          github.codespaces
+          github.copilot
+          ms-python.vscode-pylance
           ms-vscode-remote.remote-ssh
           ms-vsliveshare.vsliveshare
-          ocamllabs.ocaml-platform
-        ]; })
-    unfree.zoom-us
+        ]); })
 
     # Development (stable packages)
 
