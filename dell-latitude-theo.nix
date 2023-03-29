@@ -4,6 +4,8 @@ import ./nixos/nixos {
       (import ./configuration-base.nix {
         hostName = "dell-latitude-theo";
         azerty = true;
+        efi = false;
+        stateVersion = "16.09";
       })
       ./nixos/nixos/modules/installer/scan/not-detected.nix
     ];

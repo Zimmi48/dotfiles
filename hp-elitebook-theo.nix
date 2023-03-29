@@ -3,7 +3,7 @@ import ./nixos/nixos {
     imports = [
       (import ./configuration-base.nix {
         hostName = "hp-elitebook-theo";
-        efi = true;
+        stateVersion = "16.09";
       })
       ./nixos/nixos/modules/installer/scan/not-detected.nix
     ];

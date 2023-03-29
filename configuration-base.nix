@@ -1,8 +1,8 @@
 { hostName
 , user ? { name = "theo"; description = "Théo Zimmermann"; }
-, efi ? false
+, efi ? true
 , azerty ? false
-, stateVersion ? "16.09"
+, stateVersion
 }:
 
 { config, pkgs, ... }:

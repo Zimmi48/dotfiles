@@ -3,7 +3,6 @@ import ./nixos/nixos {
     imports = [
       (import ./configuration-base.nix {
         hostName = "telecom-laptop-theo";
-        efi = true;
         stateVersion = "22.05";
       })
       ./nixos/nixos/modules/installer/scan/not-detected.nix
