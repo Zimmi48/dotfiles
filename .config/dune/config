@@ -1,2 +1,3 @@
 (lang dune 2.1)
 (cache enabled)
+(jobs 4)
