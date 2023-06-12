@@ -128,7 +128,6 @@ in
     # Non-free applications and development tools
 
     unfree.elmPackages.lamdera
-    unfree.obsidian
     unfree.skypeforlinux
     unfree.zoom-us
 
