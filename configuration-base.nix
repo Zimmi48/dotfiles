@@ -28,7 +28,7 @@ in
         timeout = 2;
       };
     supportedFilesystems = [ "ntfs" ];
-    tmpOnTmpfs = true;
+    tmp.useTmpfs = true;
   };
 
   networking = {
