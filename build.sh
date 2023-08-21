@@ -16,17 +16,10 @@ read -r answer
 if [ "$answer" != "${answer#[Yy]}" ] ;then
        echo "Building old Coq releases..."
 
-       nix-build nixpkgs -A coqPackages_8_16.coqide -o nix-builds/coq-8-16
-       nix-build nixpkgs -A coqPackages_8_15.coqide -o nix-builds/coq-8-15
-       nix-build nixpkgs -A coqPackages_8_14.coqide -o nix-builds/coq-8-14
-       nix-build nixpkgs -A coq_8_13 -o nix-builds/coq-8-13
-       nix-build nixpkgs -A coq_8_12 -o nix-builds/coq-8-12
-       nix-build nixpkgs -A coq_8_11 -o nix-builds/coq-8-11
-       nix-build nixpkgs -A coq_8_10 -o nix-builds/coq-8-10
-       nix-build nixpkgs -A coq_8_9 -o nix-builds/coq-8-9
-       nix-build nixpkgs -A coq_8_8 -o nix-builds/coq-8-8
-       nix-build nixpkgs -A coq_8_7 -o nix-builds/coq-8-7
-       nix-build nixpkgs -A coq_8_6 -o nix-builds/coq-8-6
+       # from 8.6 to 8.16
+       for i in {6..16}; do
+              nix build .#coq_8_$i -o nix-builds/coq-8-$i
+       done
 else
        echo "Skipping old Coq releases..."
 fi
@@ -38,7 +31,7 @@ read -r answer
 if [ "$answer" != "${answer#[Yy]}" ] ;then
        echo "Building dev version of Coq..."
 
-       nix-build -E '(import ./nixpkgs {}).coq.override { version = "dev"; buildIde = true; }' -o nix-builds/coq-dev
+       nix build .#coq-dev -o nix-builds/coq-dev
 else
        echo "Skipping dev version of Coq..."
 fi

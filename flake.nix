@@ -2,25 +2,17 @@
   description = "NixOS Flake";
 
   inputs = {
-    nixpkgs.url = "path:/home/theo/dotfiles/nixos";
-    nixpkgs-unstable.url = "path:/home/theo/dotfiles/nixpkgs";
+    # We use the stable NixOS channel as our main input
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-23.05";
+    nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
   };
 
-  # `outputs` are all the build result of the flake.
-  #
-  # A flake can have many use cases and different types of outputs.
-  # 
-  # parameters in function `outputs` are defined in `inputs` and
-  # can be referenced by their names. However, `self` is an exception,
-  # this special parameter points to the `outputs` itself(self-reference)
-  # 
-  # The `@` syntax here is used to alias the attribute set of the
-  # inputs's parameter, making it convenient to use inside the function.
-  outputs = { self, nixpkgs, ... }@inputs: {
+  outputs = { self, nixpkgs, nixpkgs-unstable, ... }@inputs: {
+
     nixosConfigurations = {
       "telecom-laptop-theo" = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
-        # Make all inputs available in the NixOS modules.
+        # Make all inputs available in the NixOS modules
         specialArgs = inputs;
         modules = [
           ./telecom-laptop-theo.nix
@@ -28,7 +20,6 @@
       };
       "hp-elitebook-theo" = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
-        # Make all inputs available in the NixOS modules.
         specialArgs = inputs;
         modules = [
           ./hp-elitebook-theo.nix
@@ -36,12 +27,20 @@
       };
       "dell-latitude-theo" = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
-        # Make all inputs available in the NixOS modules.
         specialArgs = inputs;
         modules = [
           ./dell-latitude-theo.nix
         ];
       };
+    };
+
+    # This flake also exports packages for each older Coq version (from 8.6 to 8.16) and for Coq dev
+    packages.x86_64-linux = with nixpkgs-unstable.legacyPackages.x86_64-linux; {
+      inherit coq_8_6 coq_8_7 coq_8_8 coq_8_9 coq_8_10 coq_8_11 coq_8_12 coq_8_13;
+      coq_8_14 = coqPackages_8_14.coqide;
+      coq_8_15 = coqPackages_8_15.coqide;
+      coq_8_16 = coqPackages_8_16.coqide;
+      coq_dev = coq.override { version = "dev"; buildIde = true; };
     };
   };
 }

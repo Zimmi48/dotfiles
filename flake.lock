@@ -2,26 +2,34 @@
   "nodes": {
     "nixpkgs": {
       "locked": {
-        "lastModified": 1686578115,
-        "narHash": "sha256-tnCJRAn7+5VTgXULCrQWgbnl90GAQGkvzAyJlLTnP0o=",
-        "path": "/home/theo/dotfiles/nixos",
-        "type": "path"
+        "lastModified": 1692414505,
+        "narHash": "sha256-sSTuyR9JYSxmUcYcj0Jvw1hIq1tz/Canw9mK0hEJvnE=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "4cdad15f34e6321a2f789b99d42815b9142ac2ba",
+        "type": "github"
       },
       "original": {
-        "path": "/home/theo/dotfiles/nixos",
-        "type": "path"
+        "owner": "NixOS",
+        "ref": "nixos-23.05",
+        "repo": "nixpkgs",
+        "type": "github"
       }
     },
     "nixpkgs-unstable": {
       "locked": {
-        "lastModified": 1686842869,
-        "narHash": "sha256-bEWGFRMZwt3QSgk8p1LbIJncNmslbDWe7vjUfaek8wM=",
-        "path": "/home/theo/dotfiles/nixpkgs",
-        "type": "path"
+        "lastModified": 1692494774,
+        "narHash": "sha256-noGVoOTyZ2Kr5OFglzKYOX48cx3hggdCPbXrYMG2FDw=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "3476a10478587dec90acb14ec6bde0966c545cc0",
+        "type": "github"
       },
       "original": {
-        "path": "/home/theo/dotfiles/nixpkgs",
-        "type": "path"
+        "owner": "NixOS",
+        "ref": "nixpkgs-unstable",
+        "repo": "nixpkgs",
+        "type": "github"
       }
     },
     "root": {

@@ -5,7 +5,7 @@
 , stateVersion
 }:
 
-{ config, lib, pkgs, modulesPath, nixpkgs-unstable, ... }:
+{ config, lib, pkgs, modulesPath, nixpkgs, nixpkgs-unstable, ... }:
 
 let
   home = "/home/${user.name}";
@@ -65,11 +65,12 @@ in
   nix = {
     extraOptions = "gc-keep-outputs = true";
 
-    # Manually manage nix-channels
-    nixPath = [
-      "nixpkgs=${home}/dotfiles/nixpkgs"
-      "nixos=${home}/dotfiles/nixos"
-    ];
+    # Make `nix run nixpkgs#...` match nixpkgs-unstable
+    registry.nixpkgs.flake = nixpkgs-unstable;
+    # Make `nix run nixos#...` match nixpkgs
+    registry.nixos.flake = nixpkgs;
+
+    nixPath = ["/etc/nix/inputs"];
 
     settings.substituters = [
       "https://cache.nixos.org"
@@ -90,6 +91,13 @@ in
 
     # Enable Flakes and the new command-line interface
     settings.experimental-features = [ "nix-command" "flakes" ];
+  };
+
+  environment.etc = {
+    # Make `nix repl '<nixpkgs>'` match nixpkgs-unstable
+    "nix/inputs/nixpkgs".source = "${nixpkgs-unstable}";
+    # Make `nix repl '<nixos>'` match nixpkgs
+    "nix/inputs/nixos".source = "${nixpkgs}";
   };
 
   # List packages installed in system profile.
