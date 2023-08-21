@@ -87,6 +87,9 @@ in
       "math-comp.cachix.org-1:ZoAy3dSWncrBPpEsNHa1Rbio0Oly3TFrZXlVTdofbQU="
       "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
     ];
+
+    # Enable Flakes and the new command-line interface
+    settings.experimental-features = [ "nix-command" "flakes" ];
   };
 
   # List packages installed in system profile.
