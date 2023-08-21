@@ -1,11 +1,12 @@
-import ./nixos/nixos {
-  configuration = {
+{ config, lib, pkgs, modulesPath, ... }:
+
+{
     imports = [
       (import ./configuration-base.nix {
         hostName = "hp-elitebook-theo";
         stateVersion = "16.09";
       })
-      ./nixos/nixos/modules/installer/scan/not-detected.nix
+      (modulesPath + "/installer/scan/not-detected.nix")
     ];
 
     boot = {
@@ -34,7 +35,7 @@ import ./nixos/nixos {
       fsType = "vfat";
     };
 
-    nix.settings.max-jobs = (import ./nixos/lib).mkDefault 4;
+    nix.settings.max-jobs = lib.mkDefault 4;
 
     # Enable Avahi for auto-discovery of printers
     services.avahi.enable = true;
@@ -45,7 +46,7 @@ import ./nixos/nixos {
       pulseaudio = {
         enable = true;
         # Support for bluetooth
-        package = (import ./nixos {}).pkgs.pulseaudioFull;
+        package = pkgs.pulseaudioFull;
       };
       bluetooth.enable = true;
 
@@ -56,7 +57,7 @@ import ./nixos/nixos {
     # See https://unix.stackexchange.com/questions/412331/scanner-is-detected-just-once/482784#comment885284_482784
     environment.variables.SANE_USB_WORKAROUND = "1";
 
-    environment.systemPackages = with (import ./nixos {}).pkgs; [
+    environment.systemPackages = with pkgs; [
       blueman
       simple-scan
     ];
@@ -72,5 +73,4 @@ import ./nixos/nixos {
 
     # Location info for RedShift
     location.provider = "geoclue2";
-  };
 }

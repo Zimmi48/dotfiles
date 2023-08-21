@@ -7,5 +7,5 @@ set -e
 
 ( cd nixpkgs && git fetch upstream && git checkout upstream/nixpkgs-unstable )
 ( cd nixos && git checkout upstream/nixos-23.05 )
-
+nix flake update
 ./build.sh

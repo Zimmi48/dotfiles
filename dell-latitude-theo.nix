@@ -1,5 +1,6 @@
-import ./nixos/nixos {
-  configuration = {
+{ config, lib, pkgs, modulesPath, ... }:
+
+{
     imports = [
       (import ./configuration-base.nix {
         hostName = "dell-latitude-theo";
@@ -7,7 +8,7 @@ import ./nixos/nixos {
         efi = false;
         stateVersion = "16.09";
       })
-      ./nixos/nixos/modules/installer/scan/not-detected.nix
+      (modulesPath + "/installer/scan/not-detected.nix")
     ];
 
     boot = {
@@ -39,7 +40,7 @@ import ./nixos/nixos {
       device = "/dev/disk/by-uuid/36b77ea3-bb39-4458-92cf-374308ff52d4";
     } ];
 
-    nix.settings.max-jobs = (import ./nixos/lib).mkDefault 2;
+    nix.settings.max-jobs = lib.mkDefault 2;
 
     # Enable Avahi for auto-discovery of printers
     services.avahi.enable = true;
@@ -52,7 +53,7 @@ import ./nixos/nixos {
     };
 
 
-    environment.systemPackages = [ (import ./nixos {}).pkgs.simple-scan ];
+    environment.systemPackages = [ pkgs.simple-scan ];
 
     services.xserver = {
       desktopManager.xfce.enable = true;
@@ -62,5 +63,4 @@ import ./nixos/nixos {
 
     # Location info for RedShift
     location.provider = "geoclue2";
-  };
 }

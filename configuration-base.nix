@@ -5,13 +5,13 @@
 , stateVersion
 }:
 
-{ config, pkgs, ... }:
+{ config, lib, pkgs, modulesPath, nixpkgs-unstable, ... }:
 
 let
   home = "/home/${user.name}";
-  nixpkgs = (import ./nixpkgs {}).pkgs;
+  unstable = nixpkgs-unstable.legacyPackages.x86_64-linux;
   # Use the latest possible version of non-free packages
-  unfree = (import ./nixpkgs { config.allowUnfree = true; }).pkgs;
+  unfree = (import nixpkgs-unstable { system = "x86_64-linux"; config.allowUnfree = true; }).pkgs;
 in
 {
   hardware.cpu.intel.updateMicrocode = true;
@@ -137,7 +137,7 @@ in
     # VS Code with free and non-free extensions
 
     (unfree.vscode-with-extensions.override
-      { vscodeExtensions = (with nixpkgs.vscode-extensions; [
+      { vscodeExtensions = (with unstable.vscode-extensions; [
           eamodio.gitlens
           elmtooling.elm-ls-vscode
           foam.foam-vscode
@@ -172,11 +172,11 @@ in
     elmPackages.elm-format
 
     # Development (unstable packages)
-    nixpkgs.git
-    nixpkgs.gitAndTools.gh
-    nixpkgs.coq_8_17
-    nixpkgs.coqPackages_8_17.coqide
-    nixpkgs.opam
+    unstable.git
+    unstable.gitAndTools.gh
+    unstable.coq_8_17
+    unstable.coqPackages_8_17.coqide
+    unstable.opam
 
   ];
 

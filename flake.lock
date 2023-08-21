@@ -1,0 +1,36 @@
+{
+  "nodes": {
+    "nixpkgs": {
+      "locked": {
+        "lastModified": 1686578115,
+        "narHash": "sha256-tnCJRAn7+5VTgXULCrQWgbnl90GAQGkvzAyJlLTnP0o=",
+        "path": "/home/theo/dotfiles/nixos",
+        "type": "path"
+      },
+      "original": {
+        "path": "/home/theo/dotfiles/nixos",
+        "type": "path"
+      }
+    },
+    "nixpkgs-unstable": {
+      "locked": {
+        "lastModified": 1686842869,
+        "narHash": "sha256-bEWGFRMZwt3QSgk8p1LbIJncNmslbDWe7vjUfaek8wM=",
+        "path": "/home/theo/dotfiles/nixpkgs",
+        "type": "path"
+      },
+      "original": {
+        "path": "/home/theo/dotfiles/nixpkgs",
+        "type": "path"
+      }
+    },
+    "root": {
+      "inputs": {
+        "nixpkgs": "nixpkgs",
+        "nixpkgs-unstable": "nixpkgs-unstable"
+      }
+    }
+  },
+  "root": "root",
+  "version": 7
+}

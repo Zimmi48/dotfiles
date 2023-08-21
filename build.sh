@@ -5,8 +5,9 @@
 # This allows to keep roots of previous builds for a while.
 result="$HOSTNAME-$(date +%Y-%m-%d-%Hh%M)"
 echo "Building $HOSTNAME configuration..."
-nix-build "$HOSTNAME.nix" -A system -o "$result"
-echo "Result symlink: $result"
+nixos-rebuild build --flake .
+mv result "nix-builds/$result"
+echo "Result symlink: nix-builds/$result"
 
 # Old Coq releases
 echo
@@ -47,7 +48,7 @@ echo "Build completed."
 echo
 echo "Now run:"
 echo "pass -c tech/$(echo $HOSTNAME | cut -d- -f1-2)/rootpass
-su -c \"nix-env -p /nix/var/nix/profiles/system --set ./$result &&
-       ./$result/bin/switch-to-configuration switch\""
+su -c \"nix-env -p /nix/var/nix/profiles/system --set ./nix-builds/$result &&
+       ./nix-builds/$result/bin/switch-to-configuration switch\""
 
 # Reference: http://www.haskellforall.com/2018/08/nixos-in-production.html
