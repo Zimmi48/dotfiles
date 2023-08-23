@@ -8,6 +8,29 @@ let
 in
 
 {
+  programs.git = {
+    enable = true;
+    package = unstable.git;
+    userName = "Théo Zimmermann";
+    userEmail = "theo.zimmermann@telecom-paris.fr";
+    signing.key = "F1744A0942F536C7";
+    aliases = {
+      fix = "commit -a --amend --no-edit";
+      newbranch = "checkout -b";
+      clone-fork = "! ${./git-clone-fork.sh}";
+      delete = "! f() { git branch -d $1 && git push origin -d $1; }; f";
+      delete-hard = "! f() { git branch -D $1 && git push origin -d $1; }; f";
+    };
+    extraConfig = {
+      log.mailmap = true;
+      pull.ff = "only";
+      push.default = "current";
+      remote.pushdefault = "origin";
+      #credential.helper = "cache --timeout=3600";
+      init.defaultBranch = "main";
+    };
+  };
+
   home = {
     username = user.name;
     homeDirectory = home;
@@ -20,31 +43,6 @@ in
       source = ./.config;
       recursive = true;
     };
-
-    file.".gitconfig".text = ''
-      [user]
-        name = Théo Zimmermann
-        email = theo.zimmermann@telecom-paris.fr
-        signingkey = F1744A0942F536C7
-      [log]
-              mailmap = true
-      [pull]
-              ff = only
-      [push]
-              default = current
-      [remote]
-              pushdefault = origin
-      [credential]
-              helper = cache --timeout=3600
-      [alias]
-              fix = commit -a --amend --no-edit
-              newbranch = checkout -b
-              clone-fork = ! ${./git-clone-fork.sh}
-              delete = "! f() { git branch -d $1 && git push origin -d $1; }; f"
-              delete-hard = "! f() { git branch -D $1 && git push origin -d $1; }; f"
-      [init]
-        defaultBranch = main
-    '';
 
     # Desktop entries for CoqIDE
 

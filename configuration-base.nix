@@ -177,7 +177,6 @@
     elmPackages.elm-format
 
     # Development (unstable packages)
-    unstable.git
     unstable.gitAndTools.gh
     unstable.coq_8_17
     unstable.coqPackages_8_17.coqide
