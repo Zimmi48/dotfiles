@@ -1,5 +1,0 @@
-[Desktop Entry]
-Name=CoqIDE 8.14
-Exec=nix-shell -p coq_8_14 coqPackages_8_14.coqide --run "coqide -unicode-bindings /home/theo/dotfiles/empty-file"
-Terminal=false
-Type=Application

@@ -1,5 +1,0 @@
-[Desktop Entry]
-Name=CoqIDE 8.13
-Exec=/home/theo/dotfiles/nix-builds/coq-8-13/bin/coqide -unicode-bindings /home/theo/dotfiles/empty-file
-Terminal=false
-Type=Application
