@@ -7,6 +7,21 @@
     username = user.name;
     homeDirectory = home;
 
+    file.".bashrc".source = ./.bashrc;
+    file.".emacs".source = ./.emacs;
+    file.".gitconfig".source = ./.gitconfig;
+    file.".Xdefaults".source = ./.Xdefaults;
+
+    file.".config/" = {
+      source = ./.config;
+      recursive = true;
+    };
+
+    file.".local/share/applications/" = {
+      source = ./applications;
+      recursive = true;
+    };
+
     # This value determines the home Manager release that your
     # configuration is compatible with. This helps avoid breakage
     # when a new home Manager release introduces backwards

@@ -1,9 +1,20 @@
 #!/bin/sh
 
+# Update phase
+echo "Do you want to update the input flakes? (y/N)"
+read -r answer
+if [ "$answer" != "${answer#[Yy]}" ] ;then
+       echo "Updating the input flakes..."
+       nix flake update
+else
+       echo "Skipping the update of the input flakes..."
+fi
+
 # Build the NixOS configuration for this machine.
 # Generate a unique result symlink filename containing the date and time.
 # This allows to keep roots of previous builds for a while.
 result="$HOSTNAME-$(date +%Y-%m-%d-%Hh%M)"
+echo
 echo "Building $HOSTNAME configuration..."
 nixos-rebuild build --flake .
 mv result "nix-builds/$result"
@@ -11,7 +22,7 @@ echo "Result symlink: nix-builds/$result"
 
 # Old Coq releases
 echo
-echo "Do you want to build old Coq releases? (y/n)"
+echo "Do you want to build old Coq releases? (y/N)"
 read -r answer
 if [ "$answer" != "${answer#[Yy]}" ] ;then
        echo "Building old Coq releases..."
@@ -26,7 +37,7 @@ fi
 
 # Dev version of Coq
 echo
-echo "Do you want to build the dev version of Coq? (y/n)"
+echo "Do you want to build the dev version of Coq? (y/N)"
 read -r answer
 if [ "$answer" != "${answer#[Yy]}" ] ;then
        echo "Building dev version of Coq..."
