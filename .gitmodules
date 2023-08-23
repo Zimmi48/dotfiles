@@ -1,9 +1,3 @@
 [submodule "urxvt-font-size"]
 	path = urxvt-font-size
 	url = https://github.com/majutsushi/urxvt-font-size
-[submodule "nixos"]
-	path = nixos
-	url = https://github.com/NixOS/nixpkgs
-[submodule "nixpkgs"]
-	path = nixpkgs
-	url = https://github.com/NixOS/nixpkgs
