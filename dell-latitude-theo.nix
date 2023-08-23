@@ -1,15 +1,7 @@
 { config, lib, pkgs, modulesPath, ... }:
 
 {
-    imports = [
-      (import ./configuration-base.nix {
-        hostName = "dell-latitude-theo";
-        azerty = true;
-        efi = false;
-        stateVersion = "16.09";
-      })
-      (modulesPath + "/installer/scan/not-detected.nix")
-    ];
+    imports = [ (modulesPath + "/installer/scan/not-detected.nix") ];
 
     boot = {
       initrd.availableKernelModules = [

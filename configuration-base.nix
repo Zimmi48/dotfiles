@@ -1,18 +1,15 @@
 { hostName
-, user ? { name = "theo"; description = "Théo Zimmermann"; }
+, user
+, home
 , efi ? true
 , azerty ? false
 , stateVersion
+, unstable
+, unfree
 }:
 
 { config, lib, pkgs, modulesPath, nixpkgs, nixpkgs-unstable, ... }:
 
-let
-  home = "/home/${user.name}";
-  unstable = nixpkgs-unstable.legacyPackages.x86_64-linux;
-  # Use the latest possible version of non-free packages
-  unfree = (import nixpkgs-unstable { system = "x86_64-linux"; config.allowUnfree = true; }).pkgs;
-in
 {
   hardware.cpu.intel.updateMicrocode = true;
 
@@ -297,6 +294,9 @@ in
     # To allow normal-user to run various virtualization methods, broadcast a wifi network, and control backlight
     extraGroups = [ "docker" "libvirtd" "networkmanager" "user-with-access-to-virtualbox" "video" ];
   };
+
+  home-manager.useGlobalPkgs = true;
+  home-manager.useUserPackages = true;
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
