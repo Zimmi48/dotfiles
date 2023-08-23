@@ -8,6 +8,24 @@ let
 in
 
 {
+  # Bash configuration
+  programs.bash = {
+    enable = true;
+    historyControl = ["erasedups" "ignorespace"];
+    sessionVariables.EDITOR = "emacs";
+    shellAliases.coqtop = "rlwrap coqtop";
+    initExtra = ''
+      # Auto-completion of git aliases
+      function _git_delete() {
+        _git_branch
+      }
+      function _git_delete_hard() {
+        _git_branch
+      }
+    '';
+  };
+
+  # Git configuration
   programs.git = {
     enable = true;
     package = unstable.git;
@@ -35,7 +53,6 @@ in
     username = user.name;
     homeDirectory = home;
 
-    file.".bashrc".source = ./.bashrc;
     file.".emacs".source = ./.emacs;
     file.".Xdefaults".source = ./.Xdefaults;
 

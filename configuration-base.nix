@@ -187,8 +187,6 @@
   environment.shellAliases.bashmount = "rlwrap bashmount";
 
   programs = {
-    bash.enableCompletion = true;
-
     gnupg.agent = {
       enable = true;
       enableSSHSupport = true;
