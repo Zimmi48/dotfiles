@@ -5,7 +5,7 @@ alias coqtop='rlwrap coqtop'
 function _git_delete() {
   _git_branch
 }
-function _git_delete-hard() {
+function _git_delete_hard() {
   _git_branch
 }
 
