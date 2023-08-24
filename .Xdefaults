@@ -18,13 +18,3 @@
 *.color14:    #9AEDFE
 *.color7:     #BFBFBF
 *.color15:    #E6E6E6
-
-! urxvt settings
-
-URxvt*scrollBar: False
-URxvt.font: xft:DejaVu Sans Mono:size=11
-
-URxvt.perl-ext-common: default,matcher,font-size
-
-URxvt.url-launcher: firefox
-URxvt.matcher.button: 1

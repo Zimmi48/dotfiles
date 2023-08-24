@@ -243,7 +243,6 @@
         xfce.xfce4-notifyd
         networkmanagerapplet
         xfce.xfce4-volumed-pulse
-        rxvt_unicode
         i3lock
         i3status
         dmenu

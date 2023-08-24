@@ -8,50 +8,64 @@ let
 in
 
 {
-  # Bash configuration
-  programs.bash = {
-    enable = true;
-    historyControl = ["erasedups" "ignorespace"];
-    sessionVariables.EDITOR = "emacs";
-    shellAliases.coqtop = "rlwrap coqtop";
-    initExtra = ''
-      # Auto-completion of git aliases
-      function _git_delete() {
-        _git_branch
-      }
-      function _git_delete_hard() {
-        _git_branch
-      }
-    '';
-  };
-
-  # Git configuration
-  programs.git = {
-    enable = true;
-    package = unstable.git;
-    userName = "Théo Zimmermann";
-    userEmail = "theo.zimmermann@telecom-paris.fr";
-    signing.key = "F1744A0942F536C7";
-    aliases = {
-      fix = "commit -a --amend --no-edit";
-      newbranch = "checkout -b";
-      clone-fork = "! ${./git-clone-fork.sh}";
-      delete = "! f() { git branch -d $1 && git push origin -d $1; }; f";
-      delete-hard = "! f() { git branch -D $1 && git push origin -d $1; }; f";
+  programs = {
+    # Bash configuration
+    bash = {
+      enable = true;
+      historyControl = ["erasedups" "ignorespace"];
+      initExtra = ''
+        # Auto-completion of git aliases
+        function _git_delete() {
+          _git_branch
+        }
+        function _git_delete_hard() {
+          _git_branch
+        }
+      '';
     };
-    extraConfig = {
-      log.mailmap = true;
-      pull.ff = "only";
-      push.default = "current";
-      remote.pushdefault = "origin";
-      #credential.helper = "cache --timeout=3600";
-      init.defaultBranch = "main";
+
+    # Git configuration
+    git = {
+      enable = true;
+      package = unstable.git;
+      userName = "Théo Zimmermann";
+      userEmail = "theo.zimmermann@telecom-paris.fr";
+      signing.key = "F1744A0942F536C7";
+      aliases = {
+        fix = "commit -a --amend --no-edit";
+        newbranch = "checkout -b";
+        clone-fork = "! ${./git-clone-fork.sh}";
+        delete = "! f() { git branch -d $1 && git push origin -d $1; }; f";
+        delete-hard = "! f() { git branch -D $1 && git push origin -d $1; }; f";
+      };
+      extraConfig = {
+        log.mailmap = true;
+        pull.ff = "only";
+        push.default = "current";
+        remote.pushdefault = "origin";
+        init.defaultBranch = "main";
+      };
+    };
+
+    # urxvt configuration
+    urxvt = {
+      enable = true;
+      scroll.bar.enable = false;
+      fonts = [ "xft:DejaVu Sans Mono:size=11" ];
+      extraConfig = {
+        perl-ext-common = "default,matcher,font-size";
+        url-launcher = "firefox";
+        "matcher.button" = "1";
+      };
     };
   };
 
   home = {
     username = user.name;
     homeDirectory = home;
+
+    sessionVariables.EDITOR = "emacs";
+    shellAliases.coqtop = "rlwrap coqtop";
 
     file.".emacs".source = ./.emacs;
     file.".Xdefaults".source = ./.Xdefaults;
