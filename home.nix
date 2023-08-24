@@ -67,6 +67,7 @@ in
     sessionVariables.EDITOR = "emacs";
     shellAliases.coqtop = "rlwrap coqtop";
 
+    file.".background-image".source = pkgs.nixos-artwork.wallpapers.simple-dark-gray-bottom.gnomeFilePath;
     file.".emacs".source = ./.emacs;
     file.".Xdefaults".source = ./.Xdefaults;
 
