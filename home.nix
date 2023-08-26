@@ -24,6 +24,22 @@ in
       '';
     };
 
+    # Emacs configuration
+    emacs = {
+      enable = true;
+      extraPackages = epkgs: [ epkgs.material-theme ];
+      extraConfig = ''
+        (electric-indent-mode -1) ; Disable eletric ident
+        (setq-default indent-tabs-mode nil) ; Never use tabs
+        (tool-bar-mode -1) ; Disable the tool bar
+        (setq column-number-mode t) ; Show the column number
+        (setq show-paren-mode t) ; Match parentheses
+        (setq save-abbrevs 'silently)
+        (setq org-cycle-separator-lines 1) ; Org mode: add a line between headings
+        (load-theme 'material t) ; Load installed theme
+      '';
+    };
+
     # Git configuration
     git = {
       enable = true;

@@ -126,7 +126,6 @@
     thunderbird
     tdesktop
     signal-desktop
-    emacs
     libreoffice
     evince
     zotero
