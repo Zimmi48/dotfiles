@@ -84,7 +84,9 @@ in
     shellAliases.coqtop = "rlwrap coqtop";
 
     file.".background-image".source = pkgs.nixos-artwork.wallpapers.simple-dark-gray-bottom.gnomeFilePath;
+    # Needed for the inhibit-startup-screen option
     file.".emacs".source = ./.emacs;
+    # Dracula terminal configuration
     file.".Xdefaults".source = ./.Xdefaults;
 
     file.".config/" = {
