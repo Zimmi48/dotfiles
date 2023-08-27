@@ -28,7 +28,7 @@ nix build .#nixosConfigurations."$HOSTNAME".config.system.build.toplevel --no-wa
 echo "Build completed."
 echo
 echo "Closure differences:"
-nix store diff-closures /run/current-system ./nix-builds/$result
+nix store diff-closures /nix/var/nix/profiles/system ./nix-builds/$result
 echo
 echo "Result symlink: nix-builds/$result"
 
@@ -44,7 +44,7 @@ if [ "$answer" = "t" ] || [ "$answer" = "T" ]; then
 # If the user answer equals "S" or "s", then switch to the new configuration.
 elif [ "$answer" = "s" ] || [ "$answer" = "S" ]; then
        echo "Committing the new configuration..."
-       git commit -am "$(cat ./nix-builds/$result/nixos-version)" -m "$(nix store diff-closures /run/current-system ./nix-builds/$result)" --edit -S
+       git commit -am "$(cat ./nix-builds/$result/nixos-version)" -m "$(nix store diff-closures /nix/var/nix/profiles/system ./nix-builds/$result)" --edit -S
        echo "Switching to the new configuration..."
        pass -c tech/$(echo $HOSTNAME | cut -d- -f1-2)/rootpass
        su -c "nix-env -p /nix/var/nix/profiles/system --set ./nix-builds/$result &&
