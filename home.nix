@@ -2,11 +2,6 @@
 
 { config, pkgs, ... }:
 
-let
-  # A derivation which adds an empty file to the store
-  emptyFile = pkgs.writeText "empty" "";
-in
-
 {
   programs = {
     # Bash configuration
@@ -76,6 +71,54 @@ in
     };
   };
 
+  # Desktop entries for CoqIDE
+  xdg.desktopEntries = {
+    coq_8_6 = {
+      name = "CoqIDE 8.6";
+      exec = "${unstable.coq_8_6}/bin/coqide";
+    };
+    coq_8_7 = {
+      name = "CoqIDE 8.7";
+      exec = "${unstable.coq_8_7}/bin/coqide";
+    };
+    coq_8_8 = {
+      name = "CoqIDE 8.8";
+      exec = "${unstable.coq_8_8}/bin/coqide";
+    };
+    coq_8_9 = {
+      name = "CoqIDE 8.9";
+      exec = "${unstable.coq_8_9}/bin/coqide";
+    };
+    coq_8_10 = {
+      name = "CoqIDE 8.10";
+      exec = "${unstable.coq_8_10}/bin/coqide";
+    };
+    coq_8_11 = {
+      name = "CoqIDE 8.11";
+      exec = "${unstable.coq_8_11}/bin/coqide";
+    };
+    coq_8_12 = {
+      name = "CoqIDE 8.12";
+      exec = "${unstable.coq_8_12}/bin/coqide";
+    };
+    coq_8_13 = {
+      name = "CoqIDE 8.13";
+      exec = "${unstable.coq_8_13}/bin/coqide";
+    };
+    coq_8_14 = {
+      name = "CoqIDE 8.14";
+      exec = "${unstable.coqPackages_8_14.coqide}/bin/coqide -coqtop ${unstable.coq_8_14}/bin/coqidetop.opt"; # -unicode-bindings ${pkgs.writeText "empty" ""}";
+    };
+    coq_8_15 = {
+      name = "CoqIDE 8.15";
+      exec = "${unstable.coqPackages_8_15.coqide}/bin/coqide -coqtop ${unstable.coq_8_15}/bin/coqidetop.opt";
+    };
+    coq_8_16 = {
+      name = "CoqIDE 8.16";
+      exec = "${unstable.coqPackages_8_16.coqide}/bin/coqide -coqtop ${unstable.coq_8_16}/bin/coqidetop.opt";
+    };
+  };
+
   home = {
     username = user.name;
     homeDirectory = home;
@@ -84,115 +127,21 @@ in
     shellAliases.coqtop = "rlwrap coqtop";
 
     file.".background-image".source = pkgs.nixos-artwork.wallpapers.simple-dark-gray-bottom.gnomeFilePath;
-    # Needed for the inhibit-startup-screen option
-    file.".emacs".source = ./.emacs;
+    # The following option cannot be set through programs.emacs.extraConfig
+    file.".emacs".text = "(setq inhibit-startup-screen t)";
     # Dracula terminal configuration
     file.".Xdefaults".source = ./.Xdefaults;
 
-    file.".config/" = {
-      source = ./.config;
-      recursive = true;
-    };
-
-    # Desktop entries for CoqIDE
-
-    file.".local/share/applications/coqide-8.6.desktop".text = ''
-      [Desktop Entry]
-      Name=CoqIDE 8.6
-      Exec=${unstable.coq_8_6}/bin/coqide
-      Terminal=false
-      Type=Application
+    # Disable unicode bindings in CoqIDE, workaround for coq/coq#14856
+    file.".config/coq/coqiderc".text = ''
+      unicode_binding = "false"
     '';
-
-    file.".local/share/applications/coqide-8.7.desktop".text = ''
-      [Desktop Entry]
-      Name=CoqIDE 8.7
-      Exec=${unstable.coq_8_7}/bin/coqide
-      Terminal=false
-      Type=Application
+    file.".config/dune/config".text = ''
+      (lang dune 2.1)
+      (cache enabled)
+      (jobs 4)
     '';
-
-    file.".local/share/applications/coqide-8.8.desktop".text = ''
-      [Desktop Entry]
-      Name=CoqIDE 8.8
-      Exec=${unstable.coq_8_8}/bin/coqide
-      Terminal=false
-      Type=Application
-    '';
-
-    file.".local/share/applications/coqide-8.9.desktop".text = ''
-      [Desktop Entry]
-      Name=CoqIDE 8.9
-      Exec=${unstable.coq_8_9}/bin/coqide
-      Terminal=false
-      Type=Application
-    '';
-
-    file.".local/share/applications/coqide-8.10.desktop".text = ''
-      [Desktop Entry]
-      Name=CoqIDE 8.10
-      Exec=${unstable.coq_8_10}/bin/coqide
-      Terminal=false
-      Type=Application
-    '';
-
-    file.".local/share/applications/coqide-8.11.desktop".text = ''
-      [Desktop Entry]
-      Name=CoqIDE 8.11
-      Exec=${unstable.coq_8_11}/bin/coqide
-      Terminal=false
-      Type=Application
-    '';
-
-    file.".local/share/applications/coqide-8.12.desktop".text = ''
-      [Desktop Entry]
-      Name=CoqIDE 8.12
-      Exec=${unstable.coq_8_12}/bin/coqide
-      Terminal=false
-      Type=Application
-    '';
-
-    file.".local/share/applications/coqide-8.13.desktop".text = ''
-      [Desktop Entry]
-      Name=CoqIDE 8.13
-      Exec=${unstable.coq_8_13}/bin/coqide
-      Terminal=false
-      Type=Application
-    '';
-
-    file.".local/share/applications/coqide-8.14.desktop".text = ''
-      [Desktop Entry]
-      Name=CoqIDE 8.14
-      Exec=PATH=${unstable.coq_8_14}/bin:$PATH ${unstable.coqPackages_8_14.coqide}/bin/coqide -unicode-bindings ${emptyFile}
-      Terminal=false
-      Type=Application
-    '';
-
-    file.".local/share/applications/coqide-8.15.desktop".text = ''
-      [Desktop Entry]
-      Name=CoqIDE 8.15
-      Exec=PATH=${unstable.coq_8_15}/bin:$PATH ${unstable.coqPackages_8_15.coqide}/bin/coqide -unicode-bindings ${emptyFile}
-      Terminal=false
-      Type=Application
-    '';
-
-    file.".local/share/applications/coqide-8.16.desktop".text = ''
-      [Desktop Entry]
-      Name=CoqIDE 8.16
-      Exec=PATH=${unstable.coq_8_16}/bin:$PATH ${unstable.coqPackages_8_16.coqide}/bin/coqide -unicode-bindings ${emptyFile}
-      Terminal=false
-      Type=Application
-    '';
-
-    # The default CoqIDE is already installed in PATH
-
-    file.".local/share/applications/coqide.desktop".text = ''
-      [Desktop Entry]
-      Name=CoqIDE
-      Exec=coqide -unicode-bindings ${emptyFile}
-      Terminal=false
-      Type=Application
-    '';
+    file.".config/matplotlib/matplotlibrc".text = "";
 
     # This value determines the home Manager release that your
     # configuration is compatible with. This helps avoid breakage

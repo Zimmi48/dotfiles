@@ -1,1 +1,1 @@
-{ system.nixos.tags = [ "tagged-builds" ]; }
+{ system.nixos.tags = [ "simplify" ]; }
