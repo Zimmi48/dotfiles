@@ -28,6 +28,7 @@
           (import ./configuration-base.nix { hostName = "telecom-laptop-theo"; stateVersion = "22.05"; inherit user home unstable unfree; })
           home-manager.nixosModules.home-manager
           { home-manager.users."${user.name}" = import ./home.nix { stateVersion = "23.05"; inherit user home unstable; }; }
+          ./nixos-tags.nix
         ];
       };
       "hp-elitebook-theo" = nixpkgs.lib.nixosSystem {
@@ -38,6 +39,7 @@
           (import ./configuration-base.nix { hostName = "hp-elitebook-theo"; stateVersion = "16.09"; inherit user home unstable unfree; })
           home-manager.nixosModules.home-manager
           { home-manager.users."${user.name}" = import ./home.nix { stateVersion = "23.05"; inherit user home unstable; }; }
+          ./nixos-tags.nix
         ];
       };
       "dell-latitude-theo" = nixpkgs.lib.nixosSystem {
@@ -48,6 +50,7 @@
           (import ./configuration-base.nix { hostName = "dell-latitude-theo"; azerty = true; efi = false; stateVersion = "16.09"; inherit user home unstable unfree; })
           home-manager.nixosModules.home-manager
           { home-manager.users."${user.name}" = import ./home.nix { stateVersion = "23.05"; inherit user home unstable; }; }
+          ./nixos-tags.nix
         ];
       };
     };
