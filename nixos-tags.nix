@@ -1,1 +1,1 @@
-{ system.nixos.tags = [ "simplify" ]; }
+{ system.nixos.tags = [ "thunderbird-profile" ]; }

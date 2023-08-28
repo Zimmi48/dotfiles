@@ -58,6 +58,39 @@
       };
     };
 
+    # Thunderbird configuration
+    thunderbird = {
+      enable = true;
+      profiles.default.isDefault = true;
+      settings = {
+        "mailnews.tags.1_closed.color" = "#986a44";
+        "mailnews.tags.1_closed.tag" = "1_closed";
+        "mailnews.tags.2_assign.color" = "#9141ac";
+        "mailnews.tags.2_assign.tag" = "2_assign";
+        "mailnews.tags.3_mention.color" = "#e01b24";
+        "mailnews.tags.3_mention.tag" = "3_mention";
+        "mailnews.tags.4_team_mention.color" = "#ff7800";
+        "mailnews.tags.4_team_mention.tag" = "4_team_mention";
+        "mailnews.tags.5_review_requested.color" = "#f6d32d";
+        "mailnews.tags.5_review_requested.tag" = "5_review_requested";
+        "mailnews.tags.6_author.color" = "#33d17a";
+        "mailnews.tags.6_author.tag" = "6_author";
+        "mailnews.tags.version" = 2;
+        "extensions.mailboxalert.alerts.3.command" = "${pkgs.libnotify}/bin/notify-send -c \"email.arrived\" -i ${pkgs.thunderbird}/lib/thunderbird/chrome/icons/default/default48.png \"theo.zimmermann@telecom-paris.fr received a new message (%count unread)\" \"%subject from %sendername\"";
+        "extensions.mailboxalert.alerts.3.command_escape_windows_quotes" = true;
+        "extensions.mailboxalert.alerts.3.execute_command" = true;
+        "extensions.mailboxalert.alerts.3.name" = "Pro alert";
+        "extensions.mailboxalert.alerts.3.show_message_message" = "%subject";
+        "extensions.mailboxalert.alerts.3.show_message_subject" = "%sendername on %originalfolder";
+        "extensions.mailboxalert.alerts.4.command" = "${pkgs.libnotify}/bin/notify-send -c \"email.arrived\" -i ${pkgs.thunderbird}/lib/thunderbird/chrome/icons/default/default48.png \"theo.zimmi@gmail.com received a new message (%count unread)\" \"%subject from %sendername\"";
+        "extensions.mailboxalert.alerts.4.command_escape_windows_quotes" = true;
+        "extensions.mailboxalert.alerts.4.execute_command" = true;
+        "extensions.mailboxalert.alerts.4.name" = "Gmail alert";
+        "extensions.mailboxalert.folders.imap://theo.zimmermann%40telecom-paris.fr@z.imt.fr/INBOX.alerts" = "3";
+        "extensions.mailboxalert.folders.imap://theo.zimmi%40gmail.com@imap.gmail.com/INBOX.alerts" = "4";
+      };
+    };
+
     # urxvt configuration
     urxvt = {
       enable = true;
