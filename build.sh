@@ -19,7 +19,9 @@ DIFF=$((git diff --exit-code > /dev/null 2>&1; echo $?) || echo $?)
 # (silently skip if there are no changes to commit)
 if [ "$DIFF" -eq 1 ]; then
        echo
-       echo "Do you want to tag the new configuration? (Y/n)"
+       echo "Current tags:"
+       cat ./nixos-tags.nix
+       echo "Do you want to set new tags for this configuration? (Y/n)"
        read -r answer
        if [ "$answer" != "${answer#[Nn]}" ]; then
               echo "Skipping the tagging of the new configuration..."

@@ -4,11 +4,9 @@
 , efi ? true
 , azerty ? false
 , stateVersion
-, unstable
-, unfree
 }:
 
-{ config, lib, pkgs, modulesPath, nixpkgs, nixpkgs-unstable, ... }:
+{ config, lib, pkgs, modulesPath, specialArgs, nixpkgs, nixpkgs-unstable, ... }:
 
 {
   hardware.cpu.intel.updateMicrocode = true;
@@ -101,7 +99,6 @@
   environment.systemPackages = with pkgs; [
 
     # Utilities
-
     nix-bash-completions
     wget
     which
@@ -109,77 +106,18 @@
     unzip
     rlwrap
     gnupg1
-    pass
     alsaUtils
     poppler_utils
     bashmount
     pavucontrol
     xorg.xkill
-    scrot
-    arandr
-    pdfpc
 
     # Applications
-
     firefox
-    chromium
-    thunderbird
-    tdesktop
-    signal-desktop
     libreoffice
     evince
-    zotero
     vlc
     languagetool
-
-    # Non-free applications and development tools
-
-    unfree.elmPackages.lamdera
-    unfree.skypeforlinux
-    unfree.zoom-us
-
-    # VS Code with free and non-free extensions
-
-    (unfree.vscode-with-extensions.override
-      { vscodeExtensions = (with unstable.vscode-extensions; [
-          eamodio.gitlens
-          elmtooling.elm-ls-vscode
-          foam.foam-vscode
-          github.vscode-pull-request-github
-          james-yu.latex-workshop
-          jnoortheen.nix-ide
-          maximedenes.vscoq
-          ms-python.python
-          ms-toolsai.jupyter
-          ms-toolsai.jupyter-keymap
-          ms-toolsai.jupyter-renderers
-          ms-toolsai.vscode-jupyter-cell-tags
-          ms-toolsai.vscode-jupyter-slideshow
-          ocamllabs.ocaml-platform
-          yzhang.markdown-all-in-one # Recommended by Foam
-        ]) ++ (with unfree.vscode-extensions; [
-          github.codespaces
-          github.copilot
-          ms-python.vscode-pylance
-          ms-vscode-remote.remote-ssh
-          ms-vsliveshare.vsliveshare
-        ]); })
-
-    # Development (stable packages)
-
-    gnumake
-    imagemagick
-    mustache-go
-    pandoc
-    texlive.combined.scheme-full
-    inotifyTools # Useful for dune build --watch in particular
-    elmPackages.elm-format
-
-    # Development (unstable packages)
-    unstable.gitAndTools.gh
-    unstable.coq_8_17
-    unstable.coqPackages_8_17.coqide
-    unstable.opam
 
   ];
 
@@ -245,6 +183,7 @@
         i3lock
         i3status
         dmenu
+        arandr
       ];
     };
 
@@ -292,6 +231,7 @@
 
   home-manager.useGlobalPkgs = true;
   home-manager.useUserPackages = true;
+  home-manager.extraSpecialArgs = specialArgs;
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions

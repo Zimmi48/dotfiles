@@ -1,4 +1,4 @@
-{ user, home, stateVersion, unstable }:
+{ user, home, stateVersion, unstable, unfree }:
 
 { config, pkgs, ... }:
 
@@ -102,10 +102,69 @@
         "matcher.button" = "1";
       };
     };
+
+    # VS Code configuration with free and non-free Microsoft extensions
+    vscode = {
+      enable = true;
+      enableExtensionUpdateCheck = false;
+      enableUpdateCheck = false;
+      package = unfree.vscode;
+      extensions = (with unstable.vscode-extensions; [
+          eamodio.gitlens
+          elmtooling.elm-ls-vscode
+          foam.foam-vscode
+          github.vscode-pull-request-github
+          james-yu.latex-workshop
+          jnoortheen.nix-ide
+          maximedenes.vscoq
+          ms-python.python
+          ms-toolsai.jupyter
+          ms-toolsai.jupyter-keymap
+          ms-toolsai.jupyter-renderers
+          ms-toolsai.vscode-jupyter-cell-tags
+          ms-toolsai.vscode-jupyter-slideshow
+          ocamllabs.ocaml-platform
+          yzhang.markdown-all-in-one # Recommended by Foam
+        ]) ++ (with unfree.vscode-extensions; [
+          github.codespaces
+          github.copilot
+          ms-python.vscode-pylance
+          ms-vscode-remote.remote-ssh
+          ms-vsliveshare.vsliveshare
+        ]);
+      keybindings = [
+        {
+          key = "ctrl+enter";
+          command = "editor.debug.action.selectionToRepl";
+        }
+        {
+          key = "ctrl+q";
+          command = "-workbench.action.quit";
+        }
+      ];
+      userSettings = {
+        "git.confirmSync" = false;
+        "editor.wordWrap" = "on";
+        "editor.unicodeHighlight.nonBasicASCII" = false;
+        "editor.inlineSuggest.enabled" = true; # Copilot
+        "github.copilot.enable" = {
+            "*" = true;
+            plaintext = true;
+            markdown = true;
+            scminput = false;
+            yaml = true;
+        };
+        "[python]"."editor.formatOnType" = true;
+        "terminal.integrated.defaultProfile.linux" = "bash";
+        "latex-workshop.view.pdf.viewer" = "tab";
+        "window.restoreWindows" = "none";
+        "workbench.colorTheme" = "Default Dark Modern";
+      };
+    };
   };
 
-  # Desktop entries for CoqIDE
   xdg.desktopEntries = {
+    # Desktop entries for CoqIDE
     coq_8_6 = {
       name = "CoqIDE 8.6";
       exec = "${unstable.coq_8_6}/bin/coqide";
@@ -150,6 +209,11 @@
       name = "CoqIDE 8.16";
       exec = "${unstable.coqPackages_8_16.coqide}/bin/coqide -coqtop ${unstable.coq_8_16}/bin/coqidetop.opt";
     };
+    # Desktop entry for launching VS Code with Foam notes
+    foam = {
+      name = "Foam";
+      exec = "${unfree.vscode}/bin/code ${home}/git/notes";
+    };
   };
 
   manual.manpages.enable = false;
@@ -164,19 +228,61 @@
     file.".background-image".source = pkgs.nixos-artwork.wallpapers.simple-dark-gray-bottom.gnomeFilePath;
     # The following option cannot be set through programs.emacs.extraConfig
     file.".emacs".text = "(setq inhibit-startup-screen t)";
-    # Dracula terminal configuration
+    # Dracula X configuration (for Emacs and urxvt)
     file.".Xdefaults".source = ./.Xdefaults;
 
     # Disable unicode bindings in CoqIDE, workaround for coq/coq#14856
     file.".config/coq/coqiderc".text = ''
       unicode_binding = "false"
     '';
+    # Enable Dune cache and limit the number of jobs it can spawn
     file.".config/dune/config".text = ''
       (lang dune 2.1)
       (cache enabled)
       (jobs 4)
     '';
+    # Avoid getting a warning about the directory not existing
     file.".config/matplotlib/matplotlibrc".text = "";
+
+    # Packages to be installed in the user environment.
+    packages = (with pkgs; [
+
+      # Utilities
+      pass
+      scrot
+      pdfpc
+
+      # Applications
+      chromium
+      tdesktop
+      signal-desktop
+      zotero
+
+      # Development (stable packages)
+      gnumake
+      imagemagick
+      mustache-go
+      pandoc
+      texlive.combined.scheme-full
+      inotifyTools # Useful for dune build --watch in particular
+      elmPackages.elm-format
+
+    ]) ++ (with unstable; [
+
+      # Development (unstable packages)
+      gitAndTools.gh
+      coq_8_17
+      coqPackages_8_17.coqide
+      opam
+
+    ]) ++ (with unfree; [
+
+      # Non-free applications and development tools
+      elmPackages.lamdera
+      skypeforlinux
+      zoom-us
+
+    ]);
 
     # This value determines the home Manager release that your
     # configuration is compatible with. This helps avoid breakage
