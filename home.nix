@@ -152,6 +152,8 @@
     };
   };
 
+  manual.manpages.enable = false;
+
   home = {
     username = user.name;
     homeDirectory = home;
