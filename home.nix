@@ -155,6 +155,7 @@
             yaml = true;
         };
         "[python]"."editor.formatOnType" = true;
+        "notebook.output.scrolling" = true;
         "terminal.integrated.defaultProfile.linux" = "bash";
         "latex-workshop.view.pdf.viewer" = "tab";
         "window.restoreWindows" = "none";
