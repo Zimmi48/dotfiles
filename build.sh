@@ -38,7 +38,7 @@ fi
 result="$HOSTNAME-$(date +%Y-%m-%d-%Hh%M)"
 echo
 echo "Building $HOSTNAME configuration..."
-nix build .#nixosConfigurations."$HOSTNAME".config.system.build.toplevel --no-warn-dirty --out-link ./nix-builds/$result --experimental-features 'nix-command flakes'
+nix build .#nixosConfigurations."$HOSTNAME".config.system.build.toplevel --no-warn-dirty --out-link ./nix-builds/$result --experimental-features 'nix-command flakes' #--no-substitute (useful when offline)
 echo "Build completed."
 echo
 echo "Closure differences:"

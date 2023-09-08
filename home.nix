@@ -252,6 +252,7 @@
       pass
       scrot
       pdfpc
+      jq
 
       # Applications
       chromium
