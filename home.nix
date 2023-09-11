@@ -7,7 +7,7 @@
     # Bash configuration
     bash = {
       enable = true;
-      historyControl = ["erasedups" "ignorespace"];
+      historyControl = ["ignorespace"];
       initExtra = ''
         # Auto-completion of git aliases
         function _git_delete() {

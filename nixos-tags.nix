@@ -1,1 +1,1 @@
-{ system.nixos.tags = [ "jq" ]; }
+{ system.nixos.tags = [ "no-erasedups" ]; }
