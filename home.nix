@@ -19,6 +19,11 @@
       '';
     };
 
+    direnv = {
+      enable = true;
+      nix-direnv.enable = true;
+    };
+
     # Emacs configuration
     emacs = {
       enable = true;

@@ -1,1 +1,1 @@
-{ system.nixos.tags = [ "no-erasedups" ]; }
+{ system.nixos.tags = [ "direnv" ]; }
