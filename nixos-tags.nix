@@ -1,1 +1,1 @@
-{ system.nixos.tags = [ "direnv" ]; }
+{ system.nixos.tags = [ "disable-extension-update" ]; }

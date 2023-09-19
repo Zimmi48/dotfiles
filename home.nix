@@ -165,6 +165,7 @@
         "latex-workshop.view.pdf.viewer" = "tab";
         "window.restoreWindows" = "none";
         "workbench.colorTheme" = "Default Dark Modern";
+        "extensions.autoUpdate" = false;
       };
     };
   };
