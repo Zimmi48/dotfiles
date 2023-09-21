@@ -208,11 +208,6 @@
     drivers = [ pkgs.gutenprint pkgs.hplip pkgs.splix ];
   };
 
-  services.resolved = {
-    enable = true;
-    domains = [ "enst.fr" "r2.enst.fr" ];
-  };
-
   virtualisation = {
     docker.enable = true;
     virtualbox.host.enable = true;
