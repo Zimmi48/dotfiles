@@ -1,1 +1,1 @@
-{ system.nixos.tags = [ "disable-extension-update" ]; }
+{ system.nixos.tags = [ "no-sudo" ]; }
