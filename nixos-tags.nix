@@ -1,1 +1,1 @@
-{ system.nixos.tags = [ "no-sudo" ]; }
+{ system.nixos.tags = [ "pulseaudioFull" ]; }

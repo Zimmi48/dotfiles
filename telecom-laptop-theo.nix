@@ -107,6 +107,7 @@
 
     environment.systemPackages = with pkgs; [
       blueman
+      pulseaudioFull
       simple-scan
     ];
 
