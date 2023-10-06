@@ -214,6 +214,9 @@
     libvirtd.enable = true;
   };
 
+  # Location info for RedShift
+  location.provider = "geoclue2";
+
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.extraUsers."${user.name}" = {
     isNormalUser = true;

@@ -37,11 +37,7 @@
     services.blueman.enable = true;
 
     hardware = {
-      pulseaudio = {
-        enable = true;
-        # Support for bluetooth
-        package = pkgs.pulseaudioFull;
-      };
+      # Support for bluetooth
       bluetooth.enable = true;
 
       # Support for scanner
@@ -53,6 +49,7 @@
 
     environment.systemPackages = with pkgs; [
       blueman
+      pulseaudioFull
       simple-scan
     ];
 
@@ -65,6 +62,14 @@
       };
     };
 
-    # Location info for RedShift
-    location.provider = "geoclue2";
+    # Enable sound with pipewire.
+    sound.enable = true;
+    hardware.pulseaudio.enable = false;
+    security.rtkit.enable = true;
+    services.pipewire = {
+      enable = true;
+      alsa.enable = true;
+      alsa.support32Bit = true;
+      pulse.enable = true;
+    };
 }

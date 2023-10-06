@@ -1,1 +1,1 @@
-{ system.nixos.tags = [ "pulseaudioFull" ]; }
+{ system.nixos.tags = [ "pipewire" ]; }

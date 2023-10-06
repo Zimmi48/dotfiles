@@ -52,7 +52,4 @@
 
       libinput.enable = true;
     };
-
-    # Location info for RedShift
-    location.provider = "geoclue2";
 }
