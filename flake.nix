@@ -7,9 +7,10 @@
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
     home-manager.url = "github:nix-community/home-manager/release-23.05";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
+    impermanence.url = "github:nix-community/impermanence";
   };
 
-  outputs = { self, nixpkgs, nixpkgs-unstable, home-manager, ... }@inputs:
+  outputs = { self, nixpkgs, nixpkgs-unstable, home-manager, impermanence, ... }@inputs:
     let
       user = { name = "theo"; description = "Théo Zimmermann"; };
       home = "/home/${user.name}";
@@ -46,9 +47,10 @@
         inherit system specialArgs;
         modules = [
           ./dell-latitude-theo.nix
-          (import ./configuration-base.nix { hostName = "dell-latitude-theo"; azerty = true; efi = false; stateVersion = "16.09"; inherit user home; })
+          (import ./configuration-base.nix { hostName = "dell-latitude-theo"; azerty = true; efi = false; stateVersion = "23.05"; inherit user home; })
           home-manager.nixosModules.home-manager
           { home-manager.users."${user.name}" = import ./home.nix { stateVersion = "23.05"; inherit user home unstable unfree; }; }
+          impermanence.nixosModules.impermanence
           ./nixos-tags.nix
         ];
       };
