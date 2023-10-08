@@ -98,6 +98,10 @@
   # List packages installed in system profile.
   environment.systemPackages = with pkgs; [
 
+    # System
+    blueman
+    pulseaudioFull
+
     # Utilities
     nix-bash-completions
     wget
@@ -111,6 +115,7 @@
     bashmount
     pavucontrol
     xorg.xkill
+    simple-scan
 
     # Applications
     firefox
@@ -194,6 +199,8 @@
       notifier = ''${pkgs.libnotify}/bin/notify-send "Locking in 10 seconds"'';
       time = 10;
     };
+
+    desktopManager.xfce.enable = true;
   };
 
   # RedShift changes the color of the screen to a redder tone when night is approaching
@@ -206,6 +213,30 @@
   services.printing = {
     enable = true;
     drivers = [ pkgs.gutenprint pkgs.hplip pkgs.splix ];
+  };
+
+  # Enable Avahi for auto-discovery of printers
+  services.avahi.enable = true;
+
+  # Support for bluetooth
+  services.blueman.enable = true;
+  hardware.bluetooth.enable = true;
+
+  # Support for scanner
+  hardware.sane.enable = true;
+
+  # See https://unix.stackexchange.com/questions/412331/scanner-is-detected-just-once/482784#comment885284_482784
+  environment.variables.SANE_USB_WORKAROUND = "1";
+
+  # Enable sound with pipewire.
+  sound.enable = true;
+  hardware.pulseaudio.enable = false;
+  security.rtkit.enable = true;
+  services.pipewire = {
+    enable = true;
+    alsa.enable = true;
+    alsa.support32Bit = true;
+    pulse.enable = true;
   };
 
   virtualisation = {

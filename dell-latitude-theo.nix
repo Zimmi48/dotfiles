@@ -33,23 +33,4 @@
     } ];
 
     nix.settings.max-jobs = lib.mkDefault 2;
-
-    # Enable Avahi for auto-discovery of printers
-    services.avahi.enable = true;
-
-    hardware = {
-      pulseaudio.enable = true;
-
-      # Support for scanner
-      sane.enable = true;
-    };
-
-
-    environment.systemPackages = [ pkgs.simple-scan ];
-
-    services.xserver = {
-      desktopManager.xfce.enable = true;
-
-      libinput.enable = true;
-    };
 }
