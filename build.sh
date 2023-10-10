@@ -47,29 +47,37 @@ echo
 echo "Result symlink: nix-builds/$result"
 
 echo
-echo "Do you want to test (t) or switch to (s) the new configuration?"
+echo "Do you want to test (t), switch to (s) or boot (b) the new configuration?"
 read -r answer
 # If the user answer equals "t" or "T", then test the new configuration.
 if [ "$answer" = "t" ] || [ "$answer" = "T" ]; then
        echo "Testing the new configuration..."
        pass -c tech/$(echo $HOSTNAME | cut -d- -f1-2)/rootpass
        su -c "./nix-builds/$result/bin/switch-to-configuration test"
-# If the user answer equals "S" or "s", then switch to the new configuration.
-elif [ "$answer" = "s" ] || [ "$answer" = "S" ]; then
+elif [ "$answer" = "s" ] || [ "$answer" = "S" ] || [ "$answer" = "b" ] || [ "$answer" = "B" ]; then
        if [ "$DIFF" -eq 1 ]; then
               echo "Do you want to commit the new configuration? (Y/n)"
-              read -r answer
-              if [ "$answer" != "${answer#[Nn]}" ]; then
+              read -r commit_answer
+              if [ "$commit_answer" != "${commit_answer#[Nn]}" ]; then
                      echo "Skipping the commit of the new configuration..."
               else
                      echo "Committing the new configuration..."
                      git commit -am "$(cat ./nix-builds/$result/nixos-version)" -m "$(nix store diff-closures /nix/var/nix/profiles/system ./nix-builds/$result)" --edit -S
               fi
        fi
-       echo "Switching to the new configuration..."
-       pass -c tech/$(echo $HOSTNAME | cut -d- -f1-2)/rootpass
-       su -c "nix-env -p /nix/var/nix/profiles/system --set ./nix-builds/$result &&
-              ./nix-builds/$result/bin/switch-to-configuration switch"
+       # If the user answer equals "B" or "b", then boot the new configuration.
+       if [ "$answer" = "b" ] || [ "$answer" = "B" ]; then
+              echo "Booting the new configuration..."
+              pass -c tech/$(echo $HOSTNAME | cut -d- -f1-2)/rootpass
+              su -c "nix-env -p /nix/var/nix/profiles/system --set ./nix-builds/$result &&
+                     ./nix-builds/$result/bin/switch-to-configuration boot"
+       # If the user answer equals "S" or "s", then switch to the new configuration.
+       elif [ "$answer" = "s" ] || [ "$answer" = "S" ]; then
+              echo "Switching to the new configuration..."
+              pass -c tech/$(echo $HOSTNAME | cut -d- -f1-2)/rootpass
+              su -c "nix-env -p /nix/var/nix/profiles/system --set ./nix-builds/$result &&
+                     ./nix-builds/$result/bin/switch-to-configuration switch"
+       fi
 fi
 
 # Reference: http://www.haskellforall.com/2018/08/nixos-in-production.html
