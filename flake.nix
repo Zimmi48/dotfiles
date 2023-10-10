@@ -40,6 +40,7 @@
           (import ./configuration-base.nix { hostName = "hp-elitebook-theo"; stateVersion = "16.09"; inherit user home; })
           home-manager.nixosModules.home-manager
           { home-manager.users."${user.name}" = import ./home.nix { stateVersion = "23.05"; inherit user home unstable unfree; }; }
+          impermanence.nixosModules.impermanence
           ./nixos-tags.nix
         ];
       };

@@ -1,1 +1,1 @@
-{ system.nixos.tags = [ "pipewire" ]; }
+{ system.nixos.tags = [ "root-on-tmpfs-minimal" ]; }
