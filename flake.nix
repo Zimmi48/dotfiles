@@ -20,39 +20,37 @@
       system = "x86_64-linux";
       # Make all inputs available in the NixOS modules
       specialArgs = inputs;
+      # Define the modules that are imported in every configuration
+      commonModules = [
+        ./nixos-tags.nix
+        home-manager.nixosModules.home-manager
+        impermanence.nixosModules.impermanence
+      ];
     in {
 
     nixosConfigurations = {
       "telecom-laptop-theo" = nixpkgs.lib.nixosSystem {
         inherit system specialArgs;
-        modules = [
+        modules = commonModules ++ [
           ./telecom-laptop-theo.nix
           (import ./configuration-base.nix { hostName = "telecom-laptop-theo"; stateVersion = "22.05"; inherit user home; })
-          home-manager.nixosModules.home-manager
           { home-manager.users."${user.name}" = import ./home.nix { stateVersion = "23.05"; inherit user home unstable unfree; }; }
-          ./nixos-tags.nix
         ];
       };
       "hp-elitebook-theo" = nixpkgs.lib.nixosSystem {
         inherit system specialArgs;
-        modules = [
+        modules = commonModules ++ [
           ./hp-elitebook-theo.nix
           (import ./configuration-base.nix { hostName = "hp-elitebook-theo"; stateVersion = "16.09"; inherit user home; })
-          home-manager.nixosModules.home-manager
           { home-manager.users."${user.name}" = import ./home.nix { stateVersion = "23.05"; inherit user home unstable unfree; }; }
-          impermanence.nixosModules.impermanence
-          ./nixos-tags.nix
         ];
       };
       "dell-latitude-theo" = nixpkgs.lib.nixosSystem {
         inherit system specialArgs;
-        modules = [
+        modules = commonModules ++ [
           ./dell-latitude-theo.nix
           (import ./configuration-base.nix { hostName = "dell-latitude-theo"; azerty = true; efi = false; stateVersion = "23.05"; inherit user home; })
-          home-manager.nixosModules.home-manager
           { home-manager.users."${user.name}" = import ./home.nix { stateVersion = "23.05"; inherit user home unstable unfree; }; }
-          impermanence.nixosModules.impermanence
-          ./nixos-tags.nix
         ];
       };
     };

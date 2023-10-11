@@ -25,8 +25,15 @@
     };
 
     fileSystems."/" = {
+      device = "none";
+      fsType = "tmpfs";
+      options = [ "size=3G" "mode=755" ];
+    };
+
+    fileSystems."/persist" = {
       device = "/dev/disk/by-uuid/eed0513c-fc3a-4547-9cf4-c1f07815269a";
       fsType = "ext4";
+      neededForBoot = true;
     };
 
     fileSystems."/boot/efi" = {
@@ -37,6 +44,35 @@
     swapDevices = [
       { device = "/dev/disk/by-uuid/2007f2df-1f7b-4122-8ae8-b6c8f3244d0d"; }
     ];
+
+    environment.persistence."/persist" = {
+      files = [
+        "/etc/adjtime"
+        "/etc/printcap"
+      ];
+      directories = [
+        "/etc/NetworkManager/system-connections"
+        # For now, I keep /home mutable
+        "/home"
+        # Surprisingly, /nix is mounted early enough with Impermanence
+        "/nix"
+        "/var/cache/cups"
+        "/var/lib/blueman"
+        "/var/lib/bluetooth"
+        "/var/lib/cups"
+        "/var/lib/docker"
+        "/var/lib/libvirt"
+        "/var/lib/NetworkManager"
+        "/var/lib/nixos"
+        "/var/lib/upower"
+        "/var/spool/cups"
+      ];
+    };
+
+    # These files cannot be persisted with Impermanence because they would be mounted too late
+    environment.etc."group".source = "/persist/etc/group";
+    environment.etc."passwd".source = "/persist/etc/passwd";
+    environment.etc."shadow".source = "/persist/etc/shadow";
 
     powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";
 
