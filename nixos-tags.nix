@@ -1,1 +1,1 @@
-{ system.nixos.tags = [ "coq-lsp" ]; }
+{ system.nixos.tags = [ "coq-8.18" ]; }

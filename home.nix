@@ -217,6 +217,10 @@
       name = "CoqIDE 8.16";
       exec = "${unstable.coqPackages_8_16.coqide}/bin/coqide -coqtop ${unstable.coq_8_16}/bin/coqidetop.opt";
     };
+    coq_8_17 = {
+      name = "CoqIDE 8.17";
+      exec = "${unstable.coqPackages_8_17.coqide}/bin/coqide -coqtop ${unstable.coq_8_17}/bin/coqidetop.opt";
+    };
     # Desktop entry for launching VS Code with Foam notes
     foam = {
       name = "Foam";
@@ -280,9 +284,9 @@
 
       # Development (unstable packages)
       gitAndTools.gh
-      coq_8_17
-      coqPackages_8_17.coqide
-      coqPackages_8_17.coq-lsp
+      coq_8_18
+      coqPackages_8_18.coqide
+      coqPackages_8_18.coq-lsp
       opam
 
     ]) ++ (with unfree; [
