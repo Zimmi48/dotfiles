@@ -17,7 +17,14 @@
     fileSystems."/" = {
       device = "none";
       fsType = "tmpfs";
-      options = [ "size=3G" "mode=755" ];
+      options = [ "size=2G" "mode=755" ];
+    };
+
+    fileSystems."/home" = {
+      device = "none";
+      fsType = "tmpfs";
+      options = [ "size=4G" "mode=777" ];
+      neededForBoot = true; # needed so that user home creation works and also for Impermanence
     };
 
     # This was previously my root partition and it still contains all the accumulated state
@@ -27,9 +34,10 @@
       neededForBoot = true;
     };
 
-    fileSystems."/home" = {
+    fileSystems."/persisthome" = {
       device = "/dev/disk/by-uuid/fdf37485-32d5-4288-b889-7cd38e86cedc";
       fsType = "ext4";
+      neededForBoot = true;
     };
 
     fileSystems."/boot" = {

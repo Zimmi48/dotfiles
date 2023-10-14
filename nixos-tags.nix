@@ -1,1 +1,1 @@
-{ system.nixos.tags = [ "coq-8.18" ]; }
+{ system.nixos.tags = [ "home-on-tmpfs" ]; }

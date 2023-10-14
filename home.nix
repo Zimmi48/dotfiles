@@ -1,8 +1,10 @@
-{ user, home, stateVersion, unstable, unfree }:
+{ user, home, stateVersion, unstable, unfree, persistence ? "/persist/home" }:
 
-{ config, pkgs, vscode-extensions, ... }:
+{ config, pkgs, impermanence, vscode-extensions, ... }:
 
 {
+  imports = [ impermanence.nixosModules.home-manager.impermanence ];
+
   programs = {
     # Bash configuration
     bash = {
@@ -255,6 +257,44 @@
     '';
     # Avoid getting a warning about the directory not existing
     file.".config/matplotlib/matplotlibrc".text = "";
+
+    # Scripts
+    file."move_to_sd_card.sh".source = ./scripts/move_to_sd_card.sh;
+
+    persistence."${persistence}/${user.name}" = {
+      allowOther = true;
+      files = [
+        ".bash_history"
+      ];
+      directories = [
+        ".cache/chromium"
+        ".cache/dune"
+        ".cache/mozilla/firefox"
+        ".cache/thunderbird"
+        ".cache/zotero"
+        ".cert"
+        ".config/chromium"
+        ".config/Code"
+        ".config/gh"
+        ".config/Signal"
+        "Documents"
+        "git"
+        ".gnupg"
+        "Images"
+        ".local/share/TelegramDesktop"
+        ".mozilla"
+        ".opam"
+        ".password-store"
+        ".ssh"
+        "Téléchargements"
+        ".thunderbird"
+        "Vidéos"
+        "vpn"
+        ".vscode"
+        ".zotero"
+        "Zotero"
+      ];
+    };
 
     # Packages to be installed in the user environment.
     packages = (with pkgs; [
