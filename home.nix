@@ -267,6 +267,7 @@
       allowOther = true;
       files = [
         ".bash_history"
+        ".config/mimeapps.list" # Used to store default browser
       ];
       directories = [
         ".cache/chromium"

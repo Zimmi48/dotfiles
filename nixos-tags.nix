@@ -1,1 +1,1 @@
-{ system.nixos.tags = [ "home-on-tmpfs" ]; }
+{ system.nixos.tags = [ "mimeapps" ]; }
