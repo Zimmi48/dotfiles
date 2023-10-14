@@ -1,6 +1,6 @@
 { user, home, stateVersion, unstable, unfree }:
 
-{ config, pkgs, ... }:
+{ config, pkgs, vscode-extensions, ... }:
 
 {
   programs = {
@@ -116,6 +116,7 @@
       package = unfree.vscode;
       extensions = (with unstable.vscode-extensions; [
           eamodio.gitlens
+          vscode-extensions.extensions.x86_64-linux.vscode-marketplace.ejgallego.coq-lsp
           elmtooling.elm-ls-vscode
           foam.foam-vscode
           github.vscode-pull-request-github
@@ -281,6 +282,7 @@
       gitAndTools.gh
       coq_8_17
       coqPackages_8_17.coqide
+      coqPackages_8_17.coq-lsp
       opam
 
     ]) ++ (with unfree; [

@@ -1,1 +1,1 @@
-{ system.nixos.tags = [ "root-on-tmpfs-with-network" ]; }
+{ system.nixos.tags = [ "coq-lsp" ]; }
