@@ -1,9 +1,11 @@
-{ user, home, stateVersion, unstable, unfree, persistence ? "/persist/home" }:
+{ user, home, stateVersion, unstable, unfree, extra ? [], persistence ? "/persist/home" }:
 
 { config, pkgs, impermanence, vscode-extensions, ... }:
 
 {
-  imports = [ impermanence.nixosModules.home-manager.impermanence ];
+  imports = extra ++ [
+    impermanence.nixosModules.home-manager.impermanence
+  ];
 
   programs = {
     # Bash configuration
@@ -280,16 +282,12 @@
         "Documents"
         "git"
         ".gnupg"
-        "Images"
         ".local/share/TelegramDesktop"
         ".mozilla"
         ".opam"
         ".password-store"
         ".ssh"
-        "Téléchargements"
         ".thunderbird"
-        "Vidéos"
-        "vpn"
         ".vscode"
         ".zotero"
         "Zotero"
