@@ -28,6 +28,13 @@
       options = [ "size=3G" "mode=755" ];
     };
 
+    fileSystems."/home" = {
+      device = "none";
+      fsType = "tmpfs";
+      options = [ "size=6G" "mode=777" ];
+      neededForBoot = true; # needed so that user home creation works and also for Impermanence
+    };
+
     fileSystems."/persist" = {
       device = "/dev/disk/by-uuid/eed0513c-fc3a-4547-9cf4-c1f07815269a";
       fsType = "ext4";
@@ -44,14 +51,13 @@
     ];
 
     environment.persistence."/persist" = {
+      # System
       files = [
         "/etc/adjtime"
         "/etc/printcap"
       ];
       directories = [
         "/etc/NetworkManager/system-connections"
-        # For now, I keep /home mutable
-        "/home"
         # Surprisingly, /nix is mounted early enough with Impermanence
         "/nix"
         "/var/cache/cups"
@@ -65,6 +71,41 @@
         "/var/lib/upower"
         "/var/spool/cups"
       ];
+      # Home
+      users.theo = {
+        files = [
+          ".bash_history"
+          ".config/mimeapps.list" # Used to store default browser
+        ];
+        directories = [
+          ".android"
+          ".cache/chromium"
+          ".cache/dune"
+          ".cache/mozilla/firefox"
+          ".cache/thunderbird"
+          ".cache/zotero"
+          ".cert"
+          ".config/chromium"
+          ".config/Code"
+          ".config/gh"
+          ".config/Signal"
+          ".cups"
+          "Documents"
+          "Downloads"
+          "git"
+          ".gnupg"
+          ".local/share/direnv/allow"
+          ".local/share/TelegramDesktop"
+          ".mozilla"
+          ".opam"
+          ".password-store"
+          ".ssh"
+          ".thunderbird"
+          ".vscode"
+          ".zotero"
+          "Zotero"
+        ];
+      };
     };
 
     # These files cannot be persisted with Impermanence because they would be mounted too late

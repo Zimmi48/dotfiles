@@ -1,1 +1,1 @@
-{ system.nixos.tags = [ "no_keyfile" ]; }
+{ system.nixos.tags = [ "home-on-tmpfs" ]; }

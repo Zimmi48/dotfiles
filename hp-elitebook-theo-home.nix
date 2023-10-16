@@ -10,6 +10,7 @@
         ".config/mimeapps.list" # Used to store default browser
       ];
       directories = [
+        ".android"
         ".cache/chromium"
         ".cache/dune"
         ".cache/mozilla/firefox"
