@@ -44,7 +44,7 @@
         modules = commonModules ++ [
           ./hp-elitebook-theo.nix
           (import ./configuration-base.nix { hostName = "hp-elitebook-theo"; stateVersion = "16.09"; inherit user home; })
-          { home-manager.users."${user.name}" = import ./home.nix { stateVersion = "23.05"; extra = [ ./hp-elitebook-theo-home.nix ]; persistence = "/persisthome"; inherit user home unstable unfree; }; }
+          { home-manager.users."${user.name}" = import ./home.nix { stateVersion = "23.05"; extraImports = [ ./hp-elitebook-theo-home.nix ]; inherit user home unstable unfree; }; }
         ];
       };
       "dell-latitude-theo" = nixpkgs.lib.nixosSystem {

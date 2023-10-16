@@ -137,8 +137,6 @@
     light.enable = true;
   };
 
-  programs.fuse.userAllowOther = true;
-
   services.actkbd = {
     enable = true;
     bindings = [

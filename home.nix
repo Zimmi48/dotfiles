@@ -1,11 +1,9 @@
-{ user, home, stateVersion, unstable, unfree, extra ? [], persistence ? "/persist/home" }:
+{ user, home, stateVersion, unstable, unfree, extraImports ? [] }:
 
-{ config, pkgs, impermanence, vscode-extensions, ... }:
+{ config, pkgs, vscode-extensions, ... }:
 
 {
-  imports = extra ++ [
-    impermanence.nixosModules.home-manager.impermanence
-  ];
+  imports = extraImports;
 
   programs = {
     # Bash configuration
@@ -262,38 +260,6 @@
 
     # Scripts
     file."move_to_sd_card.sh".source = ./scripts/move_to_sd_card.sh;
-
-    persistence."${persistence}/${user.name}" = {
-      allowOther = true;
-      files = [
-        ".bash_history"
-        ".config/mimeapps.list" # Used to store default browser
-      ];
-      directories = [
-        ".cache/chromium"
-        ".cache/dune"
-        ".cache/mozilla/firefox"
-        ".cache/thunderbird"
-        ".cache/zotero"
-        ".cert"
-        ".config/chromium"
-        ".config/Code"
-        ".config/gh"
-        ".config/Signal"
-        "Documents"
-        "git"
-        ".gnupg"
-        ".local/share/TelegramDesktop"
-        ".mozilla"
-        ".opam"
-        ".password-store"
-        ".ssh"
-        ".thunderbird"
-        ".vscode"
-        ".zotero"
-        "Zotero"
-      ];
-    };
 
     # Packages to be installed in the user environment.
     packages = (with pkgs; [

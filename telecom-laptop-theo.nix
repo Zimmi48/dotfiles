@@ -30,13 +30,6 @@
       options = [ "size=3G" "mode=755" ];
     };
 
-    fileSystems."/home" = {
-      device = "none";
-      fsType = "tmpfs";
-      options = [ "size=6G" "mode=777" ];
-      neededForBoot = true; # needed so that user home creation works and also for Impermanence
-    };
-
     fileSystems."/persist" = {
       device = "/dev/disk/by-uuid/eed0513c-fc3a-4547-9cf4-c1f07815269a";
       fsType = "ext4";
@@ -59,6 +52,8 @@
       ];
       directories = [
         "/etc/NetworkManager/system-connections"
+        # For now, I keep /home mutable
+        "/home"
         # Surprisingly, /nix is mounted early enough with Impermanence
         "/nix"
         "/var/cache/cups"

@@ -74,6 +74,9 @@
     environment.etc."passwd".source = "/persist/etc/passwd";
     environment.etc."shadow".source = "/persist/etc/shadow";
 
+    # Related to the use of the Home Manager Impermanence module
+    programs.fuse.userAllowOther = true;
+
     nix.settings.max-jobs = lib.mkDefault 4;
 
     services.xserver.libinput.touchpad.disableWhileTyping = true;
