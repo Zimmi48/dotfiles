@@ -16,9 +16,7 @@
         luks.devices = {
           "luks-f5957cbf-0021-4d3f-82be-76616415858a".device = "/dev/disk/by-uuid/f5957cbf-0021-4d3f-82be-76616415858a";
           "luks-1cba3e5e-1239-4096-9bdc-8003ec5efbdc".device = "/dev/disk/by-uuid/1cba3e5e-1239-4096-9bdc-8003ec5efbdc";
-          "luks-1cba3e5e-1239-4096-9bdc-8003ec5efbdc".keyFile = "/crypto_keyfile.bin";
         };
-        secrets."/crypto_keyfile.bin" = null;
       };
       kernelModules = [ "kvm-intel" ];
       loader.efi.efiSysMountPoint = "/boot/efi";
