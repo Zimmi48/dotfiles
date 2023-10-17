@@ -162,6 +162,7 @@
             scminput = false;
             yaml = true;
         };
+        "coq-lsp.updateIgnores" = false;
         "[python]"."editor.formatOnType" = true;
         "notebook.output.scrolling" = true;
         "terminal.integrated.defaultProfile.linux" = "bash";
