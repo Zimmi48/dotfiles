@@ -1,1 +1,1 @@
-{ system.nixos.tags = [ "coq-lsp-settings" ]; }
+{ system.nixos.tags = [ "bookmarks" ]; }

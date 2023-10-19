@@ -231,6 +231,17 @@
     };
   };
 
+  # Bookmarks for the file manager
+  gtk = {
+    enable = true;
+    gtk3.bookmarks = [
+      "file://${home}/git"
+      "file://${home}/git/work"
+      "file://${home}/git/research"
+      "file:///tmp"
+    ];
+  };
+
   manual.manpages.enable = false;
 
   home = {

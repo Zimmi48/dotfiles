@@ -51,6 +51,7 @@
     ];
 
     environment.persistence."/persist" = {
+      hideMounts = true;
       # System
       files = [
         "/etc/adjtime"
