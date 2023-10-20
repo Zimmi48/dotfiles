@@ -1,1 +1,1 @@
-{ system.nixos.tags = [ "emacs-no-scratch" ]; }
+{ system.nixos.tags = [ "blueman" ]; }

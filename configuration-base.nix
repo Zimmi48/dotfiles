@@ -99,7 +99,6 @@
   environment.systemPackages = with pkgs; [
 
     # System
-    blueman
     pulseaudioFull
 
     # Utilities
@@ -169,6 +168,9 @@
       enable = true;
       configFile = ./i3-configuration-base;
       extraSessionCommands = ''
+        # Blueman setting with dconf
+        echo -e '[org/blueman/plugins/powermanager]\nauto-power-on=@mb false' | dconf load /
+
         # Volume manager
         xfce4-volumed-pulse &
 

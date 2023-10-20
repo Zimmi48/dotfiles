@@ -173,6 +173,10 @@
     };
   };
 
+  services.blueman-applet.enable = true;
+
+  #dconf.settings."org/blueman/plugins/powermanager".auto-power-on = ...;
+
   xdg.desktopEntries = {
     # Desktop entries for CoqIDE
     coq_8_6 = {
