@@ -29,7 +29,6 @@
     # Emacs configuration
     emacs = {
       enable = true;
-      extraPackages = epkgs: [ epkgs.material-theme ];
       extraConfig = ''
         (electric-indent-mode -1) ; Disable eletric ident
         (setq-default indent-tabs-mode nil) ; Never use tabs
@@ -38,7 +37,6 @@
         (setq show-paren-mode t) ; Match parentheses
         (setq save-abbrevs 'silently)
         (setq org-cycle-separator-lines 1) ; Org mode: add a line between headings
-        (load-theme 'material t) ; Load installed theme
       '';
     };
 
@@ -242,6 +240,28 @@
     ];
   };
 
+  xresources.properties = {
+    # Dracula Xresources palette (for Emacs and urxvt)
+    "*.foreground" = "#F8F8F2";
+    "*.background" = "#282A36";
+    "*.color0" = "#000000";
+    "*.color8" = "#4D4D4D";
+    "*.color1" = "#FF5555";
+    "*.color9" = "#FF6E67";
+    "*.color2" = "#50FA7B";
+    "*.color10" = "#5AF78E";
+    "*.color3" = "#F1FA8C";
+    "*.color11" = "#F4F99D";
+    "*.color4" = "#BD93F9";
+    "*.color12" = "#CAA9FA";
+    "*.color5" = "#FF79C6";
+    "*.color13" = "#FF92D0";
+    "*.color6" = "#8BE9FD";
+    "*.color14" = "#9AEDFE";
+    "*.color7" = "#BFBFBF";
+    "*.color15" = "#E6E6E6";
+  };
+
   manual.manpages.enable = false;
 
   home = {
@@ -254,8 +274,6 @@
     file.".background-image".source = pkgs.nixos-artwork.wallpapers.simple-dark-gray-bottom.gnomeFilePath;
     # The following option cannot be set through programs.emacs.extraConfig
     file.".emacs".text = "(setq inhibit-startup-screen t)";
-    # Dracula X configuration (for Emacs and urxvt)
-    file.".Xdefaults".source = ./.Xdefaults;
 
     # Disable unicode bindings in CoqIDE, workaround for coq/coq#14856
     file.".config/coq/coqiderc".text = ''

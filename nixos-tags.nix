@@ -1,1 +1,1 @@
-{ system.nixos.tags = [ "bookmarks" ]; }
+{ system.nixos.tags = [ "xresources" ]; }
