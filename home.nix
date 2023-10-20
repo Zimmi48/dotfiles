@@ -33,6 +33,7 @@
         (electric-indent-mode -1) ; Disable eletric ident
         (setq-default indent-tabs-mode nil) ; Never use tabs
         (tool-bar-mode -1) ; Disable the tool bar
+        (setq initial-scratch-message nil) ; Disable the scratch message
         (setq column-number-mode t) ; Show the column number
         (setq show-paren-mode t) ; Match parentheses
         (setq save-abbrevs 'silently)

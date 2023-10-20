@@ -1,1 +1,1 @@
-{ system.nixos.tags = [ "xresources" ]; }
+{ system.nixos.tags = [ "emacs-no-scratch" ]; }
