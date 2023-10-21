@@ -1,1 +1,1 @@
-{ system.nixos.tags = [ "blueman" ]; }
+{ system.nixos.tags = [ "home-manager-xsession" ]; }

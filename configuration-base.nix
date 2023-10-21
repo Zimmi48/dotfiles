@@ -121,7 +121,6 @@
     libreoffice
     evince
     vlc
-    languagetool
 
   ];
 
@@ -163,37 +162,6 @@
     xkbOptions =
       "${if azerty then "eurosign:e" else "grp:alt_shift_toggle"},nbsp:level2";
 
-    # Window manager
-    windowManager.i3 = {
-      enable = true;
-      configFile = ./i3-configuration-base;
-      extraSessionCommands = ''
-        # Blueman setting with dconf
-        echo -e '[org/blueman/plugins/powermanager]\nauto-power-on=@mb false' | dconf load /
-
-        # Volume manager
-        xfce4-volumed-pulse &
-
-        # Network manager
-        nm-applet &
-
-        # Launch a LanguageTool HTTP server for use within Firefox
-        languagetool-http-server --allow-origin "*" &
-      '';
-      extraPackages = with pkgs; [
-        # Desktop packages
-
-        libnotify
-        xfce.xfce4-notifyd
-        networkmanagerapplet
-        xfce.xfce4-volumed-pulse
-        i3lock
-        i3status
-        dmenu
-        arandr
-      ];
-    };
-
     xautolock = {
       enable = true;
       enableNotifier = true;
@@ -201,8 +169,6 @@
       notifier = ''${pkgs.libnotify}/bin/notify-send "Locking in 10 seconds"'';
       time = 10;
     };
-
-    desktopManager.xfce.enable = true;
   };
 
   # RedShift changes the color of the screen to a redder tone when night is approaching

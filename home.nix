@@ -1,6 +1,6 @@
 { user, home, stateVersion, unstable, unfree, extraImports ? [] }:
 
-{ config, pkgs, vscode-extensions, ... }:
+{ config, lib, pkgs, vscode-extensions, ... }:
 
 {
   imports = extraImports;
@@ -173,9 +173,37 @@
     };
   };
 
-  services.blueman-applet.enable = true;
+  services = {
+    blueman-applet.enable = true;
 
-  #dconf.settings."org/blueman/plugins/powermanager".auto-power-on = ...;
+    #screen-locker = {
+    #  enable = true;
+    #  lockCmd = "${pkgs.i3lock}/bin/i3lock -c 000000";
+    #};
+  };
+
+  xsession = {
+    enable = true;
+    initExtra = "rfkill block bluetooth";
+    windowManager.i3 = {
+      enable = true;
+      config = {
+        defaultWorkspace = "workspace number 1";
+        modifier = "Mod4";
+        menu = "i3-dmenu-desktop";
+        terminal = "urxvt";
+        workspaceAutoBackAndForth = true;
+        keybindings = lib.mkOptionDefault {
+          "Mod4+p" = "exec xautolock -locknow";
+        };
+        startup = [
+          { command = "${pkgs.xfce.xfce4-volumed-pulse}/bin/xfce4-volumed-pulse &"; }
+          { command = "nm-applet &"; }
+          { command = "languagetool-http-server --allow-origin \"*\" &"; }
+        ];
+      };
+    };
+  };
 
   xdg.desktopEntries = {
     # Desktop entries for CoqIDE
@@ -304,6 +332,15 @@
       scrot
       pdfpc
       jq
+      arandr
+
+      # Desktop packages
+      dmenu
+      xfce.thunar
+      xfce.ristretto
+      networkmanagerapplet
+      xfce.xfce4-notifyd
+      languagetool
 
       # Applications
       chromium
