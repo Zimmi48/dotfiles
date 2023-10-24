@@ -1,1 +1,1 @@
-{ system.nixos.tags = [ "home-manager-xsession" ]; }
+{ system.nixos.tags = [ "dconf" ]; }

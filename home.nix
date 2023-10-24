@@ -184,7 +184,10 @@
 
   xsession = {
     enable = true;
-    initExtra = "rfkill block bluetooth";
+    initExtra = ''
+      rfkill block bluetooth
+      echo -e '[org/blueman/plugins/powermanager]\nauto-power-on=@mb false' | dconf load /
+    '';
     windowManager.i3 = {
       enable = true;
       config = {

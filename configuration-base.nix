@@ -127,6 +127,8 @@
   environment.shellAliases.bashmount = "rlwrap bashmount";
 
   programs = {
+    dconf.enable = true;
+
     gnupg.agent = {
       enable = true;
       enableSSHSupport = true;
