@@ -1,1 +1,1 @@
-{ system.nixos.tags = [ "dconf" ]; }
+{ system.nixos.tags = [ "xss-lock" "xsecurelock" ]; }

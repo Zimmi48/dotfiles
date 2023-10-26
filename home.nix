@@ -176,10 +176,15 @@
   services = {
     blueman-applet.enable = true;
 
-    #screen-locker = {
-    #  enable = true;
-    #  lockCmd = "${pkgs.i3lock}/bin/i3lock -c 000000";
-    #};
+    screen-locker = {
+      enable = true;
+      lockCmd = "${pkgs.xsecurelock}/bin/xsecurelock";
+      xautolock.enable = false; # means use xss-lock
+      xss-lock.extraOptions = [
+        "--notifier=${pkgs.xsecurelock}/libexec/xsecurelock/dimmer"
+        "-l" # prevents suspend before locker is started
+      ];
+    };
   };
 
   xsession = {
@@ -197,7 +202,7 @@
         terminal = "urxvt";
         workspaceAutoBackAndForth = true;
         keybindings = lib.mkOptionDefault {
-          "Mod4+p" = "exec xautolock -locknow";
+          "Mod4+p" = "exec xset s activate";
         };
         startup = [
           { command = "${pkgs.xfce.xfce4-volumed-pulse}/bin/xfce4-volumed-pulse &"; }

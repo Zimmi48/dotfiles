@@ -163,14 +163,6 @@
     layout = if azerty then "fr" else "us,us(intl)";
     xkbOptions =
       "${if azerty then "eurosign:e" else "grp:alt_shift_toggle"},nbsp:level2";
-
-    xautolock = {
-      enable = true;
-      enableNotifier = true;
-      locker = "${pkgs.i3lock}/bin/i3lock -c 000000";
-      notifier = ''${pkgs.libnotify}/bin/notify-send "Locking in 10 seconds"'';
-      time = 10;
-    };
   };
 
   # RedShift changes the color of the screen to a redder tone when night is approaching
