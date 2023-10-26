@@ -1,1 +1,1 @@
-{ system.nixos.tags = [ "xss-lock" "xsecurelock" ]; }
+{ system.nixos.tags = [ "caffeine" ]; }

@@ -207,6 +207,7 @@
         startup = [
           { command = "${pkgs.xfce.xfce4-volumed-pulse}/bin/xfce4-volumed-pulse &"; }
           { command = "nm-applet &"; }
+          { command = "${pkgs.caffeine-ng}/bin/caffeine &"; }
           { command = "languagetool-http-server --allow-origin \"*\" &"; }
         ];
       };
