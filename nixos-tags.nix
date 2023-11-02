@@ -1,1 +1,1 @@
-{ system.nixos.tags = [ "caffeine" ]; }
+{ system.nixos.tags = [ "enable-i3" ]; }
