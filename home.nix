@@ -341,6 +341,7 @@
       scrot
       pdfpc
       jq
+      httpie
       arandr
 
       # Desktop packages
