@@ -1,1 +1,1 @@
-{ system.nixos.tags = [ "httpie" ]; }
+{ system.nixos.tags = [ "copilot-chat" ]; }

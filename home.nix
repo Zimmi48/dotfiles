@@ -117,7 +117,6 @@
       package = unfree.vscode;
       extensions = (with unstable.vscode-extensions; [
           eamodio.gitlens
-          vscode-extensions.extensions.x86_64-linux.vscode-marketplace.ejgallego.coq-lsp
           elmtooling.elm-ls-vscode
           foam.foam-vscode
           github.vscode-pull-request-github
@@ -138,6 +137,9 @@
           ms-python.vscode-pylance
           ms-vscode-remote.remote-ssh
           ms-vsliveshare.vsliveshare
+        ]) ++ (with vscode-extensions.extensions.x86_64-linux.vscode-marketplace; [
+          ejgallego.coq-lsp
+          github.copilot-chat
         ]);
       keybindings = [
         {
