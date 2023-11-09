@@ -124,6 +124,7 @@
           james-yu.latex-workshop
           jnoortheen.nix-ide
           maximedenes.vscoq
+          mkhl.direnv
           ms-python.python
           ms-toolsai.jupyter
           ms-toolsai.jupyter-keymap

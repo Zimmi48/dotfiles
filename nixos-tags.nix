@@ -1,1 +1,1 @@
-{ system.nixos.tags = [ "immutable-vscode-extensions" ]; }
+{ system.nixos.tags = [ "vscode-direnv" ]; }
