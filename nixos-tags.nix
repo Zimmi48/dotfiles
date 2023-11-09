@@ -1,1 +1,1 @@
-{ system.nixos.tags = [ "vscode-direnv" ]; }
+{ system.nixos.tags = [ "devenv-cachix" ]; }
