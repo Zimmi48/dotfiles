@@ -1,1 +1,1 @@
-{ system.nixos.tags = [ "copilot-chat" ]; }
+{ system.nixos.tags = [ "immutable-vscode-extensions" ]; }

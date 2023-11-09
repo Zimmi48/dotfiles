@@ -114,6 +114,7 @@
       enable = true;
       enableExtensionUpdateCheck = false;
       enableUpdateCheck = false;
+      mutableExtensionsDir = false;
       package = unfree.vscode;
       extensions = (with unstable.vscode-extensions; [
           eamodio.gitlens
