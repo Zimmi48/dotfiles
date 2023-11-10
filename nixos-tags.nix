@@ -1,1 +1,1 @@
-{ system.nixos.tags = [ "devenv-cachix" ]; }
+{ system.nixos.tags = [ "fix-ms-toolsai-jupyter" ]; }
