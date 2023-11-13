@@ -1,1 +1,1 @@
-{ system.nixos.tags = [ "fix-ms-toolsai-jupyter" ]; }
+{ system.nixos.tags = [ "fix-zotero-cve" ]; }
