@@ -180,6 +180,12 @@
   services = {
     blueman-applet.enable = true;
 
+    gpg-agent = {
+      enable = true;
+      enableSshSupport = true;
+      pinentryFlavor = "gtk2";
+    };
+
     screen-locker = {
       enable = true;
       lockCmd = "${pkgs.xsecurelock}/bin/xsecurelock";

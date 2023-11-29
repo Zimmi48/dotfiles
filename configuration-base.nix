@@ -110,7 +110,6 @@
     zip
     unzip
     rlwrap
-    gnupg1
     alsaUtils
     poppler_utils
     bashmount
@@ -130,11 +129,6 @@
 
   programs = {
     dconf.enable = true;
-
-    gnupg.agent = {
-      enable = true;
-      enableSSHSupport = true;
-    };
 
     light.enable = true;
   };

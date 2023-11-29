@@ -1,1 +1,1 @@
-{ system.nixos.tags = [ "fix-zotero-cve" ]; }
+{ system.nixos.tags = [ "home-manager-gpg-agent" ]; }
