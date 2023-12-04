@@ -1,1 +1,1 @@
-{ system.nixos.tags = [ "home-manager-gpg-agent" ]; }
+{ system.nixos.tags = [ "persist-wireplumber-config" ]; }

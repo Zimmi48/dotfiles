@@ -26,6 +26,7 @@
         ".gnupg"
         "Images"
         ".local/share/TelegramDesktop"
+        ".local/state/wireplumber"
         ".mozilla"
         ".opam"
         ".password-store"
