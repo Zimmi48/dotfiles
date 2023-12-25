@@ -1,1 +1,1 @@
-{ system.nixos.tags = [ "declarative-mimeapps" ]; }
+{ system.nixos.tags = [ "nixos-23.11" ]; }
