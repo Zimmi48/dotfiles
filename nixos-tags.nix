@@ -1,1 +1,1 @@
-{ system.nixos.tags = [ "nixos-23.11" ]; }
+{ system.nixos.tags = [ "fix-elm-extension" ]; }

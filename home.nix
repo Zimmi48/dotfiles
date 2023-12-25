@@ -149,6 +149,8 @@
         ]) ++ (with vscode-extensions.extensions.x86_64-linux.vscode-marketplace; [
           ejgallego.coq-lsp
           github.copilot-chat
+          hbenl.vscode-test-explorer # Needed for Elm extension
+          ms-vscode.test-adapter-converter # Needed for vscode-test-explorer
         ]);
       keybindings = [
         {
