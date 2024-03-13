@@ -77,7 +77,6 @@
         files = [
           ".bash_history"
           ".config/gh/hosts.yml"
-          ".config/mimeapps.list" # Used to store default browser
         ];
         directories = [
           ".android"

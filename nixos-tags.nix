@@ -1,1 +1,1 @@
-{ system.nixos.tags = [ "single-persist-partition" ]; }
+{ system.nixos.tags = [ "declarative-mimeapps" ]; }
