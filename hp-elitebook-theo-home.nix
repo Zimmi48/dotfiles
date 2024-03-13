@@ -7,6 +7,7 @@
       allowOther = true;
       files = [
         ".bash_history"
+        ".config/gh/hosts.yml"
         ".config/mimeapps.list" # Used to store default browser
       ];
       directories = [
@@ -19,7 +20,6 @@
         ".cert"
         ".config/chromium"
         ".config/Code"
-        ".config/gh"
         ".config/Signal"
         "Documents"
         "git"

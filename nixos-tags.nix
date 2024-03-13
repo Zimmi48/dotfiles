@@ -1,1 +1,1 @@
-{ system.nixos.tags = [ "persist-wireplumber-config" ]; }
+{ system.nixos.tags = [ "declarative-gh-config" ]; }

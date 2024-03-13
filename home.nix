@@ -41,6 +41,13 @@
       '';
     };
 
+    # gh configuration
+    gh = {
+      enable = true;
+      package = unstable.gh;
+      settings.git_protocol = "ssh";
+    };
+
     # Git configuration
     git = {
       enable = true;
@@ -380,7 +387,6 @@
     ]) ++ (with unstable; [
 
       # Development (unstable packages)
-      gitAndTools.gh
       coq_8_18
       coqPackages_8_18.coqide
       coqPackages_8_18.coq-lsp
