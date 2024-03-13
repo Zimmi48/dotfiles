@@ -1,1 +1,1 @@
-{ system.nixos.tags = [ "declarative-gh-config" ]; }
+{ system.nixos.tags = [ "single-persist-partition" ]; }

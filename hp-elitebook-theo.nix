@@ -34,18 +34,14 @@
       neededForBoot = true;
     };
 
-    fileSystems."/persisthome" = {
-      device = "/dev/disk/by-uuid/fdf37485-32d5-4288-b889-7cd38e86cedc";
-      fsType = "ext4";
-      neededForBoot = true;
-    };
-
     fileSystems."/boot" = {
       device = "/dev/disk/by-uuid/D371-11E9";
       fsType = "vfat";
     };
 
     environment.persistence."/persist" = {
+      hideMounts = true;
+      # System
       files = [
         "/etc/adjtime"
         "/etc/dhcpcd.duid"
@@ -67,6 +63,44 @@
         "/var/lib/upower"
         "/var/spool/cups"
       ];
+      # Home
+      users.theo = {
+        files = [
+          ".bash_history"
+          ".config/gh/hosts.yml"
+          ".config/mimeapps.list" # Used to store default browser
+        ];
+        directories = [
+          ".android"
+          ".cache/chromium"
+          ".cache/dune"
+          ".cache/mozilla/firefox"
+          ".cache/thunderbird"
+          ".cache/zotero"
+          ".cert"
+          ".config/chromium"
+          ".config/Code"
+          ".config/Signal"
+          "Documents"
+          "git"
+          ".gnupg"
+          "Images"
+          ".local/share/direnv/allow"
+          ".local/share/TelegramDesktop"
+          ".local/state/wireplumber"
+          ".mozilla"
+          ".opam"
+          ".password-store"
+          ".ssh"
+          "Téléchargements"
+          ".thunderbird"
+          "Vidéos"
+          "vpn"
+          ".vscode"
+          ".zotero"
+          "Zotero"
+        ];
+      };
     };
 
     # These files cannot be persisted with Impermanence because they would be mounted too late
