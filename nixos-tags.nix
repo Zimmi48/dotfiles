@@ -1,1 +1,1 @@
-{ system.nixos.tags = [ "march-update" ]; }
+{ system.nixos.tags = [ "fix-vscode-extensions" ]; }

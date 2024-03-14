@@ -126,7 +126,6 @@
       package = unfree.vscode;
       extensions = (with unstable.vscode-extensions; [
           eamodio.gitlens
-          elmtooling.elm-ls-vscode
           foam.foam-vscode
           github.vscode-pull-request-github
           james-yu.latex-workshop
@@ -144,14 +143,13 @@
         ]) ++ (with unfree.vscode-extensions; [
           github.codespaces
           github.copilot
+          github.copilot-chat
           ms-python.vscode-pylance
           ms-vscode-remote.remote-ssh
           ms-vsliveshare.vsliveshare
         ]) ++ (with vscode-extensions.extensions.x86_64-linux.vscode-marketplace; [
           ejgallego.coq-lsp
-          github.copilot-chat
-          hbenl.vscode-test-explorer # Needed for Elm extension
-          ms-vscode.test-adapter-converter # Needed for vscode-test-explorer
+          elm-land.elm-land
         ]);
       keybindings = [
         {
@@ -414,6 +412,7 @@
     ]) ++ (with unfree; [
 
       # Non-free applications and development tools
+      elmPackages.elm # needed by elm-land vscode extension
       elmPackages.lamdera
       skypeforlinux
       zoom-us
