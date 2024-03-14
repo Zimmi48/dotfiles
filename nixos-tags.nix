@@ -1,1 +1,1 @@
-{ system.nixos.tags = [ "git-lfs" ]; }
+{ system.nixos.tags = [ "march-update" ]; }
