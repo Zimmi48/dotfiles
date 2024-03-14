@@ -77,6 +77,8 @@
       enable = true;
       profiles.default.isDefault = true;
       settings = {
+        "extensions.activeThemeID" = "thunderbird-compact-dark@mozilla.org";
+        "mail.pane_config.dynamic" = 0; # Classic layout
         "mailnews.tags.1_closed.color" = "#986a44";
         "mailnews.tags.1_closed.tag" = "1_closed";
         "mailnews.tags.2_assign.color" = "#9141ac";
@@ -90,6 +92,7 @@
         "mailnews.tags.6_author.color" = "#33d17a";
         "mailnews.tags.6_author.tag" = "6_author";
         "mailnews.tags.version" = 2;
+        "spellchecker.dictionary" = "en-US,fr";
       };
     };
 

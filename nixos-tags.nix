@@ -1,1 +1,1 @@
-{ system.nixos.tags = [ "fix-vscode-extensions" ]; }
+{ system.nixos.tags = [ "more-declarative-thunderbird" ]; }
