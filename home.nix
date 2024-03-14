@@ -51,6 +51,7 @@
     # Git configuration
     git = {
       enable = true;
+      lfs.enable = true;
       package = unstable.git;
       userName = "Théo Zimmermann";
       userEmail = "theo.zimmermann@telecom-paris.fr";

@@ -1,1 +1,1 @@
-{ system.nixos.tags = [ "fix-elm-extension" ]; }
+{ system.nixos.tags = [ "git-lfs" ]; }
