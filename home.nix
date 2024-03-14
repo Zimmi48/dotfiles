@@ -90,18 +90,6 @@
         "mailnews.tags.6_author.color" = "#33d17a";
         "mailnews.tags.6_author.tag" = "6_author";
         "mailnews.tags.version" = 2;
-        "extensions.mailboxalert.alerts.3.command" = "${pkgs.libnotify}/bin/notify-send -c \"email.arrived\" -i ${pkgs.thunderbird}/lib/thunderbird/chrome/icons/default/default48.png \"theo.zimmermann@telecom-paris.fr received a new message (%count unread)\" \"%subject from %sendername\"";
-        "extensions.mailboxalert.alerts.3.command_escape_windows_quotes" = true;
-        "extensions.mailboxalert.alerts.3.execute_command" = true;
-        "extensions.mailboxalert.alerts.3.name" = "Pro alert";
-        "extensions.mailboxalert.alerts.3.show_message_message" = "%subject";
-        "extensions.mailboxalert.alerts.3.show_message_subject" = "%sendername on %originalfolder";
-        "extensions.mailboxalert.alerts.4.command" = "${pkgs.libnotify}/bin/notify-send -c \"email.arrived\" -i ${pkgs.thunderbird}/lib/thunderbird/chrome/icons/default/default48.png \"theo.zimmi@gmail.com received a new message (%count unread)\" \"%subject from %sendername\"";
-        "extensions.mailboxalert.alerts.4.command_escape_windows_quotes" = true;
-        "extensions.mailboxalert.alerts.4.execute_command" = true;
-        "extensions.mailboxalert.alerts.4.name" = "Gmail alert";
-        "extensions.mailboxalert.folders.imap://theo.zimmermann%40telecom-paris.fr@z.imt.fr/INBOX.alerts" = "3";
-        "extensions.mailboxalert.folders.imap://theo.zimmi%40gmail.com@imap.gmail.com/INBOX.alerts" = "4";
       };
     };
 
