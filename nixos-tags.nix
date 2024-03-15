@@ -1,1 +1,1 @@
-{ system.nixos.tags = [ "more-declarative-thunderbird" ]; }
+{ system.nixos.tags = [ "thunderbird-flat-archive" ]; }

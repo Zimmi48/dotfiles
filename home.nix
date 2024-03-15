@@ -78,6 +78,7 @@
       profiles.default.isDefault = true;
       settings = {
         "extensions.activeThemeID" = "thunderbird-compact-dark@mozilla.org";
+        "mail.identity.default.archive_granularity" = 0; # Use a single flat archive folder
         "mail.pane_config.dynamic" = 0; # Classic layout
         "mailnews.tags.1_closed.color" = "#986a44";
         "mailnews.tags.1_closed.tag" = "1_closed";
