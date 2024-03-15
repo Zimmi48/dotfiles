@@ -1,1 +1,1 @@
-{ system.nixos.tags = [ "thunderbird-flat-archive" ]; }
+{ system.nixos.tags = [ "generalize-git-config" ]; }
