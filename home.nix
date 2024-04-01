@@ -222,6 +222,9 @@
           { command = "${pkgs.caffeine-ng}/bin/caffeine &"; }
           { command = "languagetool-http-server --allow-origin \"*\" &"; }
         ];
+        floating.criteria = [
+          { window_role = "alert"; }
+        ];
       };
     };
   };

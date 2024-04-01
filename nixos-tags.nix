@@ -1,1 +1,1 @@
-{ system.nixos.tags = [ "generalize-git-config" ]; }
+{ system.nixos.tags = [ "fix-firefox-alerts" ]; }
