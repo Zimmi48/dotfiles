@@ -18,7 +18,8 @@
       home = "/home/${user.name}";
       unstable = nixpkgs-unstable.legacyPackages.x86_64-linux;
       # Use the latest possible version of non-free packages
-      unfree = (import nixpkgs-unstable { system = "x86_64-linux"; config.allowUnfree = true; }).pkgs;
+      unfree-stable = (import nixpkgs { system = "x86_64-linux"; config.allowUnfree = true; }).pkgs;
+      unfree-unstable = (import nixpkgs-unstable { system = "x86_64-linux"; config.allowUnfree = true; }).pkgs;
       system = "x86_64-linux";
       # Make all inputs available in the NixOS modules
       specialArgs = inputs;
@@ -36,7 +37,7 @@
         modules = commonModules ++ [
           ./telecom-laptop-theo.nix
           (import ./configuration-base.nix { hostName = "telecom-laptop-theo"; stateVersion = "22.05"; inherit user home; })
-          { home-manager.users."${user.name}" = import ./home.nix { stateVersion = "23.05"; inherit user home unstable unfree; }; }
+          { home-manager.users."${user.name}" = import ./home.nix { stateVersion = "23.05"; inherit user home unstable unfree-stable unfree-unstable; }; }
         ];
       };
       "hp-elitebook-theo" = nixpkgs.lib.nixosSystem {
@@ -44,7 +45,7 @@
         modules = commonModules ++ [
           ./hp-elitebook-theo.nix
           (import ./configuration-base.nix { hostName = "hp-elitebook-theo"; stateVersion = "16.09"; inherit user home; })
-          { home-manager.users."${user.name}" = import ./home.nix { stateVersion = "23.05"; inherit user home unstable unfree; }; }
+          { home-manager.users."${user.name}" = import ./home.nix { stateVersion = "23.05"; inherit user home unstable unfree-stable unfree-unstable; }; }
         ];
       };
       "dell-latitude-theo" = nixpkgs.lib.nixosSystem {
@@ -52,7 +53,7 @@
         modules = commonModules ++ [
           ./dell-latitude-theo.nix
           (import ./configuration-base.nix { hostName = "dell-latitude-theo"; azerty = true; efi = false; stateVersion = "23.05"; inherit user home; })
-          { home-manager.users."${user.name}" = import ./home.nix { stateVersion = "23.05"; inherit user home unstable unfree; }; }
+          { home-manager.users."${user.name}" = import ./home.nix { stateVersion = "23.05"; inherit user home unstable unfree-stable unfree-unstable; }; }
         ];
       };
     };

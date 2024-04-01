@@ -1,4 +1,4 @@
-{ user, home, stateVersion, unstable, unfree, extraImports ? [] }:
+{ user, home, stateVersion, unstable, unfree-stable, unfree-unstable, extraImports ? [] }:
 
 { config, lib, pkgs, vscode-extensions, ... }:
 
@@ -115,7 +115,7 @@
       enableExtensionUpdateCheck = false;
       enableUpdateCheck = false;
       mutableExtensionsDir = false;
-      package = unfree.vscode;
+      package = unfree-unstable.vscode;
       extensions = (with unstable.vscode-extensions; [
           eamodio.gitlens
           foam.foam-vscode
@@ -132,7 +132,7 @@
           ms-toolsai.vscode-jupyter-slideshow
           ocamllabs.ocaml-platform
           yzhang.markdown-all-in-one # Recommended by Foam
-        ]) ++ (with unfree.vscode-extensions; [
+        ]) ++ (with unfree-unstable.vscode-extensions; [
           github.codespaces
           github.copilot
           github.copilot-chat
@@ -282,7 +282,7 @@
     # Desktop entry for launching VS Code with Foam notes
     foam = {
       name = "Foam";
-      exec = "${unfree.vscode}/bin/code ${home}/git/notes";
+      exec = "${unfree-unstable.vscode}/bin/code ${home}/git/notes";
     };
   };
 
@@ -396,7 +396,6 @@
       pandoc
       texlive.combined.scheme-full
       inotifyTools # Useful for dune build --watch in particular
-      elmPackages.elm-format
 
     ]) ++ (with unstable; [
 
@@ -405,16 +404,17 @@
       coqPackages_8_18.coqide
       coqPackages_8_18.coq-lsp
       opam
+      elmPackages.elm # needed by elm-land vscode extension
+      elmPackages.elm-format
 
-    ]) ++ (with unfree; [
+    ]) ++ [
 
       # Non-free applications and development tools
-      elmPackages.elm # needed by elm-land vscode extension
-      elmPackages.lamdera
-      skypeforlinux
-      zoom-us
+      unfree-unstable.elmPackages.lamdera
+      unfree-stable.skypeforlinux
+      unfree-stable.zoom-us
 
-    ]);
+    ];
 
     # This value determines the home Manager release that your
     # configuration is compatible with. This helps avoid breakage

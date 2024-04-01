@@ -1,1 +1,1 @@
-{ system.nixos.tags = [ "fix-firefox-alerts" ]; }
+{ system.nixos.tags = [ "fix-zoom" ]; }
