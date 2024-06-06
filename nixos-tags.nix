@@ -1,1 +1,1 @@
-{ system.nixos.tags = [ "nixos-24.05" ]; }
+{ system.nixos.tags = [ "lix" ]; }

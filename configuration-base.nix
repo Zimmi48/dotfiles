@@ -58,6 +58,7 @@
   };
 
   nix = {
+    package = pkgs.lix;
     extraOptions = "gc-keep-outputs = true";
 
     # Make `nix run nixpkgs#...` match nixpkgs-unstable
