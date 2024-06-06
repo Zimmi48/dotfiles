@@ -1,1 +1,1 @@
-{ system.nixos.tags = [ "fix-zoom" ]; }
+{ system.nixos.tags = [ "nixos-24.05" ]; }

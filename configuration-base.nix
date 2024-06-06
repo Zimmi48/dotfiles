@@ -61,7 +61,7 @@
     extraOptions = "gc-keep-outputs = true";
 
     # Make `nix run nixpkgs#...` match nixpkgs-unstable
-    registry.nixpkgs.flake = nixpkgs-unstable;
+    registry.nixpkgs = lib.mkForce { flake = nixpkgs-unstable; };
     # Make `nix run nixos#...` match nixpkgs
     registry.nixos.flake = nixpkgs;
 
@@ -156,9 +156,10 @@
     enable = true;
 
     # Keyboard layout(s)
-    layout = if azerty then "fr" else "us,us(intl)";
-    xkbOptions =
-      "${if azerty then "eurosign:e" else "grp:alt_shift_toggle"},nbsp:level2";
+    xkb = {
+      layout = if azerty then "fr" else "us,us(intl)";
+      options = "${if azerty then "eurosign:e" else "grp:alt_shift_toggle"},nbsp:level2";
+    };
   };
 
   # RedShift changes the color of the screen to a redder tone when night is approaching

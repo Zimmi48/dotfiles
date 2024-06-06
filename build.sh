@@ -62,7 +62,7 @@ elif [ "$answer" = "s" ] || [ "$answer" = "S" ] || [ "$answer" = "b" ] || [ "$an
                      echo "Skipping the commit of the new configuration..."
               else
                      echo "Committing the new configuration..."
-                     git commit -am "$(cat ./nix-builds/$result/nixos-version)" -m "$(nix store diff-closures /nix/var/nix/profiles/system ./nix-builds/$result)" --edit -S
+                     git commit -a --file=<(cat ./nix-builds/$result/nixos-version && echo && echo && nix store diff-closures /nix/var/nix/profiles/system ./nix-builds/$result) --edit -S
               fi
        fi
        # If the user answer equals "B" or "b", then boot the new configuration.
