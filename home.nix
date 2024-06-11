@@ -157,6 +157,7 @@
         "git.confirmSync" = false;
         "git.enableSmartCommit" = true;
         "git.postCommitCommand" = "sync";
+        "git.openRepositoryInParentFolders" = "always";
         "editor.wordWrap" = "on";
         "editor.unicodeHighlight.nonBasicASCII" = false;
         "editor.inlineSuggest.enabled" = true; # Copilot

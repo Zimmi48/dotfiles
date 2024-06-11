@@ -1,1 +1,1 @@
-{ system.nixos.tags = [ "lix" ]; }
+{ system.nixos.tags = [ "vscode-open-repo" ]; }
