@@ -189,6 +189,14 @@
       pinentryPackage = pkgs.pinentry-gtk2;
     };
 
+    redshift = {
+      enable = true;
+      #latitude = 48.85341; # Paris
+      #longitude = 2.3488;
+      provider = "geoclue2";
+      tray = true;
+    };
+
     screen-locker = {
       enable = true;
       lockCmd = "${pkgs.xsecurelock}/bin/xsecurelock";

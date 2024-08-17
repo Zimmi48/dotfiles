@@ -1,1 +1,1 @@
-{ system.nixos.tags = [ "vscode-open-repo" ]; }
+{ system.nixos.tags = [ "redshift-geoclue2" ]; }

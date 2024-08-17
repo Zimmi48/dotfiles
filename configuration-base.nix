@@ -163,11 +163,8 @@
     };
   };
 
-  # RedShift changes the color of the screen to a redder tone when night is approaching
-  services.redshift = {
-    enable = true;
-    extraOptions = [ "-m randr" ];
-  };
+  # Location info for RedShift
+  services.geoclue2.enable = true;
 
   # Enable CUPS to print documents.
   services.printing = {
