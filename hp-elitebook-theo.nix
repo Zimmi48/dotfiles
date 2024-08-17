@@ -112,5 +112,5 @@
 
     nix.settings.max-jobs = lib.mkDefault 4;
 
-    services.xserver.libinput.touchpad.disableWhileTyping = true;
+    services.libinput.touchpad.disableWhileTyping = true;
 }
