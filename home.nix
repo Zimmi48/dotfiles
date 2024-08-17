@@ -191,9 +191,9 @@
 
     redshift = {
       enable = true;
-      #latitude = 48.85341; # Paris
-      #longitude = 2.3488;
-      provider = "geoclue2";
+      latitude = 48.85341; # Paris
+      longitude = 2.3488;
+      #provider = "geoclue2";
       tray = true;
     };
 

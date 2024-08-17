@@ -163,8 +163,8 @@
     };
   };
 
-  # Location info for RedShift
-  services.geoclue2.enable = true;
+  # Location info for RedShift (didn't work)
+  #services.geoclue2.enable = true;
 
   # Enable CUPS to print documents.
   services.printing = {

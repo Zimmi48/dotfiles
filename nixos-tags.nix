@@ -1,1 +1,1 @@
-{ system.nixos.tags = [ "redshift-geoclue2" ]; }
+{ system.nixos.tags = [ "redshift-manual" ]; }
