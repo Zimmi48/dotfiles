@@ -176,6 +176,7 @@
         "window.restoreWindows" = "none";
         "workbench.colorTheme" = "Default Dark Modern";
         "extensions.autoUpdate" = false;
+        "search.followSymlinks" = false; # Avoid issues with VS Code search eating CPU and memory
       };
     };
   };
