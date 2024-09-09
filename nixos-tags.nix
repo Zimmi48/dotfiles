@@ -1,1 +1,1 @@
-{ system.nixos.tags = [ "redshift-manual" ]; }
+{ system.nixos.tags = [ "coq-8.19" ]; }
