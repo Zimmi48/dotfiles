@@ -1,1 +1,1 @@
-{ system.nixos.tags = [ "existing-font" ]; }
+{ system.nixos.tags = []; }

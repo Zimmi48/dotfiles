@@ -26,6 +26,7 @@
       # Define the modules that are imported in every configuration
       commonModules = [
         ./nixos-tags.nix
+        { system.nixos.tags = [ (self.shortRev or self.dirtyShortRev) ]; }
         home-manager.nixosModules.home-manager
         impermanence.nixosModules.impermanence
       ];
