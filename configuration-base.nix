@@ -35,7 +35,7 @@
   time.timeZone = "Europe/Paris";
 
   console = {
-    font = "Lat2-Terminus22";
+    font = "Lat2-Terminus16";
     useXkbConfig = true;
   };
 

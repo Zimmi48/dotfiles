@@ -1,1 +1,1 @@
-{ system.nixos.tags = [ "coq-8.19" ]; }
+{ system.nixos.tags = [ "existing-font" ]; }
