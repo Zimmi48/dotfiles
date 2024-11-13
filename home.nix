@@ -130,6 +130,7 @@
           ms-toolsai.jupyter-renderers
           ms-toolsai.vscode-jupyter-cell-tags
           ms-toolsai.vscode-jupyter-slideshow
+          myriad-dreamin.tinymist
           ocamllabs.ocaml-platform
           yzhang.markdown-all-in-one # Recommended by Foam
         ]) ++ (with unfree-unstable.vscode-extensions; [
@@ -170,6 +171,8 @@
         };
         "coq-lsp.updateIgnores" = false;
         "[python]"."editor.formatOnType" = true;
+        "[typst]"."editor.formatOnSave" = true;
+        "tinymist.formatterMode" = "typstyle";
         "notebook.output.scrolling" = true;
         "terminal.integrated.defaultProfile.linux" = "bash";
         "latex-workshop.view.pdf.viewer" = "tab";
@@ -420,6 +423,8 @@
       opam
       elmPackages.elm # needed by elm-land vscode extension
       elmPackages.elm-format
+      typst
+      typstyle
 
     ]) ++ [
 
