@@ -27,6 +27,8 @@ exclusion_list=(
     "com.sncf.fusion"
     # SNCF Connect
     "com.vsct.vsc.mobile.horaireetresa.android"
+    # WhatsApp
+    "com.whatsapp"
     # Hello Bank
     "fr.bnpp.digitalbanking"
     # KISS Launcher
