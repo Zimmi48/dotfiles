@@ -94,7 +94,6 @@
           "Téléchargements"
           ".thunderbird"
           "Vidéos"
-          "vpn"
           ".vscode"
           ".zotero"
           "Zotero"
