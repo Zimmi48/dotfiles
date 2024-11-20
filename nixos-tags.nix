@@ -1,1 +1,1 @@
-{ system.nixos.tags = [ "typst" ]; }
+{ system.nixos.tags = []; }
