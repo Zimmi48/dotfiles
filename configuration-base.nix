@@ -111,7 +111,7 @@
     zip
     unzip
     rlwrap
-    alsaUtils
+    alsa-utils
     poppler_utils
     bashmount
     pavucontrol
@@ -186,7 +186,6 @@
   environment.variables.SANE_USB_WORKAROUND = "1";
 
   # Enable sound with pipewire.
-  sound.enable = true;
   hardware.pulseaudio.enable = false;
   security.rtkit.enable = true;
   services.pipewire = {
