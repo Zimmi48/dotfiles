@@ -1,1 +1,1 @@
-{ system.nixos.tags = []; }
+{ system.nixos.tags = [ "no-gh-pr-inside-vscode" ]; }

@@ -169,6 +169,7 @@
             scminput = false;
             yaml = true;
         };
+        "githubPullRequests.terminalLinksHandler" = "github";
         "coq-lsp.updateIgnores" = false;
         "[python]"."editor.formatOnType" = true;
         "[typst]"."editor.formatOnSave" = true;
