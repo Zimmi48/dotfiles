@@ -1,1 +1,1 @@
-{ system.nixos.tags = [ "no-gh-pr-inside-vscode" ]; }
+{ system.nixos.tags = [ "copilot-edit-suggestions" ]; }
