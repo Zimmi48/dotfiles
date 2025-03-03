@@ -2,14 +2,20 @@
 
 set -e
 
-# Update phase
-echo "Do you want to update the input flakes? (y/N)"
-read -r answer
-if [ "$answer" != "${answer#[Yy]}" ]; then
-       echo "Updating the input flakes..."
-       nix flake update
+if ping -q -c1 8.8.8.8 &> /dev/null; then
+       OFFLINE_FLAGS=""
+       # Update phase
+       echo "Do you want to update the input flakes? (y/N)"
+       read -r answer
+       if [ "$answer" != "${answer#[Yy]}" ]; then
+              echo "Updating the input flakes..."
+              nix flake update
+       else
+              echo "Skipping the update of the input flakes..."
+       fi
 else
-       echo "Skipping the update of the input flakes..."
+       OFFLINE_FLAGS="--no-substitute"
+       echo "Skipping the update of the input flakes because we are offline..."
 fi
 
 # Build the NixOS configuration for this machine.
@@ -18,7 +24,7 @@ fi
 result="$HOSTNAME-$(date +%Y-%m-%d-%Hh%M)"
 echo
 echo "Building $HOSTNAME configuration..."
-nix build .#nixosConfigurations."$HOSTNAME".config.system.build.toplevel --no-warn-dirty --out-link ./nix-builds/$result --experimental-features 'nix-command flakes' #--no-substitute (useful when offline)
+nix build .#nixosConfigurations."$HOSTNAME".config.system.build.toplevel --no-warn-dirty --out-link ./nix-builds/$result --experimental-features 'nix-command flakes' $OFFLINE_FLAGS
 echo "Build completed."
 echo
 echo "Closure differences:"
@@ -69,7 +75,7 @@ elif [ "$answer" = "s" ] || [ "$answer" = "S" ] || [ "$answer" = "b" ] || [ "$an
               # if either $tags_answer or $commit_answer is not "n" or "N", then rebuild
               if [ "$tags_answer" != "${tags_answer#[Nn]}" ] || [ "$commit_answer" != "${commit_answer#[Nn]}" ]; then
                      echo "Rebuilding $HOSTNAME configuration..."
-                     nix build .#nixosConfigurations."$HOSTNAME".config.system.build.toplevel --no-warn-dirty --out-link ./nix-builds/$result --experimental-features 'nix-command flakes' #--no-substitute (useful when offline)
+                     nix build .#nixosConfigurations."$HOSTNAME".config.system.build.toplevel --no-warn-dirty --out-link ./nix-builds/$result --experimental-features 'nix-command flakes' $OFFLINE_FLAGS
                      echo "Rebuild completed."
               fi
        fi
