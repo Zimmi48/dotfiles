@@ -173,7 +173,11 @@
         "githubPullRequests.terminalLinksHandler" = "github";
         "coq-lsp.updateIgnores" = false;
         "[python]"."editor.formatOnType" = true;
-        "[typst]"."editor.formatOnSave" = true;
+        "[typst]" = {
+          "editor.formatOnSave" = true;
+          "editor.wordSeparators" = "`~!@#$%^&*()=+[{]}\\|;:'\",.<>/?"; # Auto-added by Typst
+        };
+        "[typst-code]"."editor.wordSeparators" = "`~!@#$%^&*()=+[{]}\\|;:'\",.<>/?"; # Auto-added by Typst
         "tinymist.formatterMode" = "typstyle";
         "notebook.output.scrolling" = true;
         "terminal.integrated.defaultProfile.linux" = "bash";
