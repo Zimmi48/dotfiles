@@ -33,6 +33,8 @@ exclusion_list=(
     "fr.bnpp.digitalbanking"
     # KISS Launcher
     "fr.neamar.kiss"
+    # Tasks.org
+    "org.tasks"
     # Your Local Weather
     "org.thosp.yourlocalweather"
     # Signal

@@ -1,1 +1,1 @@
-{ system.nixos.tags = [ "copilot-edit-suggestions" ]; }
+{ system.nixos.tags = [ "tasks-no-sd" ]; }
