@@ -313,6 +313,10 @@
       name = "CoqIDE 8.18";
       exec = "${unstable.coqPackages_8_18.coqide}/bin/coqide -coqtop ${unstable.coq_8_18}/bin/coqidetop.opt";
     };
+    coq_8_19 = {
+      name = "CoqIDE 8.19";
+      exec = "${unstable.coqPackages_8_19.coqide}/bin/coqide -coqtop ${unstable.coq_8_19}/bin/coqidetop.opt";
+    };
     # Desktop entry for launching VS Code with Foam notes
     foam = {
       name = "Foam";
@@ -434,9 +438,9 @@
     ]) ++ (with unstable; [
 
       # Development (unstable packages)
-      coq_8_19
-      coqPackages_8_19.coqide
-      coqPackages_8_19.coq-lsp
+      coq_8_20
+      coqPackages_8_20.coqide
+      coqPackages_8_20.coq-lsp
       opam
       elmPackages.elm # needed by elm-land vscode extension
       elmPackages.elm-format
