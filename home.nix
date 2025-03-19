@@ -5,7 +5,7 @@
 {
   imports = extraImports;
 
-  programs = {
+  programs = rec {
     # Bash configuration
     bash = {
       enable = true;
@@ -69,6 +69,17 @@
         push.default = "current";
         remote.pushdefault = "origin";
         init.defaultBranch = "main";
+      };
+    };
+
+    jujutsu = {
+      enable = true;
+      settings = {
+        user = {
+          name = git.userName;
+          email = git.userEmail;
+        };
+        ui.default-command = "log";
       };
     };
 

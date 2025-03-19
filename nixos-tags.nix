@@ -1,1 +1,1 @@
-{ system.nixos.tags = [ "tasks-no-sd" ]; }
+{ system.nixos.tags = [ "jj" ]; }
