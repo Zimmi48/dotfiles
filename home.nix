@@ -447,7 +447,6 @@
 
       # Non-free applications and development tools
       unfree-unstable.elmPackages.lamdera
-      unfree-stable.skypeforlinux
       unfree-stable.zoom-us
 
     ];
