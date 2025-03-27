@@ -1,1 +1,1 @@
-{ system.nixos.tags = [ "jj" ]; }
+{ system.nixos.tags = [ "dev-containers" ]; }
