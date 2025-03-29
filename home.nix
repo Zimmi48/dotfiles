@@ -144,6 +144,7 @@
           myriad-dreamin.tinymist
           ocamllabs.ocaml-platform
           yzhang.markdown-all-in-one # Recommended by Foam
+          rust-lang.rust-analyzer
         ]) ++ (with unfree-unstable.vscode-extensions; [
           github.codespaces
           github.copilot
