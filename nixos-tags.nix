@@ -1,1 +1,1 @@
-{ system.nixos.tags = [ "rust" ]; }
+{ system.nixos.tags = [ "less-coq" ]; }

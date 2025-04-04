@@ -263,54 +263,6 @@
 
   xdg.desktopEntries = {
     # Desktop entries for CoqIDE
-    coq_8_6 = {
-      name = "CoqIDE 8.6";
-      exec = "${unstable.coq_8_6}/bin/coqide";
-    };
-    coq_8_7 = {
-      name = "CoqIDE 8.7";
-      exec = "${unstable.coq_8_7}/bin/coqide";
-    };
-    coq_8_8 = {
-      name = "CoqIDE 8.8";
-      exec = "${unstable.coq_8_8}/bin/coqide";
-    };
-    coq_8_9 = {
-      name = "CoqIDE 8.9";
-      exec = "${unstable.coq_8_9}/bin/coqide";
-    };
-    coq_8_10 = {
-      name = "CoqIDE 8.10";
-      exec = "${unstable.coq_8_10}/bin/coqide";
-    };
-    coq_8_11 = {
-      name = "CoqIDE 8.11";
-      exec = "${unstable.coq_8_11}/bin/coqide";
-    };
-    coq_8_12 = {
-      name = "CoqIDE 8.12";
-      exec = "${unstable.coq_8_12}/bin/coqide";
-    };
-    coq_8_13 = {
-      name = "CoqIDE 8.13";
-      exec = "${unstable.coq_8_13}/bin/coqide";
-    };
-    coq_8_14 = {
-      name = "CoqIDE 8.14";
-      exec = "${unstable.coqPackages_8_14.coqide}/bin/coqide -coqtop ${unstable.coq_8_14}/bin/coqidetop.opt"; # -unicode-bindings ${pkgs.writeText "empty" ""}";
-    };
-    coq_8_15 = {
-      name = "CoqIDE 8.15";
-      exec = "${unstable.coqPackages_8_15.coqide}/bin/coqide -coqtop ${unstable.coq_8_15}/bin/coqidetop.opt";
-    };
-    coq_8_16 = {
-      name = "CoqIDE 8.16";
-      exec = "${unstable.coqPackages_8_16.coqide}/bin/coqide -coqtop ${unstable.coq_8_16}/bin/coqidetop.opt";
-    };
-    coq_8_17 = {
-      name = "CoqIDE 8.17";
-      exec = "${unstable.coqPackages_8_17.coqide}/bin/coqide -coqtop ${unstable.coq_8_17}/bin/coqidetop.opt";
-    };
     coq_8_18 = {
       name = "CoqIDE 8.18";
       exec = "${unstable.coqPackages_8_18.coqide}/bin/coqide -coqtop ${unstable.coq_8_18}/bin/coqidetop.opt";
