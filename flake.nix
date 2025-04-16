@@ -5,6 +5,7 @@
     # We use the stable NixOS channel as our main input
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.11";
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+    nixpkgs-master.url = "github:NixOS/nixpkgs/master";
     home-manager.url = "github:nix-community/home-manager/release-24.11";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     impermanence.url = "github:nix-community/impermanence";
@@ -12,14 +13,14 @@
     vscode-extensions.inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  outputs = { self, nixpkgs, nixpkgs-unstable, home-manager, impermanence, ... }@inputs:
+  outputs = { self, nixpkgs, nixpkgs-unstable, nixpkgs-master, home-manager, impermanence, ... }@inputs:
     let
       user = { name = "theo"; description = "Théo Zimmermann"; };
       home = "/home/${user.name}";
       unstable = nixpkgs-unstable.legacyPackages.x86_64-linux;
       # Use the latest possible version of non-free packages
       unfree-stable = (import nixpkgs { system = "x86_64-linux"; config.allowUnfree = true; }).pkgs;
-      unfree-unstable = (import nixpkgs-unstable { system = "x86_64-linux"; config.allowUnfree = true; }).pkgs;
+      unfree-unstable = (import nixpkgs-master { system = "x86_64-linux"; config.allowUnfree = true; }).pkgs;
       system = "x86_64-linux";
       # Make all inputs available in the NixOS modules
       specialArgs = inputs;

@@ -74,6 +74,7 @@
 
     jujutsu = {
       enable = true;
+      package = unstable.jujutsu;
       settings = {
         user = {
           name = git.userName;

@@ -1,1 +1,1 @@
-{ system.nixos.tags = [ "less-coq" ]; }
+{ system.nixos.tags = [ "fix-remote-ssh" ]; }
