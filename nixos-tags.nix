@@ -1,1 +1,1 @@
-{ system.nixos.tags = [ "fix-remote-ssh" ]; }
+{ system.nixos.tags = [ "elm-review" ]; }

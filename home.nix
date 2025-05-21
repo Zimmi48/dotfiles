@@ -399,6 +399,7 @@
       opam
       elmPackages.elm # needed by elm-land vscode extension
       elmPackages.elm-format
+      elmPackages.elm-review
       typst
       typstyle
 
