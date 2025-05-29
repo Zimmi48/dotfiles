@@ -124,82 +124,84 @@
     # VS Code configuration with free and non-free Microsoft extensions
     vscode = {
       enable = true;
-      enableExtensionUpdateCheck = false;
-      enableUpdateCheck = false;
       mutableExtensionsDir = false;
       package = unfree-unstable.vscode;
-      extensions = (with unstable.vscode-extensions; [
-          eamodio.gitlens
-          foam.foam-vscode
-          github.vscode-pull-request-github
-          james-yu.latex-workshop
-          jnoortheen.nix-ide
-          maximedenes.vscoq
-          mkhl.direnv
-          ms-python.python
-          ms-toolsai.jupyter
-          ms-toolsai.jupyter-keymap
-          ms-toolsai.jupyter-renderers
-          ms-toolsai.vscode-jupyter-cell-tags
-          ms-toolsai.vscode-jupyter-slideshow
-          myriad-dreamin.tinymist
-          ocamllabs.ocaml-platform
-          yzhang.markdown-all-in-one # Recommended by Foam
-          rust-lang.rust-analyzer
-        ]) ++ (with unfree-unstable.vscode-extensions; [
-          github.codespaces
-          github.copilot
-          github.copilot-chat
-          ms-python.vscode-pylance
-          ms-vscode-remote.remote-containers
-          ms-vscode-remote.remote-ssh
-          ms-vsliveshare.vsliveshare
-        ]) ++ (with vscode-extensions.extensions.x86_64-linux.vscode-marketplace; [
-          ejgallego.coq-lsp
-          elm-land.elm-land
-        ]);
-      keybindings = [
-        {
-          key = "ctrl+enter";
-          command = "editor.debug.action.selectionToRepl";
-        }
-        {
-          key = "ctrl+q";
-          command = "-workbench.action.quit";
-        }
-      ];
-      userSettings = {
-        "git.confirmSync" = false;
-        "git.enableSmartCommit" = true;
-        "git.postCommitCommand" = "sync";
-        "git.openRepositoryInParentFolders" = "always";
-        "editor.wordWrap" = "on";
-        "editor.unicodeHighlight.nonBasicASCII" = false;
-        "editor.inlineSuggest.enabled" = true; # Copilot
-        "github.copilot.enable" = {
-            "*" = true;
-            plaintext = true;
-            markdown = true;
-            scminput = false;
-            yaml = true;
+      profiles.default = {
+        enableExtensionUpdateCheck = false;
+        enableUpdateCheck = false;
+        extensions = (with unstable.vscode-extensions; [
+            eamodio.gitlens
+            foam.foam-vscode
+            github.vscode-pull-request-github
+            james-yu.latex-workshop
+            jnoortheen.nix-ide
+            maximedenes.vscoq
+            mkhl.direnv
+            ms-python.python
+            ms-toolsai.jupyter
+            ms-toolsai.jupyter-keymap
+            ms-toolsai.jupyter-renderers
+            ms-toolsai.vscode-jupyter-cell-tags
+            ms-toolsai.vscode-jupyter-slideshow
+            myriad-dreamin.tinymist
+            ocamllabs.ocaml-platform
+            yzhang.markdown-all-in-one # Recommended by Foam
+            rust-lang.rust-analyzer
+          ]) ++ (with unfree-unstable.vscode-extensions; [
+            github.codespaces
+            github.copilot
+            github.copilot-chat
+            ms-python.vscode-pylance
+            ms-vscode-remote.remote-containers
+            ms-vscode-remote.remote-ssh
+            ms-vsliveshare.vsliveshare
+          ]) ++ (with vscode-extensions.extensions.x86_64-linux.vscode-marketplace; [
+            ejgallego.coq-lsp
+            elm-land.elm-land
+          ]);
+        keybindings = [
+          {
+            key = "ctrl+enter";
+            command = "editor.debug.action.selectionToRepl";
+          }
+          {
+            key = "ctrl+q";
+            command = "-workbench.action.quit";
+          }
+        ];
+        userSettings = {
+          "git.confirmSync" = false;
+          "git.enableSmartCommit" = true;
+          "git.postCommitCommand" = "sync";
+          "git.openRepositoryInParentFolders" = "always";
+          "editor.wordWrap" = "on";
+          "editor.unicodeHighlight.nonBasicASCII" = false;
+          "editor.inlineSuggest.enabled" = true; # Copilot
+          "github.copilot.enable" = {
+              "*" = true;
+              plaintext = true;
+              markdown = true;
+              scminput = false;
+              yaml = true;
+          };
+          "github.copilot.nextEditSuggestions.enabled" = true;
+          "githubPullRequests.terminalLinksHandler" = "github";
+          "coq-lsp.updateIgnores" = false;
+          "[python]"."editor.formatOnType" = true;
+          "[typst]" = {
+            "editor.formatOnSave" = true;
+            "editor.wordSeparators" = "`~!@#$%^&*()=+[{]}\\|;:'\",.<>/?"; # Auto-added by Typst
+          };
+          "[typst-code]"."editor.wordSeparators" = "`~!@#$%^&*()=+[{]}\\|;:'\",.<>/?"; # Auto-added by Typst
+          "tinymist.formatterMode" = "typstyle";
+          "notebook.output.scrolling" = true;
+          "terminal.integrated.defaultProfile.linux" = "bash";
+          "latex-workshop.view.pdf.viewer" = "tab";
+          "window.restoreWindows" = "none";
+          "workbench.colorTheme" = "Default Dark Modern";
+          "extensions.autoUpdate" = false;
+          "search.followSymlinks" = false; # Avoid issues with VS Code search eating CPU and memory
         };
-        "github.copilot.nextEditSuggestions.enabled" = true;
-        "githubPullRequests.terminalLinksHandler" = "github";
-        "coq-lsp.updateIgnores" = false;
-        "[python]"."editor.formatOnType" = true;
-        "[typst]" = {
-          "editor.formatOnSave" = true;
-          "editor.wordSeparators" = "`~!@#$%^&*()=+[{]}\\|;:'\",.<>/?"; # Auto-added by Typst
-        };
-        "[typst-code]"."editor.wordSeparators" = "`~!@#$%^&*()=+[{]}\\|;:'\",.<>/?"; # Auto-added by Typst
-        "tinymist.formatterMode" = "typstyle";
-        "notebook.output.scrolling" = true;
-        "terminal.integrated.defaultProfile.linux" = "bash";
-        "latex-workshop.view.pdf.viewer" = "tab";
-        "window.restoreWindows" = "none";
-        "workbench.colorTheme" = "Default Dark Modern";
-        "extensions.autoUpdate" = false;
-        "search.followSymlinks" = false; # Avoid issues with VS Code search eating CPU and memory
       };
     };
   };
@@ -210,7 +212,7 @@
     gpg-agent = {
       enable = true;
       enableSshSupport = true;
-      pinentryPackage = pkgs.pinentry-gtk2;
+      pinentry.package = pkgs.pinentry-gtk2;
     };
 
     redshift = {
