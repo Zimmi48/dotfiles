@@ -89,9 +89,13 @@
       enable = true;
       profiles.default.isDefault = true;
       settings = {
+        "calendar.view.dayendhour" = 18; # End of the day at 18:00
+        "calendar.view.daystarthour" = 9; # Start of the day at 9:00
+        "calendar.week.start" = 1; # Start the week on Monday
         "extensions.activeThemeID" = "thunderbird-compact-dark@mozilla.org";
         "mail.identity.default.archive_granularity" = 0; # Use a single flat archive folder
-        "mail.pane_config.dynamic" = 0; # Classic layout
+        "mail.pane_config.dynamic" = 2; # Vertical layout
+        "mailnews.confirm.moveFoldersToTrash" = true; # Confirm when moving folders to trash
         "mailnews.tags.1_closed.color" = "#986a44";
         "mailnews.tags.1_closed.tag" = "1_closed";
         "mailnews.tags.2_assign.color" = "#9141ac";

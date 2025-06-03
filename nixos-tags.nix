@@ -1,1 +1,1 @@
-{ system.nixos.tags = [ "elm-review" ]; }
+{ system.nixos.tags = [ "thunderbird" ]; }
