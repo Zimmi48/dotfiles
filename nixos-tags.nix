@@ -1,1 +1,1 @@
-{ system.nixos.tags = [ "thunderbird" ]; }
+{ system.nixos.tags = [ "jj-sign" ]; }

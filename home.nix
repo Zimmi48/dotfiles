@@ -81,6 +81,12 @@
           email = git.userEmail;
         };
         ui.default-command = "log";
+        signing = {
+          behavior = "drop";
+          backend = "gpg";
+          backends.gpg.program = "${pkgs.gnupg}/bin/gpg";
+        };
+        git.sign-on-push = true;
       };
     };
 
