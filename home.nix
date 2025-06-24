@@ -405,6 +405,7 @@
       pandoc
       texlive.combined.scheme-full
       inotifyTools # Useful for dune build --watch in particular
+      nixfmt-rfc-style
 
     ]) ++ (with unstable; [
 
