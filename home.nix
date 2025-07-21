@@ -86,7 +86,11 @@
           backend = "gpg";
           backends.gpg.program = "${pkgs.gnupg}/bin/gpg";
         };
-        git.sign-on-push = true;
+        git = {
+          sign-on-push = true;
+          fetch = ["upstream" "origin"];
+          push = "origin";
+        };
       };
     };
 

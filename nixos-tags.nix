@@ -1,1 +1,1 @@
-{ system.nixos.tags = [ "jj-sign" ]; }
+{ system.nixos.tags = [ "jj-fetch" ]; }
