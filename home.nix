@@ -105,6 +105,9 @@
         "extensions.activeThemeID" = "thunderbird-compact-dark@mozilla.org";
         "mail.identity.default.archive_granularity" = 0; # Use a single flat archive folder
         "mail.pane_config.dynamic" = 2; # Vertical layout
+        "mail.spam.logging.enabled" = true;
+        "mail.spam.manualMark" = true;
+        "mail.spam.version" = 1;
         "mailnews.confirm.moveFoldersToTrash" = true; # Confirm when moving folders to trash
         "mailnews.tags.1_closed.color" = "#986a44";
         "mailnews.tags.1_closed.tag" = "1_closed";

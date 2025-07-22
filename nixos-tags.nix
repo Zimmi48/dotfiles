@@ -1,1 +1,1 @@
-{ system.nixos.tags = [ "jj-fetch" ]; }
+{ system.nixos.tags = [ "thunderbird-spam" ]; }
