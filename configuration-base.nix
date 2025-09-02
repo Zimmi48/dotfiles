@@ -28,9 +28,16 @@
 
   networking = {
     inherit hostName;
-    networkmanager.enable = true;
+    networkmanager = {
+      enable = true;
+      # Use systemd-resolved instead of resolvconf for DNS resolution to avoid
+      # issues with resolvconf group
+      dns = "systemd-resolved";
+    };
     firewall.allowedTCPPorts = [ 11371 ]; # gpg key servers
   };
+
+  services.resolved.enable = true;
 
   time.timeZone = "Europe/Paris";
 

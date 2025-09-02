@@ -1,1 +1,1 @@
-{ system.nixos.tags = [ "thunderbird-spam" ]; }
+{ system.nixos.tags = [ "no-resolvconf" ]; }
