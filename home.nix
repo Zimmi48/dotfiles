@@ -173,6 +173,7 @@
             ms-vscode-remote.remote-ssh
             ms-vsliveshare.vsliveshare
           ]) ++ (with vscode-extensions.extensions.x86_64-linux.vscode-marketplace; [
+            ms-vscode.wasm-wasi-core # Needed by coq-lsp
             ejgallego.coq-lsp
             elm-land.elm-land
           ]);

@@ -1,1 +1,1 @@
-{ system.nixos.tags = [ "no-resolvconf" ]; }
+{ system.nixos.tags = [ "fix-coq-lsp" ]; }
