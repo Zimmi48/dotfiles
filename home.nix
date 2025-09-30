@@ -292,6 +292,10 @@
       name = "CoqIDE 8.19";
       exec = "${unstable.coqPackages_8_19.coqide}/bin/coqide -coqtop ${unstable.coq_8_19}/bin/coqidetop.opt";
     };
+    coq_8_20 = {
+      name = "CoqIDE 8.20";
+      exec = "${unstable.coqPackages_8_20.coqide}/bin/coqide -coqtop ${unstable.coq_8_20}/bin/coqidetop.opt";
+    };
     # Desktop entry for launching VS Code with Foam notes
     foam = {
       name = "Foam";
@@ -355,7 +359,6 @@
     homeDirectory = home;
 
     sessionVariables.EDITOR = "emacs";
-    shellAliases.coqtop = "rlwrap coqtop";
 
     file.".background-image".source = pkgs.nixos-artwork.wallpapers.simple-dark-gray-bottom.gnomeFilePath;
     # The following option cannot be set through programs.emacs.extraConfig
@@ -414,9 +417,6 @@
     ]) ++ (with unstable; [
 
       # Development (unstable packages)
-      coq_8_20
-      coqPackages_8_20.coqide
-      coqPackages_8_20.coq-lsp
       opam
       elmPackages.elm # needed by elm-land vscode extension
       elmPackages.elm-format

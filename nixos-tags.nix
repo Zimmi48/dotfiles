@@ -1,1 +1,1 @@
-{ system.nixos.tags = [ "fix-coq-lsp" ]; }
+{ system.nixos.tags = [ "remove-coq" ]; }
