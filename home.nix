@@ -176,6 +176,7 @@
             ms-vscode.wasm-wasi-core # Needed by coq-lsp
             ejgallego.coq-lsp
             elm-land.elm-land
+            quarto.quarto
           ]);
         keybindings = [
           {

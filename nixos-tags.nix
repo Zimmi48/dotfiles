@@ -1,1 +1,1 @@
-{ system.nixos.tags = [ "remove-coq" ]; }
+{ system.nixos.tags = [ "quarto" ]; }
