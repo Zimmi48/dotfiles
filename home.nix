@@ -203,7 +203,6 @@
               scminput = false;
               yaml = true;
           };
-          "github.copilot.nextEditSuggestions.enabled" = true;
           "githubPullRequests.terminalLinksHandler" = "github";
           "coq-lsp.updateIgnores" = false;
           "[python]"."editor.formatOnType" = true;
