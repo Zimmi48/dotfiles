@@ -1,1 +1,1 @@
-{ system.nixos.tags = [ "quarto" ]; }
+{ system.nixos.tags = [ "vsrocq" ]; }
