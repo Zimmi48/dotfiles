@@ -200,6 +200,7 @@
               "*" = true;
               plaintext = true;
               markdown = true;
+              quarto = true;
               scminput = false;
               yaml = true;
           };
