@@ -53,17 +53,17 @@
       enable = true;
       lfs.enable = true;
       package = unstable.git;
-      userName = "Théo Zimmermann";
-      userEmail = "theo.zimmermann@telecom-paris.fr";
       signing.key = "F1744A0942F536C7";
-      aliases = {
-        fix = "commit -a --amend --no-edit";
-        newbranch = "checkout -b";
-        clone-fork = "! ${./git-clone-fork.sh}";
-        delete = "! f() { git branch -d $1 && git push origin -d $1; }; f";
-        delete-hard = "! f() { git branch -D $1 && git push origin -d $1; }; f";
-      };
-      extraConfig = {
+      settings = {
+        user.name = "Théo Zimmermann";
+        user.email = "theo.zimmermann@telecom-paris.fr";
+        aliases = {
+          fix = "commit -a --amend --no-edit";
+          newbranch = "checkout -b";
+          clone-fork = "! ${./git-clone-fork.sh}";
+          delete = "! f() { git branch -d $1 && git push origin -d $1; }; f";
+          delete-hard = "! f() { git branch -D $1 && git push origin -d $1; }; f";
+        };
         log.mailmap = true;
         pull.ff = "only";
         push.default = "current";
@@ -76,9 +76,8 @@
       enable = true;
       package = unstable.jujutsu;
       settings = {
-        user = {
-          name = git.userName;
-          email = git.userEmail;
+        user = with git.settings.user; {
+          inherit name email;
         };
         ui.default-command = "log";
         signing = {
@@ -402,7 +401,7 @@
 
       # Applications
       chromium
-      tdesktop
+      telegram-desktop
       signal-desktop
       zotero
 
@@ -412,7 +411,7 @@
       mustache-go
       pandoc
       texlive.combined.scheme-full
-      inotifyTools # Useful for dune build --watch in particular
+      inotify-tools # Useful for dune build --watch in particular
       nixfmt-rfc-style
 
     ]) ++ (with unstable; [

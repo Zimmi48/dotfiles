@@ -33,6 +33,7 @@
       # Use systemd-resolved instead of resolvconf for DNS resolution to avoid
       # issues with resolvconf group
       dns = "systemd-resolved";
+      plugins = [ pkgs.networkmanager-openvpn ];
     };
     firewall.allowedTCPPorts = [ 11371 ]; # gpg key servers
   };
@@ -119,7 +120,7 @@
     unzip
     rlwrap
     alsa-utils
-    poppler_utils
+    poppler-utils
     bashmount
     pavucontrol
     xorg.xkill
