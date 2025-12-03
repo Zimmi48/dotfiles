@@ -1,1 +1,1 @@
-{ system.nixos.tags = [ "copilot-quarto" ]; }
+{ system.nixos.tags = [ "fix-bash-completions" ]; }

@@ -113,7 +113,6 @@
     pulseaudioFull
 
     # Utilities
-    nix-bash-completions
     wget
     which
     zip

@@ -9,6 +9,7 @@
     # Bash configuration
     bash = {
       enable = true;
+      enableCompletion = true;
       historyControl = ["ignorespace"];
       initExtra = ''
         # Auto-completion of git aliases
