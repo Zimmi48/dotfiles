@@ -1,1 +1,1 @@
-{ system.nixos.tags = [ "stop-persist-group" ]; }
+{ system.nixos.tags = [ "resolvconf" ]; }
