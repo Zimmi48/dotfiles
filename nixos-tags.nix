@@ -1,1 +1,1 @@
-{ system.nixos.tags = [ "fix-bash-completions" ]; }
+{ system.nixos.tags = [ "stop-persist-group" ]; }

@@ -53,9 +53,7 @@
       ];
     };
 
-    # These files cannot be persisted with Impermanence because they would be mounted too late
-    environment.etc."group".source = "/nix/persist/system/etc/group";
-    environment.etc."passwd".source = "/nix/persist/system/etc/passwd";
+    # This file cannot be persisted with Impermanence because it would be mounted too late
     environment.etc."shadow".source = "/nix/persist/system/etc/shadow";
 
     nix.settings.max-jobs = lib.mkDefault 2;

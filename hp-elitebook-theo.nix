@@ -101,9 +101,7 @@
       };
     };
 
-    # These files cannot be persisted with Impermanence because they would be mounted too late
-    environment.etc."group".source = "/persist/etc/group";
-    environment.etc."passwd".source = "/persist/etc/passwd";
+    # This file cannot be persisted with Impermanence because it would be mounted too late
     environment.etc."shadow".source = "/persist/etc/shadow";
 
     # Related to the use of the Home Manager Impermanence module
