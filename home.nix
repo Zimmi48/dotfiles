@@ -58,7 +58,7 @@
       settings = {
         user.name = "Théo Zimmermann";
         user.email = "theo.zimmermann@telecom-paris.fr";
-        aliases = {
+        alias = {
           fix = "commit -a --amend --no-edit";
           newbranch = "checkout -b";
           clone-fork = "! ${./git-clone-fork.sh}";

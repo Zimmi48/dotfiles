@@ -1,1 +1,1 @@
-{ system.nixos.tags = [ "resolvconf" ]; }
+{ system.nixos.tags = [ "fix-git-aliases" ]; }
