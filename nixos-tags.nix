@@ -1,1 +1,1 @@
-{ system.nixos.tags = [ "fix-git-aliases" ]; }
+{ system.nixos.tags = [ "more-android-exclusions" ]; }

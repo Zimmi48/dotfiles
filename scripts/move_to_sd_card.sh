@@ -9,6 +9,8 @@ sd_UUID="3338-3039"
 exclusion_list=(
     # DAVx⁵
     "at.bitfire.davdroid"
+    # Alan
+    "com.alanmobile"
     # BforBank
     "com.bforbank.androidapp"
     # Bose Music
@@ -39,6 +41,8 @@ exclusion_list=(
     "org.thosp.yourlocalweather"
     # Signal
     "org.thoughtcrime.securesms"
+    # Etar Calendar
+    "ws.xsoh.etar"
     # Pulse SMS
     "xyz.klinker.messenger"
 )
