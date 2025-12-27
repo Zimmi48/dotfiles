@@ -149,6 +149,7 @@
         extensions = (with unstable.vscode-extensions; [
             eamodio.gitlens
             foam.foam-vscode
+            github.copilot-chat
             github.vscode-pull-request-github
             james-yu.latex-workshop
             jnoortheen.nix-ide
@@ -166,8 +167,6 @@
             rust-lang.rust-analyzer
           ]) ++ (with unfree-unstable.vscode-extensions; [
             github.codespaces
-            github.copilot
-            github.copilot-chat
             ms-python.vscode-pylance
             ms-vscode-remote.remote-containers
             ms-vscode-remote.remote-ssh

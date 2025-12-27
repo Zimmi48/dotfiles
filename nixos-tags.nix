@@ -1,1 +1,1 @@
-{ system.nixos.tags = [ "more-android-exclusions" ]; }
+{ system.nixos.tags = [ "copilot-cleanup" ]; }
