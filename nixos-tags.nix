@@ -1,1 +1,1 @@
-{ system.nixos.tags = [ "copilot-cleanup" ]; }
+{ system.nixos.tags = [ "ente" ]; }

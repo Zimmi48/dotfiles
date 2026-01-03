@@ -35,6 +35,8 @@ exclusion_list=(
     "fr.bnpp.digitalbanking"
     # KISS Launcher
     "fr.neamar.kiss"
+    # Ente
+    "io.ente.photos"
     # Tasks.org
     "org.tasks"
     # Your Local Weather
