@@ -1,1 +1,1 @@
-{ system.nixos.tags = [ "ente" ]; }
+{ system.nixos.tags = [ "unstable-signal" ]; }

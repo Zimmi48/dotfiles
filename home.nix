@@ -402,7 +402,6 @@
       # Applications
       chromium
       telegram-desktop
-      signal-desktop
       zotero
 
       # Development (stable packages)
@@ -415,6 +414,9 @@
       nixfmt
 
     ]) ++ (with unstable; [
+
+      # Applications (unstable packages)
+      signal-desktop
 
       # Development (unstable packages)
       opam
