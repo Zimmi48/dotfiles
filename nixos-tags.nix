@@ -1,1 +1,1 @@
-{ system.nixos.tags = [ "unstable-signal" ]; }
+{ system.nixos.tags = [ "amc" ]; }
