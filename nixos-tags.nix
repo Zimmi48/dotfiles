@@ -1,1 +1,1 @@
-{ system.nixos.tags = [ "no-telechargements" ]; }
+{ system.nixos.tags = [ "signal" "vscode" ]; }
