@@ -91,7 +91,6 @@
           ".opam"
           ".password-store"
           ".ssh"
-          "Téléchargements"
           ".thunderbird"
           "Vidéos"
           ".vscode"

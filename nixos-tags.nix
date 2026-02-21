@@ -1,1 +1,1 @@
-{ system.nixos.tags = [ "amc" ]; }
+{ system.nixos.tags = [ "no-telechargements" ]; }
