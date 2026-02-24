@@ -52,62 +52,18 @@
   };
 
   environment.persistence."/persist" = {
-    hideMounts = true;
     # System
     files = [
-      "/etc/adjtime"
       "/etc/dhcpcd.duid"
-      "/etc/printcap"
     ];
     directories = [
-      "/etc/NetworkManager/system-connections"
-      # Surprisingly, /nix is mounted early enough with Impermanence
-      "/nix"
-      "/var/cache/cups"
       "/var/cache/powertop"
-      "/var/lib/blueman"
-      "/var/lib/bluetooth"
-      "/var/lib/cups"
-      "/var/lib/docker"
-      "/var/lib/libvirt"
-      "/var/lib/NetworkManager"
-      "/var/lib/nixos"
-      "/var/lib/upower"
-      "/var/spool/cups"
     ];
     # Home
     users.theo = {
-      files = [
-        ".bash_history"
-        ".config/gh/hosts.yml"
-      ];
       directories = [
-        ".android"
-        ".cache/chromium"
-        ".cache/dune"
-        ".cache/mozilla/firefox"
-        ".cache/thunderbird"
-        ".cache/zotero"
-        ".cert"
-        ".config/chromium"
-        ".config/Code"
-        ".config/Signal"
-        "Documents"
-        "git"
-        ".gnupg"
         "Images"
-        ".local/share/direnv/allow"
-        ".local/share/TelegramDesktop"
-        ".local/state/wireplumber"
-        ".mozilla"
-        ".opam"
-        ".password-store"
-        ".ssh"
-        ".thunderbird"
         "Vidéos"
-        ".vscode"
-        ".zotero"
-        "Zotero"
       ];
     };
   };
