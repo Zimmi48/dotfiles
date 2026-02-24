@@ -1,6 +1,20 @@
-{ user, home, stateVersion, unstable, unfree-stable, unfree-unstable, extraImports ? [] }:
+{
+  user,
+  home,
+  stateVersion,
+  unstable,
+  unfree-stable,
+  unfree-unstable,
+  extraImports ? [ ],
+}:
 
-{ config, lib, pkgs, vscode-extensions, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  vscode-extensions,
+  ...
+}:
 
 {
   imports = extraImports;
@@ -10,7 +24,7 @@
     bash = {
       enable = true;
       enableCompletion = true;
-      historyControl = ["ignorespace"];
+      historyControl = [ "ignorespace" ];
       initExtra = ''
         # Auto-completion of git aliases
         function _git_delete() {
@@ -88,7 +102,10 @@
         };
         git = {
           sign-on-push = true;
-          fetch = ["upstream" "origin"];
+          fetch = [
+            "upstream"
+            "origin"
+          ];
           push = "origin";
         };
       };
@@ -146,7 +163,8 @@
       profiles.default = {
         enableExtensionUpdateCheck = false;
         enableUpdateCheck = false;
-        extensions = (with unstable.vscode-extensions; [
+        extensions =
+          (with unstable.vscode-extensions; [
             eamodio.gitlens
             foam.foam-vscode
             github.copilot-chat
@@ -165,13 +183,15 @@
             rocq-prover.vsrocq
             yzhang.markdown-all-in-one # Recommended by Foam
             rust-lang.rust-analyzer
-          ]) ++ (with unfree-unstable.vscode-extensions; [
+          ])
+          ++ (with unfree-unstable.vscode-extensions; [
             github.codespaces
             ms-python.vscode-pylance
             ms-vscode-remote.remote-containers
             ms-vscode-remote.remote-ssh
             ms-vsliveshare.vsliveshare
-          ]) ++ (with vscode-extensions.extensions.x86_64-linux.vscode-marketplace; [
+          ])
+          ++ (with vscode-extensions.extensions.x86_64-linux.vscode-marketplace; [
             ms-vscode.wasm-wasi-core # Needed by coq-lsp
             ejgallego.coq-lsp
             elm-land.elm-land
@@ -196,12 +216,12 @@
           "editor.unicodeHighlight.nonBasicASCII" = false;
           "editor.inlineSuggest.enabled" = true; # Copilot
           "github.copilot.enable" = {
-              "*" = true;
-              plaintext = true;
-              markdown = true;
-              quarto = true;
-              scminput = false;
-              yaml = true;
+            "*" = true;
+            plaintext = true;
+            markdown = true;
+            quarto = true;
+            scminput = false;
+            yaml = true;
           };
           "githubPullRequests.terminalLinksHandler" = "github";
           "coq-lsp.updateIgnores" = false;
@@ -360,7 +380,8 @@
 
     sessionVariables.EDITOR = "emacs";
 
-    file.".background-image".source = pkgs.nixos-artwork.wallpapers.simple-dark-gray-bottom.gnomeFilePath;
+    file.".background-image".source =
+      pkgs.nixos-artwork.wallpapers.simple-dark-gray-bottom.gnomeFilePath;
     # The following option cannot be set through programs.emacs.extraConfig
     file.".emacs".text = "(setq inhibit-startup-screen t)";
 
@@ -381,59 +402,62 @@
     file."move_to_sd_card.sh".source = ./scripts/move_to_sd_card.sh;
 
     # Packages to be installed in the user environment.
-    packages = (with pkgs; [
+    packages =
+      (with pkgs; [
 
-      # Utilities
-      pass
-      scrot
-      pdfpc
-      jq
-      httpie
-      arandr
+        # Utilities
+        pass
+        scrot
+        pdfpc
+        jq
+        httpie
+        arandr
 
-      # Desktop packages
-      dmenu
-      xfce.thunar
-      xfce.ristretto
-      networkmanagerapplet
-      xfce.xfce4-notifyd
-      languagetool
+        # Desktop packages
+        dmenu
+        xfce.thunar
+        xfce.ristretto
+        networkmanagerapplet
+        xfce.xfce4-notifyd
+        languagetool
 
-      # Applications
-      auto-multiple-choice
-      chromium
-      telegram-desktop
-      zotero
+        # Applications
+        auto-multiple-choice
+        chromium
+        telegram-desktop
+        zotero
 
-      # Development (stable packages)
-      gnumake
-      imagemagick
-      mustache-go
-      pandoc
-      texlive.combined.scheme-full
-      inotify-tools # Useful for dune build --watch in particular
-      nixfmt
+        # Development (stable packages)
+        gnumake
+        imagemagick
+        mustache-go
+        pandoc
+        texlive.combined.scheme-full
+        inotify-tools # Useful for dune build --watch in particular
+        nixfmt
 
-    ]) ++ (with unstable; [
+      ])
+      ++ (with unstable; [
 
-      # Applications (unstable packages)
-      signal-desktop
+        # Applications (unstable packages)
+        signal-desktop
 
-      # Development (unstable packages)
-      opam
-      elmPackages.elm # needed by elm-land vscode extension
-      elmPackages.elm-format
-      elmPackages.elm-review
-      typst
-      typstyle
+        # Development (unstable packages)
+        opam
+        elmPackages.elm # needed by elm-land vscode extension
+        elmPackages.elm-format
+        elmPackages.elm-review
+        typst
+        typstyle
 
-    ]) ++ [
+      ])
+      ++ [
 
-      # Non-free applications and development tools
-      unfree-unstable.elmPackages.lamdera
-      unfree-stable.zoom-us
+        # Non-free applications and development tools
+        unfree-unstable.elmPackages.lamdera
+        unfree-stable.zoom-us
 
-    ];
+      ];
 
     # This value determines the home Manager release that your
     # configuration is compatible with. This helps avoid breakage

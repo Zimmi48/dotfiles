@@ -1,27 +1,41 @@
-{ hostName
-, user
-, home
-, efi ? true
-, azerty ? false
-, stateVersion
+{
+  hostName,
+  user,
+  home,
+  efi ? true,
+  azerty ? false,
+  stateVersion,
 }:
 
-{ config, lib, pkgs, modulesPath, specialArgs, nixpkgs, nixpkgs-unstable, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  modulesPath,
+  specialArgs,
+  nixpkgs,
+  nixpkgs-unstable,
+  ...
+}:
 
 {
   hardware.cpu.intel.updateMicrocode = true;
 
   boot = {
     loader =
-      if efi then { # Use the gummiboot efi boot loader.
-        systemd-boot.enable = true;
-        efi.canTouchEfiVariables = true;
-        timeout = 2;
-      }
-      else { # Use the GRUB 2 boot loader.
-        grub.device = "/dev/sda";
-        timeout = 2;
-      };
+      if efi then
+        {
+          # Use the gummiboot efi boot loader.
+          systemd-boot.enable = true;
+          efi.canTouchEfiVariables = true;
+          timeout = 2;
+        }
+      else
+        {
+          # Use the GRUB 2 boot loader.
+          grub.device = "/dev/sda";
+          timeout = 2;
+        };
     supportedFilesystems = [ "ntfs" ];
     tmp.useTmpfs = true;
   };
@@ -71,7 +85,7 @@
     # Make `nix run nixos#...` match nixpkgs
     registry.nixos.flake = nixpkgs;
 
-    nixPath = ["/etc/nix/inputs"];
+    nixPath = [ "/etc/nix/inputs" ];
 
     settings.substituters = [
       "https://cache.nixos.org"
@@ -93,7 +107,10 @@
     ];
 
     # Enable Flakes and the new command-line interface
-    settings.experimental-features = [ "nix-command" "flakes" ];
+    settings.experimental-features = [
+      "nix-command"
+      "flakes"
+    ];
   };
 
   environment.etc = {
@@ -141,8 +158,16 @@
   services.actkbd = {
     enable = true;
     bindings = [
-      { keys = [ 225 ]; events = [ "key" ]; command = "/run/current-system/sw/bin/light -A 10"; }
-      { keys = [ 224 ]; events = [ "key" ]; command = "/run/current-system/sw/bin/light -U 10"; }
+      {
+        keys = [ 225 ];
+        events = [ "key" ];
+        command = "/run/current-system/sw/bin/light -A 10";
+      }
+      {
+        keys = [ 224 ];
+        events = [ "key" ];
+        command = "/run/current-system/sw/bin/light -U 10";
+      }
     ];
   };
 
@@ -173,7 +198,11 @@
   # Enable CUPS to print documents.
   services.printing = {
     enable = true;
-    drivers = [ pkgs.gutenprint pkgs.hplip pkgs.splix ];
+    drivers = [
+      pkgs.gutenprint
+      pkgs.hplip
+      pkgs.splix
+    ];
   };
 
   # Enable Avahi for auto-discovery of printers
@@ -214,7 +243,13 @@
     description = user.description;
 
     # To allow normal-user to run various virtualization methods, broadcast a wifi network, and control backlight
-    extraGroups = [ "docker" "libvirtd" "networkmanager" "user-with-access-to-virtualbox" "video" ];
+    extraGroups = [
+      "docker"
+      "libvirtd"
+      "networkmanager"
+      "user-with-access-to-virtualbox"
+      "video"
+    ];
   };
 
   security.sudo.enable = false;
