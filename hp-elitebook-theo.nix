@@ -59,13 +59,6 @@
     directories = [
       "/var/cache/powertop"
     ];
-    # Home
-    users.theo = {
-      directories = [
-        "Images"
-        "Vidéos"
-      ];
-    };
   };
 
   # This file cannot be persisted with Impermanence because it would be mounted too late
