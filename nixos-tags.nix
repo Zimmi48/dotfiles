@@ -1,1 +1,1 @@
-{ system.nixos.tags = [ "signal" "vscode" ]; }
+{ system.nixos.tags = [ "claude" ]; }

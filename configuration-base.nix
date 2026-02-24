@@ -149,6 +149,7 @@
         ".cache/thunderbird"
         ".cache/zotero"
         ".cert"
+        ".claude"
         ".config/chromium"
         ".config/Code"
         ".config/Signal"
