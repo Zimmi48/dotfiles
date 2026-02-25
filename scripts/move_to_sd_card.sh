@@ -21,6 +21,8 @@ exclusion_list=(
     "com.fortuneo.android"
     # Gboard
     "com.google.android.inputmethod.latin"
+    # GitHub
+    "com.github.android"
     # Revolut
     "com.revolut.revolut"
     # Simple Calendar Pro
