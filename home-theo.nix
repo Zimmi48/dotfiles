@@ -1,6 +1,4 @@
 {
-  user,
-  home,
   stateVersion,
   unstable,
   unfree-stable,
@@ -319,7 +317,7 @@
     # Desktop entry for launching VS Code with Foam notes
     foam = {
       name = "Foam";
-      exec = "${unfree-unstable.vscode}/bin/code ${home}/git/notes";
+      exec = "${unfree-unstable.vscode}/bin/code ${config.home.homeDirectory}/git/notes";
     };
   };
 
@@ -343,9 +341,9 @@
   gtk = {
     enable = true;
     gtk3.bookmarks = [
-      "file://${home}/git"
-      "file://${home}/git/work"
-      "file://${home}/git/research"
+      "file://${config.home.homeDirectory}/git"
+      "file://${config.home.homeDirectory}/git/work"
+      "file://${config.home.homeDirectory}/git/research"
       "file:///tmp"
     ];
   };
@@ -375,9 +373,6 @@
   manual.manpages.enable = false;
 
   home = {
-    username = user.name;
-    homeDirectory = home;
-
     sessionVariables.EDITOR = "emacs";
 
     file.".background-image".source =

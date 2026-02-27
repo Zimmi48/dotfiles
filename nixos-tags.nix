@@ -1,1 +1,1 @@
-{ system.nixos.tags = [ "claude" ]; }
+{ system.nixos.tags = [ "cecile" "xfce" ]; }

@@ -24,11 +24,14 @@
       ...
     }@inputs:
     let
-      user = {
+      theo = {
         name = "theo";
         description = "Théo Zimmermann";
       };
-      home = "/home/${user.name}";
+      cecile = {
+        name = "cecile";
+        description = "Cécile";
+      };
       unstable = nixpkgs-unstable.legacyPackages.x86_64-linux;
       # Use the latest possible version of non-free packages
       unfree-stable =
@@ -51,6 +54,46 @@
         home-manager.nixosModules.home-manager
         impermanence.nixosModules.impermanence
       ];
+      # Generate a NixOS module for a list of { user, stateVersion } pairs
+      mkUsersModule = entries: {
+        home-manager.users = builtins.listToAttrs (
+          map (
+            { user, stateVersion }:
+            {
+              name = user.name;
+              value = import ./home-${user.name}.nix {
+                inherit
+                  stateVersion
+                  unstable
+                  unfree-stable
+                  unfree-unstable
+                  ;
+              };
+            }
+          ) entries
+        );
+        users.extraUsers = builtins.listToAttrs (
+          map (
+            { user, ... }:
+            {
+              name = user.name;
+              value = {
+                isNormalUser = true;
+                home = "/home/${user.name}";
+                description = user.description;
+                # To allow normal-user to run various virtualization methods, broadcast a wifi network, and control backlight
+                extraGroups = [
+                  "docker"
+                  "libvirtd"
+                  "networkmanager"
+                  "user-with-access-to-virtualbox"
+                  "video"
+                ];
+              };
+            }
+          ) entries
+        );
+      };
     in
     {
 
@@ -62,20 +105,14 @@
             (import ./configuration-base.nix {
               hostName = "telecom-laptop-theo";
               stateVersion = "22.05";
-              inherit user home;
+              user = theo;
             })
-            {
-              home-manager.users."${user.name}" = import ./home.nix {
+            (mkUsersModule [
+              {
+                user = theo;
                 stateVersion = "23.05";
-                inherit
-                  user
-                  home
-                  unstable
-                  unfree-stable
-                  unfree-unstable
-                  ;
-              };
-            }
+              }
+            ])
           ];
         };
         "hp-elitebook-theo" = nixpkgs.lib.nixosSystem {
@@ -85,20 +122,19 @@
             (import ./configuration-base.nix {
               hostName = "hp-elitebook-theo";
               stateVersion = "16.09";
-              inherit user home;
+              user = theo;
             })
-            {
-              home-manager.users."${user.name}" = import ./home.nix {
+            (mkUsersModule [
+              {
+                user = theo;
                 stateVersion = "23.05";
-                inherit
-                  user
-                  home
-                  unstable
-                  unfree-stable
-                  unfree-unstable
-                  ;
-              };
-            }
+              }
+              {
+                user = cecile;
+                stateVersion = "25.11";
+              }
+            ])
+            { services.xserver.desktopManager.xfce.enable = true; }
           ];
         };
         "dell-latitude-theo" = nixpkgs.lib.nixosSystem {
@@ -110,20 +146,14 @@
               azerty = true;
               efi = false;
               stateVersion = "23.05";
-              inherit user home;
+              user = theo;
             })
-            {
-              home-manager.users."${user.name}" = import ./home.nix {
+            (mkUsersModule [
+              {
+                user = theo;
                 stateVersion = "23.05";
-                inherit
-                  user
-                  home
-                  unstable
-                  unfree-stable
-                  unfree-unstable
-                  ;
-              };
-            }
+              }
+            ])
           ];
         };
       };

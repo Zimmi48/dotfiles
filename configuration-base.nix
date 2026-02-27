@@ -1,7 +1,6 @@
 {
   hostName,
   user,
-  home,
   efi ? true,
   azerty ? false,
   stateVersion,
@@ -120,7 +119,7 @@
       "/var/spool/cups"
     ];
     # Home
-    users.theo = {
+    users.${user.name} = {
       files = [
         ".bash_history"
         ".config/gh/hosts.yml"
@@ -277,22 +276,6 @@
 
   # Location info for RedShift
   location.provider = "geoclue2";
-
-  # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.extraUsers."${user.name}" = {
-    isNormalUser = true;
-    inherit home;
-    description = user.description;
-
-    # To allow normal-user to run various virtualization methods, broadcast a wifi network, and control backlight
-    extraGroups = [
-      "docker"
-      "libvirtd"
-      "networkmanager"
-      "user-with-access-to-virtualbox"
-      "video"
-    ];
-  };
 
   security.sudo.enable = false;
 

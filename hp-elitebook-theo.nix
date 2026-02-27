@@ -58,6 +58,7 @@
     ];
     directories = [
       "/var/cache/powertop"
+      "/home/cecile"
     ];
   };
 
@@ -70,4 +71,5 @@
   nix.settings.max-jobs = lib.mkDefault 4;
 
   services.libinput.touchpad.disableWhileTyping = true;
+
 }
