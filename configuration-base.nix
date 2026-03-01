@@ -58,23 +58,7 @@
     useXkbConfig = true;
   };
 
-  # Select internationalisation properties.
-  #i18n.defaultLocale = "en_US.utf8";
-  # Setting this makes the build fail with lk_add_key called with bad keycode -1
-  # But it was set in the auto-generated configuration of my telecom-laptop,
-  # so this must be a bad interaction with some other setting.
-
-  i18n.extraLocaleSettings = {
-    LC_ADDRESS = "fr_FR.utf8";
-    LC_IDENTIFICATION = "fr_FR.utf8";
-    LC_MEASUREMENT = "fr_FR.utf8";
-    LC_MONETARY = "fr_FR.utf8";
-    LC_NAME = "fr_FR.utf8";
-    LC_NUMERIC = "fr_FR.utf8";
-    LC_PAPER = "fr_FR.utf8";
-    LC_TELEPHONE = "fr_FR.utf8";
-    LC_TIME = "fr_FR.utf8";
-  };
+  i18n.defaultLocale = "fr_FR.UTF-8";
 
   nix = {
     package = pkgs.lix;
