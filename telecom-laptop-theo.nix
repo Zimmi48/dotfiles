@@ -69,7 +69,6 @@
     users.theo = {
       directories = [
         ".cups"
-        "Downloads"
       ];
     };
   };
