@@ -125,10 +125,7 @@
       };
   };
 
-  services.xserver = {
-    displayManager.sessionCommands = ''
-      autorandr --change
-    '';
-    windowManager.i3.enable = true;
-  };
+  services.xserver.displayManager.sessionCommands = ''
+    autorandr --change
+  '';
 }
