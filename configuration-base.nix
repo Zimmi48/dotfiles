@@ -226,6 +226,10 @@
     # Enable the X11 windowing system.
     enable = true;
 
+    # Provide a fallback X session in LightDM on all hosts.
+    # This allows logging in even without a window / desktop manager defined system-wide.
+    desktopManager.xterm.enable = true;
+
     # Keyboard layout(s)
     xkb = {
       layout = if azerty then "fr" else "us,us(intl)";
