@@ -1,1 +1,1 @@
-{ system.nixos.tags = [ "xtem" ]; }
+{ system.nixos.tags = [ "no-amc" ]; }

@@ -417,7 +417,6 @@
         languagetool
 
         # Applications
-        auto-multiple-choice
         chromium
         telegram-desktop
         zotero
