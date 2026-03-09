@@ -63,6 +63,8 @@
   };
 
   # This file cannot be persisted with Impermanence because it would be mounted too late
+  # However, the drawback of the solution of symlinking is that `passwd` replaces the
+  # symlink with a regular file, so we need to cp it back to /persist after each change
   environment.etc."shadow".source = "/persist/etc/shadow";
 
   # Related to the use of the Home Manager Impermanence module
