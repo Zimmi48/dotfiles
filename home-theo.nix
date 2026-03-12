@@ -418,7 +418,6 @@
 
         # Applications
         chromium
-        telegram-desktop
         zotero
 
         # Development (stable packages)
@@ -435,6 +434,7 @@
 
         # Applications (unstable packages)
         signal-desktop
+        telegram-desktop
 
         # Development (unstable packages)
         opam
