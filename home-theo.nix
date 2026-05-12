@@ -206,13 +206,21 @@
           }
         ];
         userSettings = {
+          "[python]"."editor.formatOnType" = true;
+          "[typst-code]"."editor.wordSeparators" = "`~!@#$%^&*()=+[{]}\\|;:'\",.<>/?"; # Auto-added by Typst
+          "[typst]" = {
+            "editor.formatOnSave" = true;
+            "editor.wordSeparators" = "`~!@#$%^&*()=+[{]}\\|;:'\",.<>/?"; # Auto-added by Typst
+          };
+          "coq-lsp.updateIgnores" = false;
+          "editor.inlineSuggest.enabled" = true; # Copilot
+          "editor.unicodeHighlight.nonBasicASCII" = false;
+          "editor.wordWrap" = "on";
+          "extensions.autoUpdate" = false;
           "git.confirmSync" = false;
           "git.enableSmartCommit" = true;
-          "git.postCommitCommand" = "sync";
           "git.openRepositoryInParentFolders" = "always";
-          "editor.wordWrap" = "on";
-          "editor.unicodeHighlight.nonBasicASCII" = false;
-          "editor.inlineSuggest.enabled" = true; # Copilot
+          "git.postCommitCommand" = "sync";
           "github.copilot.enable" = {
             "*" = true;
             plaintext = true;
@@ -222,21 +230,13 @@
             yaml = true;
           };
           "githubPullRequests.terminalLinksHandler" = "github";
-          "coq-lsp.updateIgnores" = false;
-          "[python]"."editor.formatOnType" = true;
-          "[typst]" = {
-            "editor.formatOnSave" = true;
-            "editor.wordSeparators" = "`~!@#$%^&*()=+[{]}\\|;:'\",.<>/?"; # Auto-added by Typst
-          };
-          "[typst-code]"."editor.wordSeparators" = "`~!@#$%^&*()=+[{]}\\|;:'\",.<>/?"; # Auto-added by Typst
-          "tinymist.formatterMode" = "typstyle";
-          "notebook.output.scrolling" = true;
-          "terminal.integrated.defaultProfile.linux" = "bash";
           "latex-workshop.view.pdf.viewer" = "tab";
-          "window.restoreWindows" = "none";
-          "workbench.colorTheme" = "Default Dark Modern";
-          "extensions.autoUpdate" = false;
+          "notebook.output.scrolling" = true;
           "search.followSymlinks" = false; # Avoid issues with VS Code search eating CPU and memory
+          "terminal.integrated.defaultProfile.linux" = "bash";
+          "tinymist.formatterMode" = "typstyle";
+          "window.restoreWindows" = "none";
+          "workbench.colorTheme" = "Dark Modern";
         };
       };
     };
