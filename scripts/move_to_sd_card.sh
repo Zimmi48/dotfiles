@@ -29,6 +29,8 @@ exclusion_list=(
     "com.simplemobiletools.calendar.pro"
     # SNCF Assistant
     "com.sncf.fusion"
+    # Tout Apprendre
+    "com.toutapprendre"
     # SNCF Connect
     "com.vsct.vsc.mobile.horaireetresa.android"
     # WhatsApp
