@@ -1,1 +1,1 @@
-{ system.nixos.tags = [ "no-amc" ]; }
+{ system.nixos.tags = [ "command-not-found" ]; }
