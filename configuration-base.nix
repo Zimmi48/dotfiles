@@ -177,8 +177,9 @@
     poppler-utils
     bashmount
     pavucontrol
-    xorg.xkill
+    xkill
     simple-scan
+    brightnessctl
 
     # Applications
     firefox
@@ -190,11 +191,7 @@
 
   environment.shellAliases.bashmount = "rlwrap bashmount";
 
-  programs = {
-    dconf.enable = true;
-
-    light.enable = true;
-  };
+  programs.dconf.enable = true;
 
   services.actkbd = {
     enable = true;
@@ -202,12 +199,12 @@
       {
         keys = [ 225 ];
         events = [ "key" ];
-        command = "/run/current-system/sw/bin/light -A 10";
+        command = "/run/current-system/sw/bin/brightnessctl set +10%";
       }
       {
         keys = [ 224 ];
         events = [ "key" ];
-        command = "/run/current-system/sw/bin/light -U 10";
+        command = "/run/current-system/sw/bin/brightnessctl set 10%-";
       }
     ];
   };

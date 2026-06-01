@@ -288,7 +288,7 @@
           "Mod4+p" = "exec xset s activate";
         };
         startup = [
-          { command = "${pkgs.xfce.xfce4-volumed-pulse}/bin/xfce4-volumed-pulse &"; }
+          { command = "${pkgs.xfce4-volumed-pulse}/bin/xfce4-volumed-pulse &"; }
           { command = "nm-applet &"; }
           { command = "${pkgs.caffeine-ng}/bin/caffeine &"; }
           { command = "languagetool-http-server --allow-origin \"*\" &"; }
@@ -410,10 +410,10 @@
 
         # Desktop packages
         dmenu
-        xfce.thunar
-        xfce.ristretto
+        thunar
+        ristretto
         networkmanagerapplet
-        xfce.xfce4-notifyd
+        xfce4-notifyd
         languagetool
 
         # Applications
