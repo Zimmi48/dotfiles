@@ -143,6 +143,7 @@
         ".local/share/TelegramDesktop"
         ".local/state/wireplumber"
         ".mozilla"
+        ".ollama/models"
         ".opam"
         ".password-store"
         ".ssh"

@@ -1,1 +1,1 @@
-{ system.nixos.tags = [ "command-not-found" ]; }
+{ system.nixos.tags = [ "ollama" ]; }
