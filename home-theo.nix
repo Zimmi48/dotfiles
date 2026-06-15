@@ -394,7 +394,11 @@
     file.".config/matplotlib/matplotlibrc".text = "";
 
     # Scripts
-    file."move_to_sd_card.sh".source = ./scripts/move_to_sd_card.sh;
+    file."move_to_sd_card.sh".source = pkgs.writeShellScript "move_to_sd_card" ''
+      export PATH="${pkgs.android-tools}/bin:$PATH"
+
+      ${builtins.readFile ./scripts/move_to_sd_card.sh}
+'';
 
     # Packages to be installed in the user environment.
     packages =
