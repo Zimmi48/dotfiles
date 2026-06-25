@@ -140,6 +140,7 @@
         "git"
         ".gnupg"
         ".local/share/direnv/allow"
+        ".local/share/opencode/"
         ".local/share/TelegramDesktop"
         ".local/state/wireplumber"
         ".mozilla"

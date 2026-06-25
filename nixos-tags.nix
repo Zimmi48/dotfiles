@@ -1,1 +1,1 @@
-{ system.nixos.tags = [ "ollama" ]; }
+{ system.nixos.tags = [ "opencode" ]; }
