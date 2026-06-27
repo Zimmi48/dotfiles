@@ -165,7 +165,6 @@
           (with unstable.vscode-extensions; [
             eamodio.gitlens
             foam.foam-vscode
-            github.copilot-chat
             github.vscode-pull-request-github
             james-yu.latex-workshop
             jnoortheen.nix-ide
