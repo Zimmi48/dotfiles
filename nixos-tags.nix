@@ -1,1 +1,1 @@
-{ system.nixos.tags = [ "opencode" ]; }
+{ system.nixos.tags = [ "ifconfig" ]; }

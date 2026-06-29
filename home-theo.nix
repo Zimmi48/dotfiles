@@ -410,6 +410,7 @@
         jq
         httpie
         arandr
+        unixtools.ifconfig
 
         # Desktop packages
         dmenu
