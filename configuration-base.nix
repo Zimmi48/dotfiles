@@ -184,7 +184,6 @@
     brightnessctl
 
     # Applications
-    firefox
     libreoffice
     evince
     vlc
@@ -192,6 +191,17 @@
   ];
 
   environment.shellAliases.bashmount = "rlwrap bashmount";
+
+  programs.firefox = {
+    enable = true;
+    # Use Firefox's own XUL notification system instead of the OS notification daemon
+    # (libnotify), so that Firefox-specific controls like "Pause notifications until
+    # Firefox restarts" are available.
+    policies.Preferences."alerts.useSystemBackend" = {
+      Value = false;
+      Status = "default";
+    };
+  };
 
   programs.dconf.enable = true;
 

@@ -1,1 +1,1 @@
-{ system.nixos.tags = [ "ifconfig" ]; }
+{ system.nixos.tags = [ "firefox-notifications" ]; }
