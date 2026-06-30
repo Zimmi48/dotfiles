@@ -215,7 +215,7 @@
           "editor.inlineSuggest.enabled" = true; # Copilot
           "editor.unicodeHighlight.nonBasicASCII" = false;
           "editor.wordWrap" = "on";
-          "extensions.autoUpdate" = false;
+          "extensions.autoUpdate" = "off";
           "git.confirmSync" = false;
           "git.enableSmartCommit" = true;
           "git.openRepositoryInParentFolders" = "always";
