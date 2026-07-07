@@ -1,1 +1,1 @@
-{ system.nixos.tags = [ "firefox-notifications" ]; }
+{ system.nixos.tags = [ "ollama-vscode" ]; }

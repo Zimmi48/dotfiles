@@ -192,6 +192,7 @@
             ms-vscode.wasm-wasi-core # Needed by coq-lsp
             ejgallego.coq-lsp
             elm-land.elm-land
+            ollama.ollama # ollama support deprecated in stock VS Code
             quarto.quarto
           ]);
         keybindings = [
