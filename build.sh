@@ -74,8 +74,7 @@ nix build ".#nixosConfigurations.$HOSTNAME.config.system.build.toplevel" \
 echo "Build completed."
 echo
 echo "Closure differences:"
-nix store diff-closures /nix/var/nix/profiles/system "./nix-builds/$result" \
-       --experimental-features 'nix-command flakes'
+dix "$(realpath /nix/var/nix/profiles/system)" "./nix-builds/$result"
 echo
 echo "Result symlink: nix-builds/$result"
 
@@ -92,8 +91,7 @@ elif [ "$answer" = "s" ] || [ "$answer" = "S" ] || [ "$answer" = "b" ] || [ "$an
               # version and closure diff, then open the editor for final editing.
               (cat "./nix-builds/$result/nixos-version" \
                      && printf '\n\n' \
-                     && nix store diff-closures /nix/var/nix/profiles/system "./nix-builds/$result" \
-                            --experimental-features 'nix-command flakes') \
+                     && dix "$(realpath /nix/var/nix/profiles/system)" "./nix-builds/$result") \
                      | jj describe @- --stdin
               jj describe @-
        fi
