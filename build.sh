@@ -41,7 +41,7 @@ read -r answer
 # If the user answer equals "t" or "T", then test the new configuration.
 if [ "$answer" = "t" ] || [ "$answer" = "T" ]; then
        echo "Testing the new configuration..."
-       sudo -A "./nix-builds/$result/bin/switch-to-configuration test"
+       sudo -A "./nix-builds/$result/bin/switch-to-configuration" test
 elif [ "$answer" = "s" ] || [ "$answer" = "S" ] || [ "$answer" = "b" ] || [ "$answer" = "B" ]; then
        if [ "$DIFF" -eq 1 ]; then
               # Tagging / committing the new configuration
