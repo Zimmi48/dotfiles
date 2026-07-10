@@ -1,1 +1,1 @@
-{ system.nixos.tags = [ "ollama-vscode" ]; }
+{ system.nixos.tags = [ "sudo" ]; }

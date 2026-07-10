@@ -32,6 +32,7 @@
           _git_branch
         }
       '';
+      shellAliases.sudo = "sudo -A";
     };
 
     direnv = {
@@ -365,7 +366,15 @@
   manual.manpages.enable = false;
 
   home = {
-    sessionVariables.EDITOR = "emacs";
+    sessionVariables = {
+      EDITOR = "emacs";
+      SUDO_ASKPASS = "${
+        pkgs.writeShellScriptBin "askpass" ''
+          #!${pkgs.runtimeShell}
+          exec ${pkgs.pass}/bin/pass "tech/''${HOSTNAME%-theo}/rootpass"
+        ''
+      }/bin/askpass";
+    };
 
     file.".background-image".source =
       pkgs.nixos-artwork.wallpapers.simple-dark-gray-bottom.gnomeFilePath;
@@ -390,7 +399,7 @@
       export PATH="${pkgs.android-tools}/bin:$PATH"
 
       ${builtins.readFile ./scripts/move_to_sd_card.sh}
-'';
+    '';
 
     # Packages to be installed in the user environment.
     packages =

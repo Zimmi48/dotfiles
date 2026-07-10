@@ -88,6 +88,7 @@
                   "networkmanager"
                   "user-with-access-to-virtualbox"
                   "video"
+                  "wheel"
                 ];
               };
             }

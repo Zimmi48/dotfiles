@@ -290,7 +290,9 @@
   # Location info for RedShift
   location.provider = "geoclue2";
 
-  security.sudo.enable = false;
+  security.sudo.extraConfig = ''
+    Defaults rootpw
+  '';
 
   home-manager.useGlobalPkgs = true;
   home-manager.useUserPackages = true;
