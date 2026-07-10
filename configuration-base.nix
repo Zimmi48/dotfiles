@@ -182,6 +182,7 @@
     xkill
     simple-scan
     brightnessctl
+    dix
 
     # Applications
     libreoffice

@@ -1,1 +1,1 @@
-{ system.nixos.tags = [ "sudo" ]; }
+{ system.nixos.tags = [ "dix" ]; }
