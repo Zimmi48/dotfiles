@@ -41,8 +41,7 @@ read -r answer
 # If the user answer equals "t" or "T", then test the new configuration.
 if [ "$answer" = "t" ] || [ "$answer" = "T" ]; then
        echo "Testing the new configuration..."
-       pass -c tech/$(echo $HOSTNAME | cut -d- -f1-2)/rootpass
-       su -c "./nix-builds/$result/bin/switch-to-configuration test"
+       sudo -A "./nix-builds/$result/bin/switch-to-configuration test"
 elif [ "$answer" = "s" ] || [ "$answer" = "S" ] || [ "$answer" = "b" ] || [ "$answer" = "B" ]; then
        if [ "$DIFF" -eq 1 ]; then
               # Tagging / committing the new configuration
@@ -82,15 +81,13 @@ elif [ "$answer" = "s" ] || [ "$answer" = "S" ] || [ "$answer" = "b" ] || [ "$an
        # If the user answer equals "B" or "b", then boot the new configuration.
        if [ "$answer" = "b" ] || [ "$answer" = "B" ]; then
               echo "Booting the new configuration..."
-              pass -c tech/$(echo $HOSTNAME | cut -d- -f1-2)/rootpass
-              su -c "nix-env -p /nix/var/nix/profiles/system --set ./nix-builds/$result &&
-                     ./nix-builds/$result/bin/switch-to-configuration boot"
+              sudo -A nix-env -p "/nix/var/nix/profiles/system" --set "./nix-builds/$result"
+              sudo -A "./nix-builds/$result/bin/switch-to-configuration" boot
        # If the user answer equals "S" or "s", then switch to the new configuration.
        elif [ "$answer" = "s" ] || [ "$answer" = "S" ]; then
               echo "Switching to the new configuration..."
-              pass -c tech/$(echo $HOSTNAME | cut -d- -f1-2)/rootpass
-              su -c "nix-env -p /nix/var/nix/profiles/system --set ./nix-builds/$result &&
-                     ./nix-builds/$result/bin/switch-to-configuration switch"
+              sudo -A nix-env -p "/nix/var/nix/profiles/system" --set "./nix-builds/$result"
+              sudo -A "./nix-builds/$result/bin/switch-to-configuration" switch
        fi
 fi
 
