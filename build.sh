@@ -72,7 +72,7 @@ elif [ "$answer" = "s" ] || [ "$answer" = "S" ] || [ "$answer" = "b" ] || [ "$an
                      git commit -a --file=<(cat ./nix-builds/$result/nixos-version && echo && echo && nix store diff-closures /nix/var/nix/profiles/system ./nix-builds/$result) --edit -S
               fi
               # if either $tags_answer or $commit_answer is not "n" or "N", then rebuild
-              if [ "$tags_answer" != "${tags_answer#[Nn]}" ] || [ "$commit_answer" != "${commit_answer#[Nn]}" ]; then
+              if [ "$tags_answer" = "${tags_answer#[Nn]}" ] || [ "$commit_answer" = "${commit_answer#[Nn]}" ]; then
                      echo "Rebuilding $HOSTNAME configuration..."
                      nix build .#nixosConfigurations."$HOSTNAME".config.system.build.toplevel --no-warn-dirty --out-link ./nix-builds/$result --experimental-features 'nix-command flakes' $OFFLINE_FLAGS
                      echo "Rebuild completed."
