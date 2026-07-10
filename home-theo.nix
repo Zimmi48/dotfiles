@@ -213,6 +213,7 @@
             "editor.formatOnSave" = true;
             "editor.wordSeparators" = "`~!@#$%^&*()=+[{]}\\|;:'\",.<>/?"; # Auto-added by Typst
           };
+          "chat.viewSessions.orientation" = "stacked";
           "coq-lsp.updateIgnores" = false;
           "editor.inlineSuggest.enabled" = true; # Copilot
           "editor.unicodeHighlight.nonBasicASCII" = false;
