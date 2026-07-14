@@ -33,6 +33,8 @@
       package = unstable.git;
     };
 
+    thunderbird.enable = true;
+
     # VS Code with mutable extensions so the user can install from the marketplace
     vscode = {
       enable = true;
