@@ -183,6 +183,9 @@
     simple-scan
     brightnessctl
     dix
+    # The following are used by the VS Code sandboxing feature for the Copilot agent
+    bubblewrap
+    socat
 
     # Applications
     libreoffice

@@ -1,1 +1,1 @@
-{ system.nixos.tags = [ "dix" ]; }
+{ system.nixos.tags = [ "sandbox" ]; }
