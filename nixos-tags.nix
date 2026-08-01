@@ -1,1 +1,1 @@
-{ system.nixos.tags = [ "sandbox" ]; }
+{ system.nixos.tags = [ "numtide-cache" ]; }
