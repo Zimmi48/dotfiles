@@ -118,6 +118,7 @@
                 stateVersion = "25.11";
               }
             ])
+            { services.xserver.desktopManager.xfce.enable = true; }
           ];
         };
         "hp-elitebook-theo" = nixpkgs.lib.nixosSystem {
