@@ -1,1 +1,1 @@
-{ system.nixos.tags = [ "xfce" ]; }
+{ system.nixos.tags = [ "no-vscode-direnv" ]; }

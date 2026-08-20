@@ -169,7 +169,6 @@
             github.vscode-pull-request-github
             james-yu.latex-workshop
             jnoortheen.nix-ide
-            mkhl.direnv
             ms-python.python
             ms-toolsai.jupyter
             ms-toolsai.jupyter-keymap
