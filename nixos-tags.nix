@@ -1,1 +1,1 @@
-{ system.nixos.tags = [ "numtide-cache" ]; }
+{ system.nixos.tags = [ "cecile" ]; }

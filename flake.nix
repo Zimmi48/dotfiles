@@ -113,6 +113,10 @@
                 user = theo;
                 stateVersion = "23.05";
               }
+              {
+                user = cecile;
+                stateVersion = "25.11";
+              }
             ])
           ];
         };

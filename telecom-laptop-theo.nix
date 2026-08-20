@@ -71,6 +71,9 @@
         ".cups"
       ];
     };
+    directories = [
+      "/home/cecile"
+    ];
   };
 
   # This file cannot be persisted with Impermanence because it would be mounted too late
