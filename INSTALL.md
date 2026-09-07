@@ -156,7 +156,34 @@ Note that `su` cannot be used for this check inside `nixos-enter`: `/run/wrapper
 does not exist there, so neither the setuid `su` nor the setuid `unix_chkpwd` is
 available and authentication always fails, whatever the password.
 
-## 7. Reboot
+## 7. Copy SSH and GPG private keys, while still in the installer
+
+Like passwords, SSH and GPG keys are not managed declaratively; they only exist on
+another machine (or in a backup). **None of the personal laptops in this repo run
+`sshd`**, so once the new machine has rebooted into its final state there is no
+network path left to fetch them: the only reachable `sshd` throughout this whole
+procedure is the installer's temporary one. Do the transfer now, before rebooting,
+pushing from wherever the keys currently live straight into the mounted `/persist`,
+over the same jump-host connection used for the rest of the install:
+
+```sh
+UID_GID=1000:100   # match the target user's uid:gid, e.g. from /mnt/etc/passwd
+tar -cz -C ~ .ssh .gnupg | ssh -J ssh.enst.fr root@<installer-ip> '
+  mkdir -p /mnt/persist/home/<user>
+  tar -xzf - -C /mnt/persist/home/<user>
+  chown -R '"$UID_GID"' /mnt/persist/home/<user>/.ssh /mnt/persist/home/<user>/.gnupg
+  chmod 700 /mnt/persist/home/<user>/.ssh /mnt/persist/home/<user>/.gnupg
+  find /mnt/persist/home/<user>/.ssh /mnt/persist/home/<user>/.gnupg -type f -exec chmod 600 {} \;
+'
+```
+
+`.ssh` and `.gnupg` are already listed under the user's `environment.persistence`
+entries (see `configuration-base.nix`), so once placed under `/persist/home/<user>/`
+they will show up in `~/.ssh` and `~/.gnupg` on the first real boot without any
+extra step. After boot, sanity-check with `ssh -T git@github.com` and
+`gpg --list-secret-keys` and add the SSH key to the agent with `ssh-add ~/.ssh/id_rsa`.
+
+## 8. Reboot
 
 ```sh
 sync; swapoff -a; umount -R /mnt; systemctl reboot
