@@ -1,1 +1,1 @@
-{ system.nixos.tags = [ "keyring" ]; }
+{ system.nixos.tags = [ "autorandr" ]; }

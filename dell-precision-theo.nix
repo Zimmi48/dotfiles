@@ -120,4 +120,45 @@
       nvidiaBusId = "PCI:1:0:0";
     };
   };
+
+  # Manage display with autorandr. "docked" is the same DELL P2722H used at
+  # work on telecom-laptop-theo, connected here via USB-C; the laptop panel
+  # is turned off when it's plugged in, matching that other host's behavior.
+  services.autorandr = {
+    enable = true;
+    profiles =
+      let
+        fingerprint = {
+          eDP-1 = "00ffffffffffff0006afed2300000000001b010495221378026e8593585892281e505400000001010101010101010101010101010101783780b470382e406c30aa0058c21000001a602c80b470382e406c30aa0058c21000001a000000fe004b314d5039804231353648414e000000000000410296001100000a010a20200074";
+          DP-2-1 = "00ffffffffffff0010ac4042424d34412d200104a53c22783ac525aa534f9d25105054a54b00714f8180a9c0d1c081c081cf01010101023a801871382d40582c450056502100001e000000ff0039464c505a4e330a2020202020000000fc0044454c4c205032373232480a20000000fd00384c1e5311010a2020202020200000";
+        };
+      in
+      {
+        "default" = {
+          fingerprint = {
+            inherit (fingerprint) eDP-1;
+          };
+          config.eDP-1 = {
+            enable = true;
+            primary = true;
+            mode = "1920x1080";
+          };
+        };
+        "docked" = {
+          inherit fingerprint;
+          config = {
+            eDP-1.enable = false;
+            DP-2-1 = {
+              enable = true;
+              primary = true;
+              mode = "1920x1080";
+            };
+          };
+        };
+      };
+  };
+
+  services.xserver.displayManager.sessionCommands = ''
+    autorandr --change
+  '';
 }
