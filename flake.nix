@@ -162,6 +162,23 @@
             ])
           ];
         };
+        "dell-precision-theo" = nixpkgs.lib.nixosSystem {
+          inherit system specialArgs;
+          modules = commonModules ++ [
+            ./dell-precision-theo.nix
+            (import ./configuration-base.nix {
+              hostName = "dell-precision-theo";
+              stateVersion = "26.05";
+              user = theo;
+            })
+            (mkUsersModule [
+              {
+                user = theo;
+                stateVersion = "26.05";
+              }
+            ])
+          ];
+        };
       };
     };
 }
