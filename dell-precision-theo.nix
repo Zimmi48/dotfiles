@@ -75,7 +75,49 @@
 
   nix.settings.max-jobs = lib.mkDefault 4;
 
-  # NVIDIA / CUDA configuration deliberately left out for now: this file is the
-  # minimal base install. Hybrid graphics + CUDA will be added once the base
-  # system is verified.
+  # The system `pkgs` is deliberately free-only (see flake.nix); the NVIDIA
+  # driver itself is unfree, so it needs a narrow exception here rather than
+  # a blanket allowUnfree.
+  nixpkgs.config.allowUnfreePredicate =
+    pkg:
+    builtins.elem (lib.getName pkg) [
+      "nvidia-x11"
+      "nvidia-settings"
+      "nvidia-kernel-modules"
+    ];
+
+  # Binary cache for CUDA/unfree packages: cache.nixos.org does not build these,
+  # so without this substituter everything would compile locally.
+  nix.settings.substituters = [ "https://cache.nixos-cuda.org" ];
+  nix.settings.trusted-public-keys = [
+    "cache.nixos-cuda.org:74DUi4Ye579gUqzH4ziL9IyiJBlDpMRn9MBN8oNan9M="
+  ];
+
+  # Hybrid graphics: Intel iGPU (PRIME output) + NVIDIA RTX A3000 Mobile (offload,
+  # used for CUDA inference workloads).
+  services.xserver.videoDrivers = [ "nvidia" ];
+
+  hardware.graphics = {
+    enable = true;
+    enable32Bit = true;
+  };
+
+  hardware.nvidia = {
+    # Proprietary driver preferred over the open kernel module for better
+    # inference/CUDA compatibility.
+    open = false;
+    modesetting.enable = true;
+    powerManagement = {
+      enable = true;
+      finegrained = true;
+    };
+    prime = {
+      offload = {
+        enable = true;
+        enableOffloadCmd = true;
+      };
+      intelBusId = "PCI:0:2:0";
+      nvidiaBusId = "PCI:1:0:0";
+    };
+  };
 }
