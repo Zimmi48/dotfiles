@@ -237,6 +237,12 @@
     gnome-keyring.enable = true;
   };
 
+  # Unlock the GNOME login keyring with the LightDM login password, so that apps like
+  # VS Code / GitHub Copilot can use the real OS keyring instead of falling back to
+  # "weaker encryption". Without this, gnome-keyring.enable above only installs the
+  # daemon but nothing ever unlocks it.
+  security.pam.services.lightdm.enableGnomeKeyring = true;
+
   services.xserver = {
     # Enable the X11 windowing system.
     enable = true;

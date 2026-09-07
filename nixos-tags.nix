@@ -1,1 +1,1 @@
-{ system.nixos.tags = [ "no-vscode-direnv" ]; }
+{ system.nixos.tags = [ "keyring" ]; }
