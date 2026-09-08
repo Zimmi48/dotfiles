@@ -210,4 +210,15 @@
   services.xserver.displayManager.sessionCommands = ''
     autorandr --change
   '';
+
+  services.openssh = {
+    enable = true;
+    settings.PasswordAuthentication = false;
+  };
+  users.users.theo.openssh.authorizedKeys.keyFiles = [
+    (builtins.fetchurl {
+      url = "https://github.com/Zimmi48.keys";
+      sha256 = "0k0pcbkzviripcmh93wfz8m12060c884cmpbh1gssyqs1f3pz63s";
+    })
+  ];
 }

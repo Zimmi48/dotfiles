@@ -1,1 +1,1 @@
-{ system.nixos.tags = [ "ollama-cuda" ]; }
+{ system.nixos.tags = [ "openssh" ]; }
