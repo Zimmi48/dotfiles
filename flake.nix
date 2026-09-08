@@ -45,8 +45,12 @@
           config.allowUnfree = true;
         }).pkgs;
       system = "x86_64-linux";
-      # Make all inputs available in the NixOS modules
-      specialArgs = inputs;
+      # Make all inputs available in the NixOS modules, plus the alternative
+      # package sets (unstable / unfree), which some hosts need at the system
+      # level (e.g. CUDA-enabled packages).
+      specialArgs = inputs // {
+        inherit unstable unfree-stable unfree-unstable;
+      };
       # Define the modules that are imported in every configuration
       commonModules = [
         ./nixos-tags.nix

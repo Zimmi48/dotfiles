@@ -3,6 +3,7 @@
   lib,
   pkgs,
   modulesPath,
+  unfree-stable,
   ...
 }:
 
@@ -142,6 +143,32 @@
       nvidiaBusId = "PCI:1:0:0";
     };
   };
+
+  services.ollama = {
+    enable = true;
+    package = unfree-stable.ollama-cuda;
+    # The default (`user = null`) means `DynamicUser`, which stores state in
+    # /var/lib/private/ollama and is painful to persist under impermanence.
+    user = "ollama";
+  };
+
+  # Setting `services.ollama.user` is not enough: the module unconditionally
+  # adds `DynamicUser = true` *after* the static User/Group, so systemd still
+  # tries to migrate /var/lib/ollama to /var/lib/private/ollama, which fails
+  # with EBUSY on the Impermanence bind mount.
+  systemd.services.ollama.serviceConfig.DynamicUser = lib.mkForce false;
+
+  # The module declares `ReadWritePaths` on the models directory but only lists
+  # `ollama` in `StateDirectory`, so with empty state systemd fails to set up
+  # the mount namespace ("/var/lib/ollama/models: No such file or directory").
+  # Creating it through `StateDirectory` also gets the ownership right and
+  # happens at service start, i.e. after the Impermanence bind mount.
+  systemd.services.ollama.serviceConfig.StateDirectory = lib.mkForce [
+    "ollama"
+    "ollama/models"
+  ];
+
+  environment.persistence."/persist".directories = [ "/var/lib/ollama" ];
 
   # Manage display with autorandr. "docked" is the same DELL P2722H used at
   # work on telecom-laptop-theo, connected here via USB-C; the laptop panel

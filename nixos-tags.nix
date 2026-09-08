@@ -1,1 +1,1 @@
-{ system.nixos.tags = [ "hibernate" ]; }
+{ system.nixos.tags = [ "ollama-cuda" ]; }
