@@ -73,6 +73,28 @@
 
   powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";
 
+  #  Without the settings below, logind's defaults only suspend to RAM.
+  # `HandleLidSwitchDocked` is deliberately left at its default ("ignore"):
+  # the "docked" autorandr profile below turns the laptop panel off, which
+  # means the lid is normally closed while an external monitor is connected.
+  # "suspend-then-hibernate" suspends to RAM first and only hibernates later,
+  # so the usual lid open/close cycle stays instant and we avoid the full
+  # firmware/bootloader/LUKS resume path except when the machine has been
+  # left closed for a while.
+  services.logind.settings.Login = {
+    HandleLidSwitch = "suspend-then-hibernate";
+    HandleLidSwitchExternalPower = "suspend-then-hibernate";
+    # Direct hibernation supported with the sleep key.
+    HandleSuspendKey = "hibernate";
+  };
+
+  systemd.sleep.settings.Sleep = {
+    HibernateDelaySec = "1h";
+    # Only start the countdown once the machine is unplugged: while docked on
+    # AC it just stays suspended.
+    HibernateOnACPower = false;
+  };
+
   nix.settings.max-jobs = lib.mkDefault 4;
 
   # The system `pkgs` is deliberately free-only (see flake.nix); the NVIDIA

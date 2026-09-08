@@ -1,1 +1,1 @@
-{ system.nixos.tags = [ "mozilla-config" ]; }
+{ system.nixos.tags = [ "hibernate" ]; }

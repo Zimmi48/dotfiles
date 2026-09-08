@@ -6,6 +6,8 @@
   ...
 }:
 
+let swapDisk = "/dev/disk/by-uuid/2007f2df-1f7b-4122-8ae8-b6c8f3244d0d"; in
+
 {
   imports = [ (modulesPath + "/installer/scan/not-detected.nix") ];
 
@@ -28,6 +30,10 @@
     };
     kernelModules = [ "kvm-intel" ];
     loader.efi.efiSysMountPoint = "/boot/efi";
+    # Required for hibernation: the systemd initrd only passes `resume=` to the
+    # kernel when this is set explicitly, it does not derive it from
+    # `swapDevices` the way the old scripted initrd did.
+    resumeDevice = swapDisk;
   };
 
   fileSystems."/" = {
@@ -61,7 +67,7 @@
   };
 
   swapDevices = [
-    { device = "/dev/disk/by-uuid/2007f2df-1f7b-4122-8ae8-b6c8f3244d0d"; }
+    { device = swapDisk; }
   ];
 
   environment.persistence."/persist" = {
@@ -80,6 +86,27 @@
   environment.etc."shadow".source = "/persist/etc/shadow";
 
   powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";
+
+  # This host can hibernate: its swap partition (inside LUKS, so the image is
+  # encrypted) is larger than RAM, and `boot.resumeDevice` is set above.
+  # Without the settings below, logind's defaults only suspend to RAM.
+  # "suspend-then-hibernate" suspends first and only hibernates later, so the
+  # usual lid open/close cycle stays instant.
+  # `HandleLidSwitchDocked` is deliberately left at its default ("ignore"),
+  # for the "work-laptop-lid-closed" autorandr profile below.
+  services.logind.settings.Login = {
+    HandleLidSwitch = "suspend-then-hibernate";
+    HandleLidSwitchExternalPower = "suspend-then-hibernate";
+    # Direct hibernation supported with the sleep key.
+    HandleSuspendKey = "hibernate";
+  };
+
+  systemd.sleep.settings.Sleep = {
+    HibernateDelaySec = "1h";
+    # Only start the countdown once the machine is unplugged: while docked on
+    # AC it just stays suspended.
+    HibernateOnACPower = false;
+  };
 
   nix.settings.max-jobs = lib.mkDefault 4;
 
