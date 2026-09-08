@@ -1,1 +1,1 @@
-{ system.nixos.tags = [ "autorandr" ]; }
+{ system.nixos.tags = [ "mozilla-config" ]; }
