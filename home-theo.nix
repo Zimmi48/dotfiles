@@ -243,6 +243,41 @@
     };
   };
 
+  # Forwards 127.0.0.1:8012 to dell-precision-theo's llama-cpp server (see
+  # dell-precision-theo.nix) on demand: the socket sits idle at login, and
+  # systemd only spawns the `ssh -W` connection below the first time
+  # something (llama.vscode) actually connects to it, so no SSH connection to
+  # dell-precision-theo exists unless it's genuinely being used.
+  systemd.user.sockets.llama-cpp-tunnel = {
+    Unit = {
+      Description = "Socket for the llama-cpp server tunnel to dell-precision-theo";
+      # Would conflict with the real llama-cpp server listening on the same
+      # port there.
+      ConditionHost = "!dell-precision-theo";
+    };
+    Socket = {
+      ListenStream = "127.0.0.1:8012";
+      Accept = true;
+    };
+    Install.WantedBy = [ "sockets.target" ];
+  };
+
+  systemd.user.services."llama-cpp-tunnel@" = {
+    Unit.Description = "SSH connection to the llama-cpp server on dell-precision-theo";
+    Service = {
+      ExecStart = "${pkgs.openssh}/bin/ssh -W 127.0.0.1:8012 dell-precision-theo";
+      # Without this, Accept=yes only passes the connection as fd 3
+      # (classic $LISTEN_FDS), which plain `ssh` never reads from: it would
+      # keep using its regular stdio (null/journal), forward nothing, and
+      # the unread request left in the real socket gets RST'd on exit.
+      StandardInput = "socket";
+      # Belt-and-braces in case the systemd user environment doesn't import
+      # SSH_AUTH_SOCK from the graphical session (gpg-agent's ssh-agent
+      # emulation, enabled below).
+      Environment = "SSH_AUTH_SOCK=%t/gnupg/S.gpg-agent.ssh";
+    };
+  };
+
   services = {
     blueman-applet.enable = true;
 
