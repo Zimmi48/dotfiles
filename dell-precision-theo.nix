@@ -168,7 +168,52 @@
     "ollama/models"
   ];
 
-  environment.persistence."/persist".directories = [ "/var/lib/ollama" ];
+  # llama.cpp server, used for FIM code completion (llama.vscode) over an SSH
+  # tunnel (see home-theo.nix); never exposed on the network directly, hence
+  # the default `host = "127.0.0.1"`.
+  services.llama-cpp = {
+    enable = true;
+    package = unfree-stable.llama-cpp.override { cudaSupport = true; };
+    # 8012 is llama.vscode's own default port for a completion model, less
+    # likely to clash with some unrelated local webserver than 8080.
+    port = 8012;
+    # The RTX A3000 Mobile only has 6GB VRAM: use the smallest official FIM
+    # preset. Bump to --fim-qwen-3b-default (or -7b) if that leaves headroom.
+    # These presets pick the model, context size and other server flags; see
+    # https://github.com/ggml-org/llama.cpp/blob/master/tools/server/README.md
+    extraFlags = [ "--fim-qwen-1.5b-default" ];
+  };
+
+  # Same problem as ollama above: this module's `DynamicUser = true` is
+  # unconditional, and unlike ollama's, it doesn't even offer a `user`/`group`
+  # option to opt out with, so the static user/group have to be declared here
+  # too, from scratch.
+  systemd.services.llama-cpp.serviceConfig = {
+    DynamicUser = lib.mkForce false;
+    User = "llama-cpp";
+    Group = "llama-cpp";
+  };
+
+  users.users.llama-cpp = {
+    isSystemUser = true;
+    group = "llama-cpp";
+  };
+  users.groups.llama-cpp = { };
+
+  environment.persistence."/persist".directories = [
+    {
+      directory = "/var/lib/ollama";
+      user = "ollama";
+      group = "ollama";
+      mode = "0755";
+    }
+    {
+      directory = "/var/cache/llama-cpp";
+      user = "llama-cpp";
+      group = "llama-cpp";
+      mode = "0755";
+    }
+  ];
 
   # Manage display with autorandr. "docked" is the same DELL P2722H used at
   # work on telecom-laptop-theo, connected here via USB-C; the laptop panel

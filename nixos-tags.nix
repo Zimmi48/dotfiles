@@ -1,1 +1,1 @@
-{ system.nixos.tags = [ "openssh" ]; }
+{ system.nixos.tags = [ "llama-cpp" ]; }
