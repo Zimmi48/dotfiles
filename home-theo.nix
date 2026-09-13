@@ -154,6 +154,40 @@
       };
     };
 
+    # VS Codium configuration with llama-cpp-vscode
+    vscodium = {
+      enable = true;
+      mutableExtensionsDir = false;
+      # lowPrio avoids a buildEnv conflict with the vscode package below:
+      # both ship a lib/vscode/locales directory whose content can diverge
+      # between the two, and priority tells buildEnv which one wins.
+      package = lib.lowPrio unstable.vscodium;
+      profiles.default = {
+        enableExtensionUpdateCheck = false;
+        enableUpdateCheck = false;
+        extensions =
+          (with unstable.vscode-extensions; [
+            foam.foam-vscode
+            yzhang.markdown-all-in-one # Recommended by Foam
+          ])
+          ++ (with vscode-extensions.extensions.x86_64-linux.open-vsx; [
+            ggml-org.llama-vscode
+          ]);
+        userSettings = {
+          "extensions.autoUpdate" = "off";
+          "git.confirmSync" = false;
+          "git.openRepositoryInParentFolders" = "always";
+          "git.postCommitCommand" = "sync";
+          "llama-vscode.ask_install_llamacpp" = false;
+          "llama-vscode.endpoint" = "http://127.0.0.1:8012"; # Endpoint of the systemd user service
+          "search.followSymlinks" = false; # Avoid issues with VS Code search eating CPU and memory
+          "terminal.integrated.defaultProfile.linux" = "bash";
+          "window.restoreWindows" = "none";
+          "workbench.colorTheme" = "Dark Modern";
+        };
+      };
+    };
+
     # VS Code configuration with free and non-free Microsoft extensions
     vscode = {
       enable = true;
@@ -165,7 +199,6 @@
         extensions =
           (with unstable.vscode-extensions; [
             eamodio.gitlens
-            foam.foam-vscode
             github.vscode-pull-request-github
             james-yu.latex-workshop
             jnoortheen.nix-ide
@@ -345,7 +378,7 @@
     # Desktop entry for launching VS Code with Foam notes
     foam = {
       name = "Foam";
-      exec = "${unfree-unstable.vscode}/bin/code ${config.home.homeDirectory}/git/notes";
+      exec = "${config.programs.vscodium.package}/bin/codium ${config.home.homeDirectory}/git/notes";
     };
   };
 

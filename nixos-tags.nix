@@ -1,1 +1,1 @@
-{ system.nixos.tags = [ "llama-cpp" ]; }
+{ system.nixos.tags = [ "vscodium-llama" ]; }

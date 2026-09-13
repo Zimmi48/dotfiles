@@ -138,6 +138,7 @@
         ".config/Code"
         ".config/mozilla"
         ".config/Signal"
+        #".config/VSCodium"
         "Documents"
         "git"
         ".gnupg"
@@ -151,6 +152,7 @@
         ".ssh"
         ".thunderbird"
         ".vscode"
+        #".vscode-oss"
         ".zotero"
         "Zotero"
       ];
