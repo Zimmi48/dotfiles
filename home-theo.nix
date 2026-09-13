@@ -403,12 +403,10 @@
   home = {
     sessionVariables = {
       EDITOR = "emacs";
-      SUDO_ASKPASS = "${
-        pkgs.writeShellScriptBin "askpass" ''
-          #!${pkgs.runtimeShell}
-          exec ${pkgs.pass}/bin/pass "tech/''${HOSTNAME%-theo}/rootpass"
-        ''
-      }/bin/askpass";
+      SUDO_ASKPASS = "${pkgs.writeShellScriptBin "askpass" ''
+        #!${pkgs.runtimeShell}
+        exec ${pkgs.pass}/bin/pass "tech/''${HOSTNAME%-theo}/rootpass"
+      ''}/bin/askpass";
     };
 
     file.".background-image".source =
