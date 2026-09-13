@@ -180,6 +180,7 @@
           "git.postCommitCommand" = "sync";
           "llama-vscode.ask_install_llamacpp" = false;
           "llama-vscode.endpoint" = "http://127.0.0.1:8012"; # Endpoint of the systemd user service
+          "llama-vscode.endpoint_chat" = "http://127.0.0.1:8011"; # Endpoint of the llama-cpp-chat-tunnel service
           "search.followSymlinks" = false; # Avoid issues with VS Code search eating CPU and memory
           "terminal.integrated.defaultProfile.linux" = "bash";
           "window.restoreWindows" = "none";
@@ -307,6 +308,29 @@
       # Belt-and-braces in case the systemd user environment doesn't import
       # SSH_AUTH_SOCK from the graphical session (gpg-agent's ssh-agent
       # emulation, enabled below).
+      Environment = "SSH_AUTH_SOCK=%t/gnupg/S.gpg-agent.ssh";
+    };
+  };
+
+  # Same as above, but for dell-precision-theo's chat model server
+  # (llama-cpp-chat in dell-precision-theo.nix).
+  systemd.user.sockets.llama-cpp-chat-tunnel = {
+    Unit = {
+      Description = "Socket for the llama-cpp chat server tunnel to dell-precision-theo";
+      ConditionHost = "!dell-precision-theo";
+    };
+    Socket = {
+      ListenStream = "127.0.0.1:8011";
+      Accept = true;
+    };
+    Install.WantedBy = [ "sockets.target" ];
+  };
+
+  systemd.user.services."llama-cpp-chat-tunnel@" = {
+    Unit.Description = "SSH connection to the llama-cpp chat server on dell-precision-theo";
+    Service = {
+      ExecStart = "${pkgs.openssh}/bin/ssh -W 127.0.0.1:8011 dell-precision-theo";
+      StandardInput = "socket";
       Environment = "SSH_AUTH_SOCK=%t/gnupg/S.gpg-agent.ssh";
     };
   };

@@ -7,6 +7,73 @@
   ...
 }:
 
+let
+  # `services.llama-cpp` only supports a single instance (hardcoded to
+  # `systemd.services.llama-cpp`), so a second (chat) model can't be added by
+  # just setting more options on it. Evaluating the real upstream module in
+  # an isolated, throwaway NixOS system (unrelated to this host's own
+  # `config`) reuses all of its systemd hardening/ExecStart-building logic
+  # per instance instead of copying it by hand; referencing this host's own
+  # `config.systemd.services.*` from here instead triggers "infinite
+  # recursion" (self-referential fixed point).
+  mkLlamaCppUnit =
+    settings:
+    let
+      unit =
+        (import (pkgs.path + "/nixos/lib/eval-config.nix") {
+          inherit pkgs;
+          system = null; # reuse the real `pkgs` above instead of building a new one
+          modules = [
+            {
+              services.llama-cpp = {
+                enable = true;
+              }
+              // settings;
+            }
+            {
+              system.stateVersion = "26.05";
+              fileSystems."/" = {
+                device = "none";
+                fsType = "tmpfs";
+              };
+              boot.loader.grub.enable = false;
+            }
+          ];
+        }).config.systemd.services.llama-cpp;
+    in
+    # Only reuse the specific fields the module actually sets (description,
+    # after, wantedBy, serviceConfig): its submodule's resolved `config` has
+    # every other systemd.service option pre-populated too (many as
+    # "accessed but has no value defined" thunks for options with no real
+    # default, e.g. startLimitIntervalSec), and re-assigning that whole
+    # attrset as a single definition for a new unit confuses systemd.nix's
+    # `isDefined` checks on the real config.
+    {
+      inherit (unit)
+        description
+        after
+        wantedBy
+        serviceConfig
+        ;
+    };
+
+  # Same problem as ollama below: the module's `DynamicUser = true` is
+  # unconditional and offers no `user`/`group` option to opt out with, which
+  # Impermanence can't handle (see ollama's config for the full explanation).
+  mkLlamaCppServer =
+    settings:
+    let
+      unit = mkLlamaCppUnit settings;
+    in
+    unit
+    // {
+      serviceConfig = unit.serviceConfig // {
+        DynamicUser = false;
+        User = "llama-cpp";
+        Group = "llama-cpp";
+      };
+    };
+in
 {
   imports = [ (modulesPath + "/installer/scan/not-detected.nix") ];
 
@@ -171,28 +238,40 @@
   # llama.cpp server, used for FIM code completion (llama.vscode) over an SSH
   # tunnel (see home-theo.nix); never exposed on the network directly, hence
   # the default `host = "127.0.0.1"`.
-  services.llama-cpp = {
-    enable = true;
+  systemd.services.llama-cpp = mkLlamaCppServer {
     package = unfree-stable.llama-cpp.override { cudaSupport = true; };
-    # 8012 is llama.vscode's own default port for a completion model, less
-    # likely to clash with some unrelated local webserver than 8080.
+    # 8012 is llama.vscode's own default port for a completion model.
     port = 8012;
     # The RTX A3000 Mobile only has 6GB VRAM: use the smallest official FIM
-    # preset. Bump to --fim-qwen-3b-default (or -7b) if that leaves headroom.
+    # preset.
     # These presets pick the model, context size and other server flags; see
     # https://github.com/ggml-org/llama.cpp/blob/master/tools/server/README.md
     extraFlags = [ "--fim-qwen-1.5b-default" ];
   };
 
-  # Same problem as ollama above: this module's `DynamicUser = true` is
-  # unconditional, and unlike ollama's, it doesn't even offer a `user`/`group`
-  # option to opt out with, so the static user/group have to be declared here
-  # too, from scratch.
-  systemd.services.llama-cpp.serviceConfig = {
-    DynamicUser = lib.mkForce false;
-    User = "llama-cpp";
-    Group = "llama-cpp";
-  };
+  # Second llama.cpp instance, for chat
+  systemd.services.llama-cpp-chat =
+    lib.recursiveUpdate
+      (mkLlamaCppServer {
+        package = unfree-stable.llama-cpp.override { cudaSupport = true; };
+        # 8011 is llama.vscode's own default port for a chat model.
+        port = 8011;
+        # Gemma 3 4B (~2.4GB at Q4_K_M) leaves headroom for the FIM model and its KV
+        # cache within the RTX A3000 Mobile's 6GB VRAM.
+        extraFlags = [
+          "-hf"
+          "ggml-org/gemma-3-4b-it-GGUF:Q4_K_M"
+        ];
+      })
+      {
+        description = "llama.cpp HTTP server (chat model)";
+        serviceConfig = {
+          StateDirectory = "llama-cpp-chat";
+          CacheDirectory = "llama-cpp-chat";
+          WorkingDirectory = "/var/lib/llama-cpp-chat";
+          Environment = [ "LLAMA_CACHE=/var/cache/llama-cpp-chat" ];
+        };
+      };
 
   users.users.llama-cpp = {
     isSystemUser = true;
@@ -209,6 +288,12 @@
     }
     {
       directory = "/var/cache/llama-cpp";
+      user = "llama-cpp";
+      group = "llama-cpp";
+      mode = "0755";
+    }
+    {
+      directory = "/var/cache/llama-cpp-chat";
       user = "llama-cpp";
       group = "llama-cpp";
       mode = "0755";
