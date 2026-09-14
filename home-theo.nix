@@ -181,6 +181,7 @@
           "llama-vscode.ask_install_llamacpp" = false;
           "llama-vscode.endpoint" = "http://127.0.0.1:8012"; # Endpoint of the systemd user service
           "llama-vscode.endpoint_chat" = "http://127.0.0.1:8011"; # Endpoint of the llama-cpp-chat-tunnel service
+          "llama-vscode.rag_enabled" = false; # Useless if agent is not configured
           "search.followSymlinks" = false; # Avoid issues with VS Code search eating CPU and memory
           "terminal.integrated.defaultProfile.linux" = "bash";
           "window.restoreWindows" = "none";
