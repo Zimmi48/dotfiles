@@ -17,6 +17,47 @@
 {
   imports = extraImports;
 
+  # Home Manager-side Impermanence: as of the currently pinned impermanence
+  # version, this uses real kernel bind mounts (the old bindfs/FUSE-based
+  # implementation was removed), so it's exactly as reliable as the NixOS-side
+  # `environment.persistence` module
+  home.persistence."/persist" = {
+    files = [
+      ".bash_history"
+      ".config/gh/hosts.yml"
+    ];
+    directories = [
+      ".android"
+      ".cache/chromium"
+      ".cache/dune"
+      ".cache/thunderbird"
+      ".cache/zotero"
+      ".cert"
+      ".claude"
+      ".config/chromium"
+      ".config/Code"
+      ".config/mozilla"
+      ".config/Signal"
+      ".config/VSCodium"
+      "Documents"
+      "git"
+      ".gnupg"
+      ".local/share/direnv/allow"
+      ".local/share/opencode/"
+      ".local/share/TelegramDesktop"
+      ".local/state/wireplumber"
+      ".ollama/models"
+      ".opam"
+      ".password-store"
+      ".ssh"
+      ".thunderbird"
+      ".vscode"
+      ".vscode-oss"
+      ".zotero"
+      "Zotero"
+    ];
+  };
+
   programs = rec {
     # Bash configuration
     bash = {

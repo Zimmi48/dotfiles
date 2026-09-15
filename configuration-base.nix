@@ -120,43 +120,6 @@
       "/var/lib/upower"
       "/var/spool/cups"
     ];
-    # Home
-    users.${user.name} = {
-      files = [
-        ".bash_history"
-        ".config/gh/hosts.yml"
-      ];
-      directories = [
-        ".android"
-        ".cache/chromium"
-        ".cache/dune"
-        ".cache/thunderbird"
-        ".cache/zotero"
-        ".cert"
-        ".claude"
-        ".config/chromium"
-        ".config/Code"
-        ".config/mozilla"
-        ".config/Signal"
-        ".config/VSCodium"
-        "Documents"
-        "git"
-        ".gnupg"
-        ".local/share/direnv/allow"
-        ".local/share/opencode/"
-        ".local/share/TelegramDesktop"
-        ".local/state/wireplumber"
-        ".ollama/models"
-        ".opam"
-        ".password-store"
-        ".ssh"
-        ".thunderbird"
-        ".vscode"
-        ".vscode-oss"
-        ".zotero"
-        "Zotero"
-      ];
-    };
   };
 
   environment.etc = {
