@@ -122,6 +122,18 @@
     ];
   };
 
+  # Home Manager's own activation (which writes ~/.xsession, ~/.config/i3,
+  # program profiles, etc.) does not otherwise wait for these bind mounts:
+  # `home-manager-${user}.service` only requires the top-level `/home/${user}`
+  # tmpfs to be up (RequiresMountsFor=/home/theo), not each individual
+  # Impermanence mount layered on top of it. Without this, activation can
+  # race a freshly-added persisted directory (the mount not being ready yet
+  # lets Home Manager write its symlinks first, which then get silently
+  # shadowed once the bind mount completes) - this is what broke i3 and
+  # VSCodium's extensions on 2026-09-15.
+  systemd.services."home-manager-${user.name}".unitConfig.RequiresMountsFor =
+    map (d: d.dirPath) config.home-manager.users.${user.name}.home.persistence."/persist".directories;
+
   environment.etc = {
     # Make `nix repl '<nixpkgs>'` match nixpkgs-unstable
     "nix/inputs/nixpkgs".source = "${nixpkgs-unstable}";
