@@ -84,7 +84,14 @@ read -r answer
 # If the user answer equals "t" or "T", then test the new configuration.
 if [ "$answer" = "t" ] || [ "$answer" = "T" ]; then
        echo "Testing the new configuration..."
-       sudo -A "./nix-builds/$result/bin/switch-to-configuration" test
+       sudo -A "./nix-builds/$result/bin/switch-to-configuration" test || true
+       if $WC_CHANGED; then
+              # Testing doesn't persist the configuration, so undo the temporary
+              # commit to restore the working copy.
+              TMP_COMMITTED=false
+              echo "Undoing temporary commit..."
+              jj undo
+       fi
 elif [ "$answer" = "s" ] || [ "$answer" = "S" ] || [ "$answer" = "b" ] || [ "$answer" = "B" ]; then
        if $WC_CHANGED; then
               # Squash the temporary commit: pre-fill the description with the NixOS
