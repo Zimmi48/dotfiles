@@ -1,1 +1,1 @@
-{ system.nixos.tags = [ "vscodium-llama" ]; }
+{ system.nixos.tags = [ "persist-keyring" ]; }
