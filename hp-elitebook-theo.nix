@@ -58,9 +58,17 @@
     ];
     directories = [
       "/var/cache/powertop"
+      # systemd-creds needs persistent host-key storage when TPM2 is unavailable.
+      "/var/lib/systemd"
       "/home/cecile"
     ];
   };
+
+  # Wait for both the host-key storage and the encrypted libvirt secrets.
+  systemd.services.virt-secret-init-encryption.unitConfig.RequiresMountsFor = [
+    "/var/lib/systemd"
+    "/var/lib/libvirt"
+  ];
 
   # This file cannot be persisted with Impermanence because it would be mounted too late
   # However, the drawback of the solution of symlinking is that `passwd` replaces the
