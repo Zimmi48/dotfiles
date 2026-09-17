@@ -114,7 +114,6 @@
       "/var/lib/bluetooth"
       "/var/lib/cups"
       "/var/lib/docker"
-      "/var/lib/libvirt"
       "/var/lib/NetworkManager"
       "/var/lib/nixos"
       "/var/lib/upower"
@@ -272,6 +271,15 @@
   virtualisation = {
     docker.enable = true;
     virtualbox.host.enable = true;
+    # We currently do not persist libvirt data, i.e., /var/lib/libvirt and /etc/libvirt,
+    # which means that VM state and definitions do not survive a reboot.
+    # virt-secret-init-encryption.service thus seals a fresh /var/lib/libvirt/secrets
+    # at every boot, using the systemd credential host key
+    # (/var/lib/systemd/credential.secret, persisted on hp-elitebook-theo, which has
+    # no TPM2) and/or the TPM2 chip.
+    # If we decide to persist these data, this requires additionally persisting
+    # /etc/machine-id, since systemd deletes the credential host key whenever the
+    # machine ID changes.
     libvirtd.enable = true;
   };
 

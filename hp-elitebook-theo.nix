@@ -58,6 +58,12 @@
     ];
     directories = [
       "/var/cache/powertop"
+      # This host has a TPM 1.2 chip, which systemd cannot use, so `systemd-creds encrypt`
+      # refuses to run at all unless its host key lives on persistent media.
+      # libvirt needs it (see virtualisation.libvirtd in configuration-base.nix).
+      # The key itself is still dropped at every boot, since the machine ID it is bound
+      # to is not persisted.
+      "/var/lib/systemd"
       "/home/cecile"
     ];
   };
