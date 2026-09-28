@@ -164,6 +164,7 @@
         "mail.biff.play_sound" = false; # Disable new mail sound
         "mail.biff.show_alert" = false; # Disable new mail alert
         "mail.identity.default.archive_granularity" = 0; # Use a single flat archive folder
+        "mail.shell.checkDefaultClient" = false; # Declarative mimeapps.list is read-only
         "mail.identity.default.compose_html" = false; # New identities should compose in plain text
         "mail.pane_config.dynamic" = 2; # Vertical layout
         "mail.spam.logging.enabled" = true;
@@ -461,10 +462,13 @@
       "application/x-extension-xht" = "firefox.desktop";
       "application/x-extension-xhtml" = "firefox.desktop";
       "application/xhtml+xml" = "firefox.desktop";
+      "message/rfc822" = "thunderbird.desktop";
       "text/html" = "firefox.desktop";
       "x-scheme-handler/chrome" = "firefox.desktop";
       "x-scheme-handler/http" = "firefox.desktop";
       "x-scheme-handler/https" = "firefox.desktop";
+      "x-scheme-handler/mailto" = "thunderbird.desktop";
+      "x-scheme-handler/net.thunderbird" = "thunderbird.desktop";
     };
   };
 

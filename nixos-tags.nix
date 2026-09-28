@@ -1,1 +1,1 @@
-{ system.nixos.tags = [ "persist-keyring" ]; }
+{ system.nixos.tags = [ "thunderbird-default-app" ]; }
