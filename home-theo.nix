@@ -155,6 +155,7 @@
     # Thunderbird configuration
     thunderbird = {
       enable = true;
+      package = pkgs.thunderbird-esr;
       profiles.default.isDefault = true;
       settings = {
         "calendar.view.dayendhour" = 18; # End of the day at 18:00
