@@ -1,1 +1,1 @@
-{ system.nixos.tags = [ "thunderbird-default-app" ]; }
+{ system.nixos.tags = [ "thunderbird-external-editor" ]; }

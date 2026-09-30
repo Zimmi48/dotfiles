@@ -156,6 +156,13 @@
     thunderbird = {
       enable = true;
       package = pkgs.thunderbird-esr;
+      nativeMessagingHosts = [
+        pkgs.external-editor-revived
+      ];
+      # External Editor Revived extension needs settings to be manually set:
+      # Editor: Custom
+      # Shell: sh
+      # Command template: codium --wait "/path/to/temp.eml"
       profiles.default.isDefault = true;
       settings = {
         "calendar.view.dayendhour" = 18; # End of the day at 18:00
@@ -219,6 +226,9 @@
           ])
           ++ (with vscode-extensions.extensions.x86_64-linux.open-vsx; [
             ggml-org.llama-vscode
+          ])
+          ++ (with vscode-extensions.extensions.x86_64-linux.vscode-marketplace; [
+            ondohotola.betterbird-external-editor
           ]);
         userSettings = {
           "extensions.autoUpdate" = "off";
@@ -229,6 +239,7 @@
           "llama-vscode.endpoint" = "http://127.0.0.1:8012"; # Endpoint of the systemd user service
           "llama-vscode.endpoint_chat" = "http://127.0.0.1:8011"; # Endpoint of the llama-cpp-chat-tunnel service
           "llama-vscode.rag_enabled" = false; # Useless if agent is not configured
+          "llama-vscode.n_suffix" = 256; # Useful to get thread context when writing emails
           "search.followSymlinks" = false; # Avoid issues with VS Code search eating CPU and memory
           "terminal.integrated.defaultProfile.linux" = "bash";
           "window.restoreWindows" = "none";
