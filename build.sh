@@ -43,9 +43,9 @@ if $WC_CHANGED; then
        echo
        echo "Current tags:"
        cat ./nixos-tags.nix
-       echo "Do you want to set new tags for this configuration? (Y/n)"
+       echo "Do you want to set new tags for this configuration? (y/N)"
        read -r tags_answer
-       if [ "$tags_answer" != "${tags_answer#[Nn]}" ]; then
+       if [ "$tags_answer" = "${tags_answer#[Yy]}" ]; then
               echo "Skipping the tagging of the new configuration..."
        else
               echo "What are the (space-separated) tags for the new configuration? (They will be reordered alphabetically.)"
