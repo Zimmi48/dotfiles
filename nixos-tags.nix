@@ -1,1 +1,1 @@
-{ system.nixos.tags = [ "thunderbird-external-editor" ]; }
+{ system.nixos.tags = [ "rag-agent" ]; }

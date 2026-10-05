@@ -27,6 +27,7 @@ let
             {
               services.llama-cpp = {
                 enable = true;
+                package = unfree-stable.llama-cpp.override { cudaSupport = true; };
               }
               // settings;
             }
@@ -239,7 +240,6 @@ in
   # tunnel (see home-theo.nix); never exposed on the network directly, hence
   # the default `host = "127.0.0.1"`.
   systemd.services.llama-cpp = mkLlamaCppServer {
-    package = unfree-stable.llama-cpp.override { cudaSupport = true; };
     # 8012 is llama.vscode's own default port for a completion model.
     port = 8012;
     # The RTX A3000 Mobile only has 6GB VRAM: use the smallest official FIM
@@ -249,27 +249,58 @@ in
     extraFlags = [ "--fim-qwen-1.5b-default" ];
   };
 
-  # Second llama.cpp instance, for chat
-  systemd.services.llama-cpp-chat =
+  # Second llama.cpp instance, for chat and tool usage
+  systemd.services.llama-cpp-tools =
     lib.recursiveUpdate
       (mkLlamaCppServer {
-        package = unfree-stable.llama-cpp.override { cudaSupport = true; };
-        # 8011 is llama.vscode's own default port for a chat model.
         port = 8011;
-        # Gemma 3 4B (~2.4GB at Q4_K_M) leaves headroom for the FIM model and its KV
-        # cache within the RTX A3000 Mobile's 6GB VRAM.
+        # Qwen 2.5-3B fits within the RTX A3000 Mobile's 6GB VRAM
+        # together with the FIM model and its KV cache.
+        # It also supports tool use.
         extraFlags = [
+          "--ctx-size"
+          "8192"
           "-hf"
-          "ggml-org/gemma-3-4b-it-GGUF:Q4_K_M"
+          "Qwen/Qwen2.5-3B-Instruct-GGUF:Q4_K_M"
         ];
       })
       {
-        description = "llama.cpp HTTP server (chat model)";
+        description = "llama.cpp HTTP server (chat and tool usage model)";
         serviceConfig = {
           StateDirectory = "llama-cpp-chat";
           CacheDirectory = "llama-cpp-chat";
           WorkingDirectory = "/var/lib/llama-cpp-chat";
           Environment = [ "LLAMA_CACHE=/var/cache/llama-cpp-chat" ];
+        };
+      };
+
+  # Third llama.cpp instance, for embeddings
+  systemd.services.llama-cpp-embedding =
+    lib.recursiveUpdate
+      (mkLlamaCppServer {
+        # `-ngl 0` below means this instance never touches the GPU; it still
+        # uses the shared CUDA-enabled package rather than a CPU-only build,
+        # to avoid building/fetching a second llama-cpp package.
+        port = 8010;
+        extraFlags = [
+          "-hf"
+          "nomic-ai/nomic-embed-text-v1.5-GGUF"
+          "--embedding"
+          "-ngl"
+          "0"
+          "--ctx-size"
+          "2048"
+          "--ubatch-size"
+          "2048"
+        ];
+      })
+      {
+        description = "llama.cpp HTTP server (embedding model)";
+        serviceConfig = {
+          StateDirectory = "llama-cpp-embedding";
+          CacheDirectory = "llama-cpp-embedding";
+          WorkingDirectory = "/var/lib/llama-cpp-embedding";
+          Environment = [ "LLAMA_CACHE=/var/cache/llama-cpp-embedding" ];
         };
       };
 
@@ -294,6 +325,12 @@ in
     }
     {
       directory = "/var/cache/llama-cpp-chat";
+      user = "llama-cpp";
+      group = "llama-cpp";
+      mode = "0755";
+    }
+    {
+      directory = "/var/cache/llama-cpp-embedding";
       user = "llama-cpp";
       group = "llama-cpp";
       mode = "0755";

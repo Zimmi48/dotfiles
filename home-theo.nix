@@ -14,8 +14,71 @@
   ...
 }:
 
+let
+  # Forwards 127.0.0.1:`port` to the matching llama.cpp server on
+  # dell-precision-theo (see dell-precision-theo.nix) on demand: the socket
+  # sits idle at login, and systemd only spawns the `ssh -W` connection the
+  # first time something (llama.vscode) actually connects to it, so no SSH
+  # connection to dell-precision-theo exists unless it's genuinely being used.
+  mkLlamaCppTunnel =
+    {
+      name,
+      port,
+      description,
+    }:
+    {
+      systemd.user.sockets.${name} = {
+        Unit = {
+          Description = "Socket for the ${description} tunnel to dell-precision-theo";
+          # Would conflict with the real llama-cpp server listening on the
+          # same port there.
+          ConditionHost = "!dell-precision-theo";
+        };
+        Socket = {
+          ListenStream = "127.0.0.1:${toString port}";
+          Accept = true;
+        };
+        Install.WantedBy = [ "sockets.target" ];
+      };
+
+      systemd.user.services."${name}@" = {
+        Unit.Description = "SSH connection to the ${description} on dell-precision-theo";
+        Service = {
+          ExecStart = "${pkgs.openssh}/bin/ssh -W 127.0.0.1:${toString port} dell-precision-theo";
+          # Without this, Accept=yes only passes the connection as fd 3
+          # (classic $LISTEN_FDS), which plain `ssh` never reads from: it
+          # would keep using its regular stdio (null/journal), forward
+          # nothing, and the unread request left in the real socket gets
+          # RST'd on exit.
+          StandardInput = "socket";
+          # Belt-and-braces in case the systemd user environment doesn't
+          # import SSH_AUTH_SOCK from the graphical session (gpg-agent's
+          # ssh-agent emulation, enabled below).
+          Environment = "SSH_AUTH_SOCK=%t/gnupg/S.gpg-agent.ssh";
+        };
+      };
+    };
+in
 {
-  imports = extraImports;
+  imports =
+    extraImports
+    ++ map mkLlamaCppTunnel [
+      {
+        name = "llama-cpp-tunnel";
+        port = 8012;
+        description = "llama-cpp server";
+      }
+      {
+        name = "llama-cpp-chat-tunnel";
+        port = 8011;
+        description = "llama-cpp chat model server";
+      }
+      {
+        name = "llama-cpp-embedding-tunnel";
+        port = 8010;
+        description = "llama-cpp embedding model server";
+      }
+    ];
 
   # Home Manager-side Impermanence: as of the currently pinned impermanence
   # version, this uses real kernel bind mounts (the old bindfs/FUSE-based
@@ -242,8 +305,56 @@
           "llama-vscode.ask_install_llamacpp" = false;
           "llama-vscode.endpoint" = "http://127.0.0.1:8012"; # Endpoint of the systemd user service
           "llama-vscode.endpoint_chat" = "http://127.0.0.1:8011"; # Endpoint of the llama-cpp-chat-tunnel service
-          "llama-vscode.rag_enabled" = false; # Useless if agent is not configured
+          "llama-vscode.endpoint_tools" = "http://127.0.0.1:8011"; # Identical to the chat model
+          "llama-vscode.endpoint_embeddings" = "http://127.0.0.1:8010"; # llama-cpp-embedding service
           "llama-vscode.n_suffix" = 256; # Useful to get thread context when writing emails
+          "llama-vscode.agents_list" = [
+            {
+              name = "RAG agent";
+              description = "Answer questions about the repository using its indexed notes and source files.";
+              systemInstruction = [
+                "You are a read-only research assistant for the user's personal knowledge base."
+                "Your job is to answer questions using information contained in the repository."
+                ""
+                "IMPORTANT: For any question about the user's notes or repository, ALWAYS call search_source FIRST."
+                "Do not answer from general knowledge when the answer could be in the repository."
+                ""
+                "Use search_source to find relevant notes."
+                "Use read_file only when you need additional context from a file returned by search_source."
+                ""
+                "Never invent facts that are not supported by the repository."
+                "When the repository does not contain enough evidence, explicitly say that."
+              ];
+              tools = [
+                "search_source"
+                "read_file"
+              ];
+            }
+          ];
+          "llama-vscode.auto_memory_enabled" = false;
+          "llama-vscode.rag_enabled" = true;
+          # Force disabling all unnecessary tools
+          "llama-vscode.tool_ask_user_enabled" = false;
+          "llama-vscode.tool_create_agent_enabled" = false;
+          "llama-vscode.tool_delegate_task_enabled" = false;
+          "llama-vscode.tool_update_todo_list_enabled" = false;
+          # llama-vscode insists setting these explicitly
+          "llama-vscode.tool_custom_eval_tool_enabled" = false;
+          "llama-vscode.tool_custom_tool_enabled" = false;
+          "llama-vscode.tool_delete_file_enabled" = false;
+          "llama-vscode.tool_edit_file_enabled" = false;
+          "llama-vscode.tool_get_diff_enabled" = false;
+          "llama-vscode.tool_get_errors_enabled" = false;
+          "llama-vscode.tool_list_directory_enabled" = false;
+          "llama-vscode.tool_llama_vscode_help_enabled" = false;
+          "llama-vscode.tool_multi_edit_file_enabled" = false;
+          "llama-vscode.tool_regex_search_enabled" = false;
+          "llama-vscode.tool_rename_symbol_enabled" = false;
+          "llama-vscode.tool_run_terminal_command_enabled" = false;
+          "llama-vscode.tool_search_tools_enabled" = false;
+          # These are the only tools that are enabled
+          "llama-vscode.tool_read_file_enabled" = true;
+          "llama-vscode.tool_search_source_enabled" = true;
           "search.followSymlinks" = false; # Avoid issues with VS Code search eating CPU and memory
           "terminal.integrated.defaultProfile.linux" = "bash";
           "window.restoreWindows" = "none";
@@ -337,64 +448,6 @@
           "workbench.colorTheme" = "Dark Modern";
         };
       };
-    };
-  };
-
-  # Forwards 127.0.0.1:8012 to dell-precision-theo's llama-cpp server (see
-  # dell-precision-theo.nix) on demand: the socket sits idle at login, and
-  # systemd only spawns the `ssh -W` connection below the first time
-  # something (llama.vscode) actually connects to it, so no SSH connection to
-  # dell-precision-theo exists unless it's genuinely being used.
-  systemd.user.sockets.llama-cpp-tunnel = {
-    Unit = {
-      Description = "Socket for the llama-cpp server tunnel to dell-precision-theo";
-      # Would conflict with the real llama-cpp server listening on the same
-      # port there.
-      ConditionHost = "!dell-precision-theo";
-    };
-    Socket = {
-      ListenStream = "127.0.0.1:8012";
-      Accept = true;
-    };
-    Install.WantedBy = [ "sockets.target" ];
-  };
-
-  systemd.user.services."llama-cpp-tunnel@" = {
-    Unit.Description = "SSH connection to the llama-cpp server on dell-precision-theo";
-    Service = {
-      ExecStart = "${pkgs.openssh}/bin/ssh -W 127.0.0.1:8012 dell-precision-theo";
-      # Without this, Accept=yes only passes the connection as fd 3
-      # (classic $LISTEN_FDS), which plain `ssh` never reads from: it would
-      # keep using its regular stdio (null/journal), forward nothing, and
-      # the unread request left in the real socket gets RST'd on exit.
-      StandardInput = "socket";
-      # Belt-and-braces in case the systemd user environment doesn't import
-      # SSH_AUTH_SOCK from the graphical session (gpg-agent's ssh-agent
-      # emulation, enabled below).
-      Environment = "SSH_AUTH_SOCK=%t/gnupg/S.gpg-agent.ssh";
-    };
-  };
-
-  # Same as above, but for dell-precision-theo's chat model server
-  # (llama-cpp-chat in dell-precision-theo.nix).
-  systemd.user.sockets.llama-cpp-chat-tunnel = {
-    Unit = {
-      Description = "Socket for the llama-cpp chat server tunnel to dell-precision-theo";
-      ConditionHost = "!dell-precision-theo";
-    };
-    Socket = {
-      ListenStream = "127.0.0.1:8011";
-      Accept = true;
-    };
-    Install.WantedBy = [ "sockets.target" ];
-  };
-
-  systemd.user.services."llama-cpp-chat-tunnel@" = {
-    Unit.Description = "SSH connection to the llama-cpp chat server on dell-precision-theo";
-    Service = {
-      ExecStart = "${pkgs.openssh}/bin/ssh -W 127.0.0.1:8011 dell-precision-theo";
-      StandardInput = "socket";
-      Environment = "SSH_AUTH_SOCK=%t/gnupg/S.gpg-agent.ssh";
     };
   };
 
