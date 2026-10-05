@@ -231,6 +231,10 @@
             ondohotola.betterbird-external-editor
           ]);
         userSettings = {
+          "editor.unicodeHighlight.nonBasicASCII" = false;
+          "editor.wordWrap" = "on";
+          "editor.wordWrapColumn" = 72;
+          "eml.autoWrap.enabled" = false;
           "extensions.autoUpdate" = "off";
           "git.confirmSync" = false;
           "git.openRepositoryInParentFolders" = "always";
