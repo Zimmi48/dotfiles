@@ -1,1 +1,1 @@
-{ system.nixos.tags = [ "rag-agent" ]; }
+{ system.nixos.tags = [ "tailscale" ]; }

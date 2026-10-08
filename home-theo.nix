@@ -14,71 +14,8 @@
   ...
 }:
 
-let
-  # Forwards 127.0.0.1:`port` to the matching llama.cpp server on
-  # dell-precision-theo (see dell-precision-theo.nix) on demand: the socket
-  # sits idle at login, and systemd only spawns the `ssh -W` connection the
-  # first time something (llama.vscode) actually connects to it, so no SSH
-  # connection to dell-precision-theo exists unless it's genuinely being used.
-  mkLlamaCppTunnel =
-    {
-      name,
-      port,
-      description,
-    }:
-    {
-      systemd.user.sockets.${name} = {
-        Unit = {
-          Description = "Socket for the ${description} tunnel to dell-precision-theo";
-          # Would conflict with the real llama-cpp server listening on the
-          # same port there.
-          ConditionHost = "!dell-precision-theo";
-        };
-        Socket = {
-          ListenStream = "127.0.0.1:${toString port}";
-          Accept = true;
-        };
-        Install.WantedBy = [ "sockets.target" ];
-      };
-
-      systemd.user.services."${name}@" = {
-        Unit.Description = "SSH connection to the ${description} on dell-precision-theo";
-        Service = {
-          ExecStart = "${pkgs.openssh}/bin/ssh -W 127.0.0.1:${toString port} dell-precision-theo";
-          # Without this, Accept=yes only passes the connection as fd 3
-          # (classic $LISTEN_FDS), which plain `ssh` never reads from: it
-          # would keep using its regular stdio (null/journal), forward
-          # nothing, and the unread request left in the real socket gets
-          # RST'd on exit.
-          StandardInput = "socket";
-          # Belt-and-braces in case the systemd user environment doesn't
-          # import SSH_AUTH_SOCK from the graphical session (gpg-agent's
-          # ssh-agent emulation, enabled below).
-          Environment = "SSH_AUTH_SOCK=%t/gnupg/S.gpg-agent.ssh";
-        };
-      };
-    };
-in
 {
-  imports =
-    extraImports
-    ++ map mkLlamaCppTunnel [
-      {
-        name = "llama-cpp-tunnel";
-        port = 8012;
-        description = "llama-cpp server";
-      }
-      {
-        name = "llama-cpp-chat-tunnel";
-        port = 8011;
-        description = "llama-cpp chat model server";
-      }
-      {
-        name = "llama-cpp-embedding-tunnel";
-        port = 8010;
-        description = "llama-cpp embedding model server";
-      }
-    ];
+  imports = extraImports;
 
   # Home Manager-side Impermanence: as of the currently pinned impermanence
   # version, this uses real kernel bind mounts (the old bindfs/FUSE-based
@@ -303,10 +240,13 @@ in
           "git.openRepositoryInParentFolders" = "always";
           "git.postCommitCommand" = "sync";
           "llama-vscode.ask_install_llamacpp" = false;
-          "llama-vscode.endpoint" = "http://127.0.0.1:8012"; # Endpoint of the systemd user service
-          "llama-vscode.endpoint_chat" = "http://127.0.0.1:8011"; # Endpoint of the llama-cpp-chat-tunnel service
-          "llama-vscode.endpoint_tools" = "http://127.0.0.1:8011"; # Identical to the chat model
-          "llama-vscode.endpoint_embeddings" = "http://127.0.0.1:8010"; # llama-cpp-embedding service
+          # Servers defined in dell-precision-theo.nix, reached over Tailscale
+          # (MagicDNS resolves the bare hostname; on dell-precision-theo
+          # itself, /etc/hosts resolves it to 127.0.0.2 instead).
+          "llama-vscode.endpoint" = "http://dell-precision-theo:8012";
+          "llama-vscode.endpoint_chat" = "http://dell-precision-theo:8011";
+          "llama-vscode.endpoint_tools" = "http://dell-precision-theo:8011"; # Identical to the chat model
+          "llama-vscode.endpoint_embeddings" = "http://dell-precision-theo:8010";
           "llama-vscode.n_suffix" = 256; # Useful to get thread context when writing emails
           "llama-vscode.agents_list" = [
             {

@@ -48,7 +48,16 @@
     firewall.allowedTCPPorts = [ 11371 ]; # gpg key servers
   };
 
-  services.resolved.enable = true;
+  services.resolved.enable = true; # also what makes Tailscale MagicDNS work
+
+  # Mesh VPN: gives every host a stable name/IP (MagicDNS) regardless of DHCP
+  # churn or which network it is on. Nothing is exposed to the tailnet by
+  # default: incoming ports still have to be opened per host, per interface
+  # (see dell-precision-theo.nix).
+  services.tailscale = {
+    enable = true;
+    openFirewall = true; # UDP 41641, for direct (non-relayed) connections
+  };
 
   time.timeZone = "Europe/Paris";
 
@@ -118,6 +127,11 @@
       "/var/lib/nixos"
       "/var/lib/upower"
       "/var/spool/cups"
+      {
+        # Node key and machine state: without it, re-authentication at every boot.
+        directory = "/var/lib/tailscale";
+        mode = "0700";
+      }
     ];
   };
 

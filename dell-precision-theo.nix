@@ -236,10 +236,21 @@ in
     "ollama/models"
   ];
 
-  # llama.cpp server, used for FIM code completion (llama.vscode) over an SSH
-  # tunnel (see home-theo.nix); never exposed on the network directly, hence
-  # the default `host = "127.0.0.1"`.
+  # The three llama.cpp servers below listen on all interfaces so that other
+  # tailnet devices can reach them (see home-theo.nix). They have no
+  # authentication of their own, so what keeps them private is the firewall:
+  # their ports are opened on `tailscale0` only, never in
+  # `networking.firewall.allowedTCPPorts` (this host sits on a public IP).
+  networking.firewall.interfaces.tailscale0.allowedTCPPorts = [
+    22
+    8010
+    8011
+    8012
+  ];
+
+  # llama.cpp server, used for FIM code completion (llama.vscode).
   systemd.services.llama-cpp = mkLlamaCppServer {
+    host = "0.0.0.0";
     # 8012 is llama.vscode's own default port for a completion model.
     port = 8012;
     # The RTX A3000 Mobile only has 6GB VRAM: use the smallest official FIM
@@ -253,6 +264,7 @@ in
   systemd.services.llama-cpp-tools =
     lib.recursiveUpdate
       (mkLlamaCppServer {
+        host = "0.0.0.0";
         port = 8011;
         # Qwen 2.5-3B fits within the RTX A3000 Mobile's 6GB VRAM
         # together with the FIM model and its KV cache.
@@ -278,6 +290,7 @@ in
   systemd.services.llama-cpp-embedding =
     lib.recursiveUpdate
       (mkLlamaCppServer {
+        host = "0.0.0.0";
         # `-ngl 0` below means this instance never touches the GPU; it still
         # uses the shared CUDA-enabled package rather than a CPU-only build,
         # to avoid building/fetching a second llama-cpp package.
