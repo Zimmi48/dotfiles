@@ -8,6 +8,7 @@
 
 {
   config,
+  options,
   lib,
   pkgs,
   modulesPath,
@@ -46,6 +47,11 @@
       plugins = [ pkgs.networkmanager-openvpn ];
     };
     firewall.allowedTCPPorts = [ 11371 ]; # gpg key servers
+    # Télécom Paris' campus network blocks outbound NTP (UDP/123) to the
+    # default pool, so prepend their own server; reading the option's own
+    # `default` (rather than repeating the pool list by hand) keeps this in
+    # sync if upstream ever changes it.
+    timeServers = [ "ntp.enst.fr" ] ++ options.networking.timeServers.default;
   };
 
   services.resolved.enable = true; # also what makes Tailscale MagicDNS work
