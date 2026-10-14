@@ -1,1 +1,1 @@
-{ system.nixos.tags = [ "tailscale" ]; }
+{ system.nixos.tags = [ "claude" ]; }

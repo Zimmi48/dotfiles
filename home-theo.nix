@@ -330,6 +330,7 @@
             rust-lang.rust-analyzer
           ])
           ++ (with unfree-unstable.vscode-extensions; [
+            anthropic.claude-code
             github.codespaces
             ms-python.vscode-pylance
             ms-vscode-remote.remote-containers
@@ -361,6 +362,7 @@
             "editor.wordSeparators" = "`~!@#$%^&*()=+[{]}\\|;:'\",.<>/?"; # Auto-added by Typst
           };
           "chat.viewSessions.orientation" = "stacked";
+          "claudeCode.preferredLocation" = "panel";
           "coq-lsp.updateIgnores" = false;
           "editor.inlineSuggest.enabled" = true; # Copilot
           "editor.unicodeHighlight.nonBasicASCII" = false;
@@ -602,6 +604,7 @@
       ++ [
 
         # Non-free applications and development tools
+        unfree-unstable.claude-code
         unfree-unstable.elmPackages.lamdera
         unfree-stable.zoom-us
 
