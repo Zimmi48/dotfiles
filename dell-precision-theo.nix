@@ -253,11 +253,22 @@ in
     host = "0.0.0.0";
     # 8012 is llama.vscode's own default port for a completion model.
     port = 8012;
-    # The RTX A3000 Mobile only has 6GB VRAM: use the smallest official FIM
-    # preset.
-    # These presets pick the model, context size and other server flags; see
-    # https://github.com/ggml-org/llama.cpp/blob/master/tools/server/README.md
-    extraFlags = [ "--fim-qwen-1.5b-default" ];
+    extraFlags = [
+      "-hf"
+      "bartowski/Qwen2.5-Coder-3B-GGUF:Q5_K_M"
+      "--ctx-size"
+      "8192"
+      "-ngl"
+      "99"
+      "-fa"
+      "on"
+      "-ub"
+      "1024"
+      "-b"
+      "1024"
+      "--cache-reuse"
+      "256"
+    ];
   };
 
   # Second llama.cpp instance, for chat and tool usage
