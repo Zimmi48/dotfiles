@@ -256,8 +256,10 @@ in
     extraFlags = [
       "-hf"
       "bartowski/Qwen2.5-Coder-3B-GGUF:Q5_K_M"
+      # llama.vscode's FIM requests (prefix/suffix + ring buffer chunks of
+      # extra context) can exceed 8192 tokens.
       "--ctx-size"
-      "8192"
+      "16384"
       "-ngl"
       "99"
       "-fa"
