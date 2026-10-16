@@ -169,6 +169,7 @@
         "calendar.view.daystarthour" = 9; # Start of the day at 9:00
         "calendar.week.start" = 1; # Start the week on Monday
         "extensions.activeThemeID" = "thunderbird-compact-dark@mozilla.org";
+        "intl.regional_prefs.use_os_locales" = true; # Use local date and time formats
         "mail.biff.play_sound" = false; # Disable new mail sound
         "mail.biff.show_alert" = false; # Disable new mail alert
         "mail.identity.default.archive_granularity" = 0; # Use a single flat archive folder
