@@ -77,6 +77,15 @@
       shellAliases.sudo = "sudo -A";
     };
 
+    claude-code = {
+      enable = true;
+      package = unfree-unstable.claude-code;
+      settings = {
+        includeCoAuthoredBy = false;
+        theme = "dark";
+      };
+    };
+
     direnv = {
       enable = true;
       nix-direnv.enable = true;
@@ -605,7 +614,6 @@
       ++ [
 
         # Non-free applications and development tools
-        unfree-unstable.claude-code
         unfree-unstable.elmPackages.lamdera
         unfree-stable.zoom-us
 
