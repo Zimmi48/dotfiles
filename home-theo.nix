@@ -530,6 +530,11 @@
 
   home = {
     sessionVariables = {
+      # Setting this, even to the default ~/.claude, makes Claude Code store
+      # its global state in ~/.claude/.claude.json instead of ~/.claude.json,
+      # i.e., inside the persisted directory (a single-file bind mount could
+      # be at odds with its atomic rename-on-save)
+      CLAUDE_CONFIG_DIR = config.programs.claude-code.configDir;
       EDITOR = "emacs";
       SUDO_ASKPASS = "${pkgs.writeShellScriptBin "askpass" ''
         #!${pkgs.runtimeShell}
