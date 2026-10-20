@@ -264,10 +264,20 @@ in
       "99"
       "-fa"
       "on"
+      # All three instances share the RTX A3000 Mobile's 6GB VRAM and start
+      # concurrently: with `-ub 1024` and an f16 KV cache, this one's
+      # compute buffer allocation fails with "out of memory" (then
+      # llama-server segfaults) once the chat model is loaded. A 512 micro
+      # batch roughly halves the compute buffer and a q8_0 KV cache halves
+      # the KV cache, at a negligible cost in speed and quality.
       "-ub"
-      "1024"
+      "512"
       "-b"
       "1024"
+      "-ctk"
+      "q8_0"
+      "-ctv"
+      "q8_0"
       "--cache-reuse"
       "256"
     ];
@@ -280,7 +290,8 @@ in
         host = "0.0.0.0";
         port = 8011;
         # Qwen 2.5-3B fits within the RTX A3000 Mobile's 6GB VRAM
-        # together with the FIM model and its KV cache.
+        # together with the FIM model and its KV cache (only just: see the
+        # FIM instance's flags above).
         # It also supports tool use.
         extraFlags = [
           "--ctx-size"
@@ -304,9 +315,10 @@ in
     lib.recursiveUpdate
       (mkLlamaCppServer {
         host = "0.0.0.0";
-        # `-ngl 0` below means this instance never touches the GPU; it still
-        # uses the shared CUDA-enabled package rather than a CPU-only build,
-        # to avoid building/fetching a second llama-cpp package.
+        # This instance runs on the CPU only (`-ngl 0` below, plus the GPU
+        # hidden through `CUDA_VISIBLE_DEVICES`); it still uses the shared
+        # CUDA-enabled package rather than a CPU-only build, to avoid
+        # building/fetching a second llama-cpp package.
         port = 8010;
         extraFlags = [
           "-hf"
@@ -326,7 +338,12 @@ in
           StateDirectory = "llama-cpp-embedding";
           CacheDirectory = "llama-cpp-embedding";
           WorkingDirectory = "/var/lib/llama-cpp-embedding";
-          Environment = [ "LLAMA_CACHE=/var/cache/llama-cpp-embedding" ];
+          Environment = [
+            "LLAMA_CACHE=/var/cache/llama-cpp-embedding"
+            # Even with `-ngl 0`, a visible GPU gets a CUDA context (~200MB
+            # of VRAM) that the FIM and chat models can't spare.
+            "CUDA_VISIBLE_DEVICES="
+          ];
         };
       };
 
