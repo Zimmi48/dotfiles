@@ -170,6 +170,7 @@
           inherit system specialArgs;
           modules = commonModules ++ [
             ./dell-precision-theo.nix
+            ./telecom-printers.nix
             (import ./configuration-base.nix {
               hostName = "dell-precision-theo";
               stateVersion = "26.05";
