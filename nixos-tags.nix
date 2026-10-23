@@ -1,1 +1,1 @@
-{ system.nixos.tags = [ "print" ]; }
+{ system.nixos.tags = [ "claude-rules" ]; }

@@ -80,6 +80,7 @@
     claude-code = {
       enable = true;
       package = unfree-unstable.claude-code;
+      rulesDir = ./claude-rules;
       settings = {
         includeCoAuthoredBy = false;
         theme = "dark";
