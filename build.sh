@@ -57,7 +57,13 @@ if $WC_CHANGED; then
               fi
        fi
        echo "Creating temporary commit..."
-       jj commit -m "tmp: $HOSTNAME"
+       # Don't override the description of the working-copy commit if it has one.
+       EXISTING_DESC="$(jj log -r @ --no-graph -T description)"
+       if [ -n "$EXISTING_DESC" ]; then
+              jj new
+       else
+              jj commit -m "tmp: $HOSTNAME"
+       fi
        TMP_COMMITTED=true
 fi
 
@@ -94,9 +100,15 @@ if [ "$answer" = "t" ] || [ "$answer" = "T" ]; then
        fi
 elif [ "$answer" = "s" ] || [ "$answer" = "S" ] || [ "$answer" = "b" ] || [ "$answer" = "B" ]; then
        if $WC_CHANGED; then
-              # Squash the temporary commit: pre-fill the description with the NixOS
-              # version and closure diff, then open the editor for final editing.
-              (cat "./nix-builds/$result/nixos-version" \
+              # Squash the temporary commit: pre-fill the description with the
+              # existing description (or the NixOS version if there was none) and
+              # closure diff, then open the editor for final editing.
+              if [ -n "$EXISTING_DESC" ]; then
+                     header="$EXISTING_DESC"
+              else
+                     header="$(cat "./nix-builds/$result/nixos-version")"
+              fi
+              (printf '%s' "$header" \
                      && printf '\n\n' \
                      && dix "$(realpath /nix/var/nix/profiles/system)" "./nix-builds/$result") \
                      | jj describe @- --stdin
