@@ -1,1 +1,2 @@
-{ system.nixos.tags = [ "large-model" ]; }
+{ system.nixos.tags = [ "weekly-review" ]; }
+

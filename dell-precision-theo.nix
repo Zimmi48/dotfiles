@@ -398,6 +398,54 @@ in
     };
   };
 
+  # Every Monday night, draft a review of the previous week's daily notes
+  # in ~/git/notes/review/, synced through git since the notes are written
+  # on several machines. The script lives in the (private) notes repository,
+  # so that it changes with them, and runs from there.
+  # By default Thunderbird only keeps INBOX up to date, but the review counts
+  # emails in all folders from its local indexes.
+  home-manager.users.theo.programs.thunderbird.settings."mail.server.default.check_all_folders_for_new" =
+    true;
+  systemd.timers.weekly-review = {
+    wantedBy = [ "timers.target" ];
+    timerConfig.OnCalendar = "Mon *-*-* 02:00:00";
+  };
+  systemd.services.weekly-review =
+    let
+      home = config.users.users.theo.home;
+      notesDir = "${home}/git/notes";
+    in
+    {
+      description = "Weekly review of the daily notes, by a local LLM";
+      # Not just `requires`: if the server dies, stop waiting for it.
+      bindsTo = [ "llama-cpp-large.service" ];
+      wants = [ "network-online.target" ];
+      after = [
+        "llama-cpp-large.service"
+        "network-online.target"
+      ];
+      path = [
+        pkgs.git
+        pkgs.openssh
+      ];
+      # This must work while the user's SSH key is locked, hence a
+      # passphrase-less deploy key, created by hand: GitHub limits it to the
+      # notes repository.
+      environment.GIT_SSH_COMMAND = "ssh -F /dev/null -i ${home}/.ssh/notes-deploy-key -o IdentitiesOnly=yes -o BatchMode=yes";
+      serviceConfig = {
+        Type = "oneshot";
+        User = "theo";
+        WorkingDirectory = notesDir;
+        # Before the script, so that the latest version of it runs.
+        ExecStartPre = "${pkgs.git}/bin/git pull --quiet --ff-only";
+        ExecStart = "${pkgs.python3}/bin/python3 -I -B ${notesDir}/.weekly-review/weekly-review.py --notes-dir ${notesDir} --endpoint http://127.0.0.1:8013";
+        ProtectSystem = "strict";
+        ReadWritePaths = [ notesDir ];
+        PrivateTmp = true;
+        NoNewPrivileges = true;
+      };
+    };
+
   users.users.llama-cpp = {
     isSystemUser = true;
     group = "llama-cpp";
