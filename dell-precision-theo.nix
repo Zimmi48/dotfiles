@@ -9,7 +9,7 @@
 
 let
   # `services.llama-cpp` only supports a single instance (hardcoded to
-  # `systemd.services.llama-cpp`), so a second (chat) model can't be added by
+  # `systemd.services.llama-cpp`), so a second model can't be added by
   # just setting more options on it. Evaluating the real upstream module in
   # an isolated, throwaway NixOS system (unrelated to this host's own
   # `config`) reuses all of its systemd hardening/ExecStart-building logic
@@ -236,8 +236,9 @@ in
     "ollama/models"
   ];
 
-  # The three llama.cpp servers below listen on all interfaces so that other
-  # tailnet devices can reach them (see home-theo.nix). They have no
+  # The llama.cpp servers below (or their socket, for the on-demand one on
+  # 8011) listen on all interfaces so that other tailnet devices can reach
+  # them (see home-theo.nix). They have no
   # authentication of their own, so what keeps them private is the firewall:
   # their ports are opened on `tailscale0` only, never in
   # `networking.firewall.allowedTCPPorts` (this host sits on a public IP).
@@ -264,12 +265,12 @@ in
       "99"
       "-fa"
       "on"
-      # All three instances share the RTX A3000 Mobile's 6GB VRAM and start
-      # concurrently: with `-ub 1024` and an f16 KV cache, this one's
-      # compute buffer allocation fails with "out of memory" (then
-      # llama-server segfaults) once the chat model is loaded. A 512 micro
-      # batch roughly halves the compute buffer and a q8_0 KV cache halves
-      # the KV cache, at a negligible cost in speed and quality.
+      # Chosen when a chat model shared the RTX A3000 Mobile's 6GB VRAM:
+      # with `-ub 1024` and an f16 KV cache, this instance's compute buffer
+      # allocation failed with "out of memory" (then llama-server
+      # segfaulted) once the chat model was loaded. A 512 micro batch
+      # roughly halves the compute buffer and a q8_0 KV cache halves the KV
+      # cache, at a negligible cost in speed and quality.
       "-ub"
       "512"
       "-b"
@@ -283,34 +284,7 @@ in
     ];
   };
 
-  # Second llama.cpp instance, for chat and tool usage
-  systemd.services.llama-cpp-tools =
-    lib.recursiveUpdate
-      (mkLlamaCppServer {
-        host = "0.0.0.0";
-        port = 8011;
-        # Qwen 2.5-3B fits within the RTX A3000 Mobile's 6GB VRAM
-        # together with the FIM model and its KV cache (only just: see the
-        # FIM instance's flags above).
-        # It also supports tool use.
-        extraFlags = [
-          "--ctx-size"
-          "8192"
-          "-hf"
-          "Qwen/Qwen2.5-3B-Instruct-GGUF:Q4_K_M"
-        ];
-      })
-      {
-        description = "llama.cpp HTTP server (chat and tool usage model)";
-        serviceConfig = {
-          StateDirectory = "llama-cpp-chat";
-          CacheDirectory = "llama-cpp-chat";
-          WorkingDirectory = "/var/lib/llama-cpp-chat";
-          Environment = [ "LLAMA_CACHE=/var/cache/llama-cpp-chat" ];
-        };
-      };
-
-  # Third llama.cpp instance, for embeddings
+  # Second llama.cpp instance, for embeddings
   systemd.services.llama-cpp-embedding =
     lib.recursiveUpdate
       (mkLlamaCppServer {
@@ -341,11 +315,88 @@ in
           Environment = [
             "LLAMA_CACHE=/var/cache/llama-cpp-embedding"
             # Even with `-ngl 0`, a visible GPU gets a CUDA context (~200MB
-            # of VRAM) that the FIM and chat models can't spare.
+            # of VRAM) that the GPU models can't spare.
             "CUDA_VISIBLE_DEVICES="
           ];
         };
       };
+
+  # Third llama.cpp instance, for a large model, started on demand by the
+  # units that need it. A 30B MoE model (3B active parameters) doesn't fit
+  # in VRAM, so `--fit` (on by default) keeps part of its expert weights in
+  # RAM, next to the FIM model.
+  systemd.services.llama-cpp-large =
+    lib.recursiveUpdate
+      (mkLlamaCppServer {
+        # Other devices go through the proxy below, so that using it starts it.
+        host = "127.0.0.1";
+        port = 8013;
+        extraFlags = [
+          "-hf"
+          "unsloth/Qwen3-30B-A3B-Instruct-2507-GGUF:UD-Q4_K_XL"
+          # The default margin of 1GB would be a large part of the VRAM left
+          # by the FIM model.
+          "--fit-target"
+          "300"
+          # A single slot, so that a request can use the whole context.
+          "--parallel"
+          "1"
+          # Room for long prompts, such as RAG context or long documents.
+          "--ctx-size"
+          "32768"
+          "-fa"
+          "on"
+          "-ctk"
+          "q8_0"
+          "-ctv"
+          "q8_0"
+        ];
+      })
+      {
+        description = "llama.cpp HTTP server (large model, on demand)";
+        wantedBy = [ ];
+        unitConfig.StopWhenUnneeded = true;
+        serviceConfig = {
+          StateDirectory = "llama-cpp-large";
+          CacheDirectory = "llama-cpp-large";
+          WorkingDirectory = "/var/lib/llama-cpp-large";
+          Environment = [ "LLAMA_CACHE=/var/cache/llama-cpp-large" ];
+          Restart = "no";
+          # The model is ~18GB, memory-mapped: without protection, the
+          # kernel would rather drop its pages (and read them again from
+          # disk for every token) than swap out idle desktop applications.
+          MemoryLow = "10G";
+          Nice = 10;
+        };
+      };
+
+  # On-demand access to the large model from the tailnet: the first connection
+  # starts the proxy, hence the server, and the proxy exits when idle, which
+  # stops the server and frees its memory.
+  systemd.sockets.llama-cpp-large-proxy = {
+    description = "Socket of the on-demand large llama.cpp model";
+    wantedBy = [ "sockets.target" ];
+    listenStreams = [ "8011" ];
+  };
+  systemd.services.llama-cpp-large-proxy = {
+    description = "Proxy to the on-demand large llama.cpp model";
+    bindsTo = [ "llama-cpp-large.service" ];
+    after = [ "llama-cpp-large.service" ];
+    serviceConfig = {
+      # Hold the first request while the model loads, instead of failing it.
+      ExecStartPre = pkgs.writeShellScript "wait-for-llama-cpp-large" ''
+        until ${pkgs.curl}/bin/curl --silent --fail --output /dev/null http://127.0.0.1:8013/health; do
+          sleep 2
+        done
+      '';
+      # The very first start downloads the model.
+      TimeoutStartSec = "infinity";
+      ExecStart = "${config.systemd.package}/lib/systemd/systemd-socket-proxyd --exit-idle-time=30min 127.0.0.1:8013";
+      DynamicUser = true;
+      PrivateTmp = true;
+      NoNewPrivileges = true;
+    };
+  };
 
   users.users.llama-cpp = {
     isSystemUser = true;
@@ -367,7 +418,7 @@ in
       mode = "0755";
     }
     {
-      directory = "/var/cache/llama-cpp-chat";
+      directory = "/var/cache/llama-cpp-large";
       user = "llama-cpp";
       group = "llama-cpp";
       mode = "0755";

@@ -1,1 +1,1 @@
-{ system.nixos.tags = [ "claude-rules" ]; }
+{ system.nixos.tags = [ "large-model" ]; }
