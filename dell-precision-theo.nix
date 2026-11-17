@@ -4,6 +4,7 @@
   pkgs,
   modulesPath,
   unfree-stable,
+  llamaLargeModel,
   ...
 }:
 
@@ -321,19 +322,30 @@ in
         };
       };
 
-  # Third llama.cpp instance, for a large model, started on demand by the
+  # Third llama.cpp instance, for large models, started on demand by the
   # units that need it. A 30B MoE model (3B active parameters) doesn't fit
   # in VRAM, so `--fit` (on by default) keeps part of its expert weights in
   # RAM, next to the FIM model.
+  # It runs in router mode, to try other models without changing this
+  # configuration: each request names its model, which the router loads
+  # with the flags below. Besides the preset, it serves the models in its
+  # download cache, which it scans when it starts. `llama-download` (below)
+  # adds models to it; `/v1/models` lists their names.
   systemd.services.llama-cpp-large =
     lib.recursiveUpdate
       (mkLlamaCppServer {
         # Other devices go through the proxy below, so that using it starts it.
         host = "127.0.0.1";
         port = 8013;
+        # The default model (defined in flake.nix), downloaded on first use.
+        # Named like its entry in the cache, so that the two are merged
+        # instead of listed twice.
+        modelsPreset.${llamaLargeModel}.hf-repo = "unsloth/Qwen3-30B-A3B-Instruct-2507-GGUF:UD-Q4_K_XL";
         extraFlags = [
-          "-hf"
-          "unsloth/Qwen3-30B-A3B-Instruct-2507-GGUF:UD-Q4_K_XL"
+          # Two models don't fit in memory at once: loading another one
+          # unloads the previous one.
+          "--models-max"
+          "1"
           # The default margin of 1GB would be a large part of the VRAM left
           # by the FIM model.
           "--fit-target"
@@ -353,7 +365,7 @@ in
         ];
       })
       {
-        description = "llama.cpp HTTP server (large model, on demand)";
+        description = "llama.cpp HTTP server (large models, on demand)";
         wantedBy = [ ];
         unitConfig.StopWhenUnneeded = true;
         serviceConfig = {
@@ -362,7 +374,7 @@ in
           WorkingDirectory = "/var/lib/llama-cpp-large";
           Environment = [ "LLAMA_CACHE=/var/cache/llama-cpp-large" ];
           Restart = "no";
-          # The model is ~18GB, memory-mapped: without protection, the
+          # The default model is ~18GB, memory-mapped: without protection, the
           # kernel would rather drop its pages (and read them again from
           # disk for every token) than swap out idle desktop applications.
           MemoryLow = "10G";
@@ -370,27 +382,51 @@ in
         };
       };
 
-  # On-demand access to the large model from the tailnet: the first connection
+  # Adds a model from Hugging Face to the router's cache, e.g.
+  #   llama-download unsloth/Qwen3-Coder-30B-A3B-Instruct-GGUF --include '*UD-Q4_K_XL*'
+  # The arguments are those of `hf download`. `--include` selects a single
+  # quantization (with all its shards, often in a subdirectory), or the
+  # whole repository is downloaded; `--dry-run` lists the files it selects.
+  # The cache has the layout of Hugging Face's, which llama.cpp uses for its
+  # own downloads too. The router names a model after its repository and the
+  # last part of its file names (e.g. `…:Q4_K_XL` for `…-UD-Q4_K_XL.gguf`).
+  environment.systemPackages = [
+    (pkgs.writeShellApplication {
+      name = "llama-download";
+      text = ''
+        # hf's own state, e.g. its (large) Xet chunk cache, needs persisted
+        # storage too. In the cache, it doesn't disturb the router, which
+        # only looks for GGUF files of the repositories.
+        exec sudo -u llama-cpp env \
+          HF_HUB_CACHE=/var/cache/llama-cpp-large \
+          HF_HOME=/var/cache/llama-cpp-large/.huggingface \
+          ${pkgs.python3Packages.huggingface-hub}/bin/hf download "$@"
+      '';
+    })
+  ];
+
+  # On-demand access to the large models from the tailnet (including the
+  # router's web UI, which offers a choice of model): the first connection
   # starts the proxy, hence the server, and the proxy exits when idle, which
   # stops the server and frees its memory.
   systemd.sockets.llama-cpp-large-proxy = {
-    description = "Socket of the on-demand large llama.cpp model";
+    description = "Socket of the on-demand large llama.cpp models";
     wantedBy = [ "sockets.target" ];
     listenStreams = [ "8011" ];
   };
   systemd.services.llama-cpp-large-proxy = {
-    description = "Proxy to the on-demand large llama.cpp model";
+    description = "Proxy to the on-demand large llama.cpp models";
     bindsTo = [ "llama-cpp-large.service" ];
     after = [ "llama-cpp-large.service" ];
     serviceConfig = {
-      # Hold the first request while the model loads, instead of failing it.
+      # Hold the first request while the router starts, instead of failing
+      # it. The router itself then holds requests while it loads (or first
+      # downloads) their model.
       ExecStartPre = pkgs.writeShellScript "wait-for-llama-cpp-large" ''
         until ${pkgs.curl}/bin/curl --silent --fail --output /dev/null http://127.0.0.1:8013/health; do
           sleep 2
         done
       '';
-      # The very first start downloads the model.
-      TimeoutStartSec = "infinity";
       ExecStart = "${config.systemd.package}/lib/systemd/systemd-socket-proxyd --exit-idle-time=30min 127.0.0.1:8013";
       DynamicUser = true;
       PrivateTmp = true;
@@ -438,7 +474,7 @@ in
         WorkingDirectory = notesDir;
         # Before the script, so that the latest version of it runs.
         ExecStartPre = "${pkgs.git}/bin/git pull --quiet --ff-only";
-        ExecStart = "${pkgs.python3}/bin/python3 -I -B ${notesDir}/.weekly-review/weekly-review.py --notes-dir ${notesDir} --endpoint http://127.0.0.1:8013";
+        ExecStart = "${pkgs.python3}/bin/python3 -I -B ${notesDir}/.weekly-review/weekly-review.py --notes-dir ${notesDir} --endpoint http://127.0.0.1:8013 --model ${llamaLargeModel}";
         ProtectSystem = "strict";
         ReadWritePaths = [ notesDir ];
         PrivateTmp = true;

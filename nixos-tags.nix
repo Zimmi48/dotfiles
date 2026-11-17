@@ -1,1 +1,1 @@
-{ system.nixos.tags = [ "persist-ssh-key" ]; }
+{ system.nixos.tags = [ "llama-router" ]; }

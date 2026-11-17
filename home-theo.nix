@@ -11,6 +11,7 @@
   lib,
   pkgs,
   vscode-extensions,
+  llamaLargeModel,
   ...
 }:
 
@@ -258,6 +259,9 @@
           "llama-vscode.endpoint_chat" = "http://dell-precision-theo:8011";
           "llama-vscode.endpoint_tools" = "http://dell-precision-theo:8011"; # Identical to the chat model
           "llama-vscode.endpoint_embeddings" = "http://dell-precision-theo:8010";
+          # The chat/tools server routes requests to the model they name: this
+          # is its default model. The other servers ignore this name.
+          "llama-vscode.ai_model" = llamaLargeModel;
           "llama-vscode.n_suffix" = 256; # Useful to get thread context when writing emails
           "llama-vscode.agents_list" = [
             {

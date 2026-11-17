@@ -50,6 +50,11 @@
       # level (e.g. CUDA-enabled packages).
       specialArgs = inputs // {
         inherit unstable unfree-stable unfree-unstable;
+        # Default model of the on-demand llama.cpp router on dell-precision,
+        # which its clients on every host must name in their requests. This
+        # is the name the router gives it in its cache (see
+        # dell-precision-theo.nix), not the one used to download it.
+        llamaLargeModel = "unsloth/Qwen3-30B-A3B-Instruct-2507-GGUF:Q4_K_XL";
       };
       # Define the modules that are imported in every configuration
       commonModules = [
