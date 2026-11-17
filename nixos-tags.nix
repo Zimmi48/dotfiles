@@ -1,2 +1,1 @@
-{ system.nixos.tags = [ "weekly-review" ]; }
-
+{ system.nixos.tags = [ "persist-ssh-key" ]; }

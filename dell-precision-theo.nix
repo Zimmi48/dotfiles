@@ -539,6 +539,14 @@ in
   services.openssh = {
     enable = true;
     settings.PasswordAuthentication = false;
+    # / is a tmpfs: without this, a new host key would be generated at every
+    # boot, and clients would get a host-key-changed warning after each reboot.
+    hostKeys = [
+      {
+        path = "/persist/etc/ssh/ssh_host_ed25519_key";
+        type = "ed25519";
+      }
+    ];
   };
   users.users.theo.openssh.authorizedKeys.keyFiles = [
     (builtins.fetchurl {
