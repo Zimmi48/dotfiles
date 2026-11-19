@@ -340,6 +340,24 @@ in
           "q8_0"
           "-ctv"
           "q8_0"
+          # The Web UI's MCP client reaches the notes-mail-search server
+          # (below) through this proxy, so that it can stay on localhost.
+          "--ui-mcp-proxy"
+          "--ui-config-file"
+          "${pkgs.writeText "llama-ui-config.json" (
+            builtins.toJSON {
+              mcpServers = builtins.toJSON [
+                {
+                  id = "notes-mail-search";
+                  name = "Notes and emails";
+                  url = "http://127.0.0.1:8014/mcp";
+                  useProxy = true;
+                  enabled = true;
+                  requestTimeoutSeconds = 120;
+                }
+              ];
+            }
+          )}"
         ];
       })
       {
@@ -457,6 +475,71 @@ in
         ReadWritePaths = [ notesDir ];
         PrivateTmp = true;
         NoNewPrivileges = true;
+      };
+    };
+
+  # Read-only search of the notes and of Thunderbird's local mail folders,
+  # as tools (MCP) for the chat model's Web UI. Its keyword index is in the
+  # (impermanent) cache: after a reboot, it is rebuilt from scratch, which
+  # takes about a minute. Thunderbird must run here to keep the mail
+  # current. The notes are written on several machines: they are pulled
+  # (fast-forward only) before each refresh, like for the weekly review.
+  systemd.services.notes-mail-search =
+    let
+      home = config.users.users.theo.home;
+      # The script uses the MCP SDK 1.x API (FastMCP), renamed in 2.x.
+      python = pkgs.python3.withPackages (ps: [ ps.mcp ]);
+    in
+    {
+      description = "Search of the notes and emails, for the local LLM (MCP server)";
+      wantedBy = [ "multi-user.target" ];
+      wants = [ "network-online.target" ];
+      after = [ "network-online.target" ];
+      path = [
+        pkgs.git
+        pkgs.openssh
+      ];
+      # The same deploy key as the weekly review, usable without the user.
+      environment.GIT_SSH_COMMAND = "ssh -F /dev/null -i ${home}/.ssh/notes-deploy-key -o IdentitiesOnly=yes -o BatchMode=yes";
+      serviceConfig = {
+        User = "theo";
+        ExecStart = lib.escapeShellArgs [
+          "${python}/bin/python3"
+          "-I"
+          "-B"
+          # Copied alone, so that other changes to the repository don't
+          # restart the service.
+          (builtins.path {
+            path = ./scripts/notes-mail-search.py;
+            name = "notes-mail-search.py";
+          })
+          "serve"
+          "--notes-dir"
+          "${home}/git/notes"
+          "--pull-notes"
+          "--thunderbird-dir"
+          "${home}/.thunderbird"
+          "--db"
+          "/var/cache/notes-mail-search/index.sqlite"
+          "--port"
+          "8014"
+          # The Web UI's origin, as forwarded by llama-server's MCP proxy.
+          "--allowed-origin"
+          "http://dell-precision-theo:8011"
+          "--allowed-origin"
+          "http://127.0.0.2:8011"
+          "--allowed-origin"
+          "http://localhost:8011"
+        ];
+        CacheDirectory = "notes-mail-search";
+        ProtectSystem = "strict";
+        ProtectHome = "read-only";
+        ReadWritePaths = [ "${home}/git/notes" ];
+        PrivateTmp = true;
+        NoNewPrivileges = true;
+        Nice = 10;
+        IOSchedulingClass = "idle";
+        Restart = "on-failure";
       };
     };
 
