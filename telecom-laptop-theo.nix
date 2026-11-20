@@ -71,12 +71,6 @@ let swapDisk = "/dev/disk/by-uuid/2007f2df-1f7b-4122-8ae8-b6c8f3244d0d"; in
   ];
 
   environment.persistence."/persist" = {
-    # Home
-    users.theo = {
-      directories = [
-        ".cups"
-      ];
-    };
     directories = [
       "/home/cecile"
     ];

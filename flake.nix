@@ -112,6 +112,7 @@
           inherit system specialArgs;
           modules = commonModules ++ [
             ./telecom-laptop-theo.nix
+            ./telecom-printers.nix
             (import ./configuration-base.nix {
               hostName = "telecom-laptop-theo";
               stateVersion = "22.05";
